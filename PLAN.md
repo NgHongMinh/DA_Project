@@ -67,19 +67,23 @@ d:\DA\Final_Project\
 │   ├── run_sql.py              ✅ chạy file .sql không cần CLI
 │   ├── 01_profile.py           ✅ Phase 1 hợp nhất
 │   ├── 02_clean_build.py       ✅ ETL + mô hình dữ liệu Phase 2
-│   └── 03_descriptive.py · 04_charts.py
+│   ├── 03_descriptive.py       ✅ Phase 3 Q1–Q6 + đối chiếu + công bố
+│   ├── 03_test_publish.py      ✅ kiểm thử hoàn tác tệp thường + SQLite fallback Phase 3
+│   ├── 03_verify_release.py    ✅ kiểm thử tái lập hai lần Phase 3
+│   └── 04_charts.py
 ├── sql\
 │   ├── renewables.db           ✅ 89.075 fact rows + validation results
 │   ├── 01_schema.sql           ✅ schema STRICT + `vw_wide`
-│   └── 02_validate.sql         ✅ V1–V8 · 03_analysis.sql
+│   ├── 02_validate.sql         ✅ V1–V8
+│   └── 03_analysis.sql         ✅ nhánh tính SQL độc lập Q1–Q6
 ├── output\
 │   ├── clean\                  ✅ 7 CSV sạch (nguồn cho Power BI)
-│   ├── stats\                  báo cáo Phase 1 + ✅ `02_validation_results.csv`
+│   ├── stats\                  ✅ đầu ra Phase 1–3, gồm 6 workbook + 4 CSV `03_*`
 │   └── charts\                 PNG
 ├── powerbi\                    ASEAN_Renewables.pbix
 └── docs\                       Phase1_KhaoSatDuLieu.md · NhatKyPhanTich.md · BaoCao.md
 ```
-*(✅ = đã tạo và kiểm chứng xong ở Phase 0–2)*
+*(✅ = đã tạo và kiểm chứng xong ở Phase 0–3)*
 
 ---
 
@@ -223,7 +227,7 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 ---
 
-# PHASE 3 — Phân tích mô tả *(yêu cầu 1.3)*
+# ✅ PHASE 3 — Phân tích mô tả *(yêu cầu 1.3 — ĐÃ HOÀN THÀNH)*
 
 **Mục tiêu:** tóm tắt đặc trưng dữ liệu bằng thống kê mô tả, và **giải thích được thống kê nào có ý nghĩa / thống kê nào bị bóp méo** với phân phối này.
 
@@ -246,9 +250,9 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 **Công cụ:** Python (thống kê) + SQL (chỉ số dẫn xuất bằng window functions — xem Phase 8)
 
-**Đầu ra:** `python/03_descriptive.py`, `output/stats/*.xlsx`, bảng `fact_metrics`
+**Đầu ra:** `python/03_descriptive.py`, `sql/03_analysis.sql`, sáu workbook, bốn CSV `03_*`, bảng `fact_metrics` và hai script kiểm thử phát hành/hoàn tác.
 
-**Tiêu chí hoàn thành:** đủ 6 bảng; không còn `Inf`/`NaN` không được xử lý; mỗi thống kê trong báo cáo đều nói được *vì sao có mặt ở đó*, không phải liệt kê cho đủ.
+**Tiêu chí hoàn thành — đã đạt:** sáu workbook đúng tên, thứ tự sheet, khóa riêng và truy vết `fact_key`; `entry_summary` có hai cột trạng thái tường minh và duy nhất theo `series_key + status_type + status_value`; `fact_metrics` có **18.926 dòng** gồm đủ Q1–Q6, với phân bố Q1=5.544, Q2=3.608, Q3=1.980, Q4=1.382, Q5=5.950 và Q6=462. Toàn bộ **18.926/18.926** đối chiếu Python–SQL và **92/92** kiểm định Phase 3 có mã duy nhất đều `PASS`; các kiểm định bao phủ trạng thái, giá trị chữ, số đếm, mẫu số, thành phần, miền giá trị, metadata, dấu vết workbook và bất biến phân tích, không chỉ số dòng. Kiểm định Phase 2 có đúng 864 dòng, 34/34 dòng chặn `PASS` và được gắn dấu vân tay đầu vào hiện tại. Hai lần chạy đầy đủ Phase 2 → validation → Phase 3 cho cùng nội dung SQLite/CSV/XLSX khi đọc lại; 17 CSV nguồn giữ nguyên hàm băm; kiểm thử hoàn tác tệp thường, SQLite fallback và khôi phục sau khi database đã công bố đều đạt. Dấu vân tay đầu vào là `64e1cc7d7bcb…`.
 
 ---
 
@@ -442,7 +446,11 @@ python python\run_sql.py sql\02_validate.sql --fail-on-blocking --output-csv out
 Đạt khi: 31 structural checks cùng V6–V8 `PASS` · V1–V5 khớp baseline `PASS/WARN/SKIP` và có **0 blocking non-PASS** · `dim_entity` có đúng 215 current country/territory, không mất Kosovo do bẫy mã giả · `fact_energy` có 89.075 dòng và không còn năm vượt cutoff · các file trùng đã bị loại khỏi canonical · rerun tạo CSV byte-identical.
 
 **Sau Phase 3 — thống kê**
-Đạt khi: không còn `Inf`/`NaN` chưa xử lý · tổng theo lát cắt khớp với tổng toàn cục · xếp hạng tính bằng Python và bằng SQL cho **cùng kết quả** (đối chiếu chéo 2 công cụ).
+```powershell
+python python\03_test_publish.py
+python python\03_verify_release.py
+```
+Đạt khi: 18.926/18.926 dòng Q1–Q6 khớp Python–SQL cả khóa, giá trị, chữ, trạng thái, lý do, số đếm và mẫu số · 92/92 kiểm định Phase 3 có mã duy nhất `PASS` · kiểm định Phase 2 đủ và khớp dấu vân tay đầu vào · `entry_summary` tuân thủ khóa trạng thái công khai · tổng/tỷ trọng/xếp hạng/YoY/CAGR/đóng góp tuân thủ bất biến đã khóa · hai lần phát hành cho cùng nội dung dữ liệu · 17 CSV nguồn không đổi · lỗi công bố giả lập khôi phục đủ tệp thường và phiên bản SQLite cũ sau khi nhánh fallback đã chạy.
 
 **Sau Phase 4 — biểu đồ**
 Mở từng PNG, kiểm: không lẫn thực thể tổng hợp · không có cú sụt ở năm bị cắt · thang log không chứa giá trị 0 · biểu đồ small multiples có cả bản chung trục và bản tự do trục (ghi rõ bản nào là bản nào) · biểu đồ hệ số công suất ghi rõ nước bị thiếu dữ liệu.

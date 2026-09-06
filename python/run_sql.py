@@ -23,6 +23,10 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from config import DB_PATH  # noqa: E402
+from phase2_contract import (  # noqa: E402
+    Phase2ContractError,
+    bind_phase2_validation_fingerprint,
+)
 
 
 def split_statements(sql_text: str):
@@ -127,6 +131,9 @@ def summarize_validation_results(
     print("\nVALIDATION_RESULTS")
     print(f"   Tong so dong: {len(rows)}")
 
+    if not rows:
+        return 0, "khong co dong nao"
+
     if status_index is None:
         return 0, "thieu cot status"
 
@@ -181,6 +188,7 @@ def run_file(
     failed = 0
     blocking_failures = 0
     validation_schema_error: str | None = None
+    contract_failed = False
     # isolation_level=None -> autocommit, moi cau lenh co hieu luc ngay.
     with sqlite3.connect(db_path, isolation_level=None) as conn:
         cursor = conn.cursor()
@@ -203,12 +211,25 @@ def run_file(
                 failed += 1
                 print(f"   LOI SQL: {exc}")
 
+        if sql_path.name.casefold() == "02_validate.sql" and failed == 0:
+            try:
+                bound_fingerprint = bind_phase2_validation_fingerprint(conn)
+                print(
+                    "\nPHASE 2 VALIDATION BINDING"
+                    f"\n   Fingerprint : {bound_fingerprint}"
+                )
+            except (Phase2ContractError, sqlite3.Error) as exc:
+                contract_failed = True
+                validation_schema_error = str(exc)
+
         validation_results = fetch_validation_results(conn)
         if validation_results is not None:
             columns, rows = validation_results
-            blocking_failures, validation_schema_error = summarize_validation_results(
+            blocking_failures, summary_error = summarize_validation_results(
                 columns, rows
             )
+            if validation_schema_error is None:
+                validation_schema_error = summary_error
             if output_csv is not None:
                 export_csv(output_csv, columns, rows)
                 print(f"   Da xuat CSV : {output_csv}")
@@ -232,7 +253,7 @@ def run_file(
     gate_failed = fail_on_blocking and (
         blocking_failures > 0 or validation_schema_error is not None
     )
-    return 1 if failed or gate_failed else 0
+    return 1 if failed or contract_failed or gate_failed else 0
 
 
 def main() -> int:

@@ -246,7 +246,111 @@ nguồn nếu muốn kết luận nguyên nhân.
 
 # 1.3. Phân tích mô tả
 
-*(Phase 3 — chưa thực hiện)*
+> **Trạng thái:** bản phát hành Phase 3 đã vượt toàn bộ kiểm tra chặn;
+> **18.926/18.926** dòng `fact_metrics` Q1–Q6 khớp Python–SQL trên cả khóa,
+> giá trị, trạng thái, lý do, giá trị chữ, số đếm và mẫu số. Cả **92/92**
+> kiểm định có mã duy nhất về công thức, bất biến phân tích, hợp đồng workbook và truy vết đều
+> `PASS`; hai lần phát hành liên tiếp tạo cùng nội dung dữ liệu.
+
+Phase 3 dùng hai tầng mô tả: 215 quốc gia/vùng lãnh thổ hiện tại để tạo bối
+cảnh toàn cầu và cohort (tập đối tượng theo dõi) cố định ASEAN-10 để so sánh
+trực tiếp. Cửa sổ chính là 2000–2021; mọi tổng dẫn xuất chỉ được tạo khi đủ
+thành phần và giá trị 0 được giữ như một quan sát hợp lệ.
+
+## Q1 — Quy mô, tốc độ và bối cảnh thế giới
+
+Tổng sản lượng điện tái tạo ASEAN tăng từ **72,800904 TWh** năm 2000 lên
+**289,655745 TWh** năm 2021. Trong cùng thời gian, dòng `World` do nguồn công
+bố tăng từ **2.854,49 TWh** lên **7.885,04005 TWh**. Giai đoạn 2010–2021,
+CAGR của tổng ASEAN là **9,0863%/năm**, so với **5,9338%/năm** của thế giới.
+Gió + mặt trời ASEAN có đầu kỳ 2000 bằng 0 nên CAGR 2000–2021 được để trống
+với lý do `ZERO_BASE`, thay vì tạo số vô hạn.
+
+## Q2 — Cơ cấu bốn công nghệ
+
+Năm 2021, ASEAN tạo **185,58 TWh** thủy điện, **8,30 TWh** điện gió,
+**34,43 TWh** điện mặt trời và **61,345745 TWh** từ các nguồn tái tạo khác.
+Trong tổng **289,655745 TWh**, các tỷ trọng tương ứng là **64,0692%**,
+**2,8655%**, **11,8865%** và **21,1788%**; tổng cơ cấu được kiểm tra bằng 1
+trong dung sai `1e-9`. Chỉ số vận hành “tái tạo hiện đại” được giới hạn ở
+gió + mặt trời (**42,73 TWh**) để không đồng nhất vị thế tổng tái tạo với
+lợi thế thủy điện lịch sử.
+
+## Q3 — Hai cách xếp hạng
+
+Workbook xếp hạng giữ cùng cohort ASEAN-10, dùng `RANK` (xếp hạng có giữ
+đồng hạng) cho tổng tái tạo và gió + mặt trời. `modern_rank_gain` dương nghĩa
+là một nước có vị trí tốt hơn theo gió + mặt trời; xếp hạng CAGR chính chỉ
+dùng nước có đầu kỳ ít nhất 0,05 TWh, còn 0,1 và 1 TWh là kiểm tra độ nhạy.
+Năm 2021, Việt Nam đứng hạng 1 theo cả hai cách đo; Singapore cải thiện 4 bậc
+khi chuyển sang gió + mặt trời, trong khi Indonesia giảm 4 bậc và Lào giảm
+5 bậc. Thái Lan và Philippines đồng hạng 3 theo gió + mặt trời, đúng quy tắc
+không phá hòa bằng tên quốc gia.
+
+## Q4 — Việt Nam và ASEAN-9
+
+Chuỗi Việt Nam được đối chiếu với tổng và median (trung vị) của ASEAN-9,
+tức nhóm đã loại Việt Nam khỏi mẫu so sánh. Workbook giữ đủ 22 năm, tỷ trọng
+Việt Nam trong tổng ASEAN, hạng toàn cầu kèm số nước được xếp hạng, tích lũy
+và trung bình trượt ba năm. Cách dựng này tránh để Việt Nam xuất hiện đồng
+thời trong quan sát cần so và nhóm chuẩn.
+
+Năm 2021, Việt Nam tạo **104,2180361 TWh**, tương đương **35,9800%** tổng
+tái tạo ASEAN và đứng hạng **16/205** trong các quốc gia/vùng lãnh thổ đủ
+điều kiện toàn cầu. Riêng gió + mặt trời đạt **28,16 TWh**, chiếm
+**65,9022%** tổng ASEAN và đứng hạng **17/209** toàn cầu; giá trị tích lũy
+2000–2021 là **47,73 TWh**, còn trung bình trượt ba năm là **15,3533 TWh**.
+Độ trễ tương đối đã được tính cho các chuyển đổi quan sát chính xác; khi mốc
+sớm nhất ASEAN bị kiểm duyệt trái, kết quả được để trống với mã
+`EARLIEST_ENTRY_CENSORED` thay vì gán 0.
+
+## Q5 — TWh và tỷ trọng trong tổng điện
+
+Năm cặp TWh–tỷ trọng điện được ghép đúng cùng nước, cùng năm. Thay đổi được
+phân loại `SAME_DIRECTION`, `OPPOSITE_DIRECTION` hoặc
+`ONE_OR_BOTH_UNCHANGED`; năm 2000 để trống với `MISSING_PREVIOUS`. Kết quả
+chỉ mô tả hai thước đo cùng hay ngược hướng, không quy nguyên nhân cho nhu
+cầu điện hoặc chính sách vì dữ liệu không chứa các biến đó.
+
+Với Việt Nam trong 21 thay đổi thường niên có thể so, tổng tái tạo có 19 năm
+cùng hướng và 2 năm ngược hướng giữa TWh với tỷ trọng điện. Với gió + mặt
+trời, có 9 năm cùng hướng, 1 năm ngược hướng và 11 năm một hoặc cả hai thước
+đo không đổi; vì vậy sản lượng tăng không mặc nhiên đồng nghĩa tỷ trọng trong
+tổng điện cũng tăng.
+
+## Q6 — Mức tập trung và đóng góp tăng trưởng
+
+Năm 2021, ba nước đứng đầu giữ **92,2537%** sản lượng gió + mặt trời ASEAN;
+HHI là **0,480404** và Gini là **0,771285**. Với tổng tái tạo, top 3 giữ
+**67,1023%**, HHI **0,207886** và Gini **0,529218**. Mức sản lượng và đóng
+góp trong tổng phần tăng dương được xuất thành hai bảng riêng để không suy
+luận sai rằng mức tập trung tự nó chứng minh nguồn tạo tăng trưởng.
+
+Trong giai đoạn 2010–2021, Việt Nam đóng góp **65,9859%** tổng phần tăng
+dương gió + mặt trời của ASEAN và **42,3781%** tổng phần tăng dương của toàn
+bộ sản lượng tái tạo. Đây là tỷ trọng trong tổng phần tăng dương, không phải
+tỷ trọng trong tăng trưởng ròng.
+
+## Quy ước, giới hạn và bằng chứng
+
+Bộ thống kê gồm n, tổng, mean (trung bình), median, độ lệch chuẩn, CV (hệ số
+biến thiên), min/max, P10–P99, IQR, skewness (độ lệch) và kurtosis (độ nhọn),
+được tính theo ba biến thể `ALL_OBSERVED`, `POSITIVE`, `MATERIAL`. Vì phân
+phối có nhiều 0 và lệch phải, median/phân vị phải được đọc cùng mean; với
+ASEAN n=10, phân vị chỉ có ý nghĩa mô tả. Sáu workbook `03_*.xlsx`,
+`03_fact_metrics.csv`, `03_metric_definitions.csv`, 18.926/18.926 đối chiếu
+Python–SQL và 92 kiểm định có mã duy nhất nằm trong `output/stats/`; đặc tả có 74 chỉ số với
+công thức, đơn vị, nguồn, mẫu số và điều kiện đủ tường minh. Tất cả mang
+`method_version=phase3_v1` và cùng dấu vân tay đầu vào bắt đầu bằng
+`64e1cc7d7bcb`.
+
+Bằng chứng trực tiếp về tác động của phân phối: gió ASEAN năm 2021 trên đủ
+10 nước có mean **0,83 TWh**, median **0 TWh** và CV **1,655283**, trong khi
+bốn nước đạt ngưỡng `MATERIAL ≥ 0,05 TWh` có mean **2,075 TWh**, median
+**1,78 TWh** và CV **0,704262**. Mặt trời toàn cầu năm 2021 có mean
+**4,954571 TWh**, median chỉ **0,06 TWh** và skewness **9,757789**. Do đó,
+mean đơn độc bị kéo lên bởi số ít giá trị lớn và không đại diện tốt cho một
+quốc gia điển hình trong các lát cắt này.
 
 # 1.4. Trực quan hoá dữ liệu
 
@@ -285,5 +389,8 @@ nguồn nếu muốn kết luận nguyên nhân.
 | `sql/renewables.db` | SQLite sạch gồm dimensions, fact, audit và `vw_wide` |
 | `python/02_clean_build.py` | Quy tắc chọn nguồn, làm sạch và dựng mô hình |
 | `sql/01_schema.sql`, `sql/02_validate.sql` | Schema `STRICT` và logic kiểm định Phase 2 |
+| `python/03_descriptive.py`, `sql/03_analysis.sql` | Hai nhánh tính Phase 3 và đối chiếu độc lập |
+| `output/stats/03_fact_metrics.csv` | Giao diện chỉ số chuẩn cho các phase sau |
+| `output/stats/03_validation_results.csv` | Các gate Phase 3; không có dòng FAIL |
 | `docs/Phase1_KhaoSatDuLieu.md` | Giải thích phương pháp và giới hạn diễn giải |
 | `docs/NhatKyPhanTich.md` | Nhật ký phát hiện, có mức tin cậy từng mục |

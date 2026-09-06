@@ -30,7 +30,12 @@ CREATE TABLE validation_results (
     exception_rows INTEGER NOT NULL DEFAULT 0
                            CHECK (exception_rows >= 0),
     reason_code    TEXT    NOT NULL,
-    note           TEXT    NOT NULL
+    note           TEXT    NOT NULL,
+    phase2_input_fingerprint TEXT NOT NULL DEFAULT 'UNBOUND'
+                           CHECK (
+                               phase2_input_fingerprint = 'UNBOUND'
+                               OR length(phase2_input_fingerprint) = 64
+                           )
 ) STRICT;
 
 CREATE INDEX idx_validation_results_check

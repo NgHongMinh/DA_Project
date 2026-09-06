@@ -316,6 +316,7 @@ CREATE TABLE validation_results (
     exception_rows        INTEGER NOT NULL DEFAULT 0,
     reason_code           TEXT    NOT NULL,
     note                  TEXT    NOT NULL,
+    phase2_input_fingerprint TEXT NOT NULL DEFAULT 'UNBOUND',
 
     CHECK (length(trim(check_id)) > 0),
     CHECK (length(trim(scope)) > 0),
@@ -341,7 +342,11 @@ CREATE TABLE validation_results (
     ),
     CHECK (compared_rows >= 0),
     CHECK (exception_rows >= 0),
-    CHECK (length(trim(reason_code)) > 0)
+    CHECK (length(trim(reason_code)) > 0),
+    CHECK (
+        phase2_input_fingerprint = 'UNBOUND'
+        OR length(phase2_input_fingerprint) = 64
+    )
 ) STRICT;
 
 CREATE INDEX idx_validation_results_check_status

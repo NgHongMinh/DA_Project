@@ -234,7 +234,85 @@ Chạy: `python python\02_clean_build.py` và
 
 # Phase 3 — Phân tích mô tả
 
-*(chưa thực hiện)*
+## P3-01 — Quy mô tái tạo ASEAN tăng rõ, nhưng tỷ trọng thế giới vẫn nhỏ
+
+- **finding_id:** P3-01; **question_id:** Q1; **scope:** ASEAN/World; **period:** 2000–2021; **metric_name:** `generation_twh`.
+- **Bằng chứng số:** tổng sản lượng tái tạo ASEAN tăng từ **72,800904 TWh** lên **289,655745 TWh**; thế giới tăng từ **2.854,49 TWh** lên **7.885,04005 TWh**.
+- **Truy vết:** `output/stats/03_global_context.xlsx`, sheet `annual_context`, khóa `ASEAN_10|Y2000/Y2021|RENEWABLE_TOTAL|generation_twh`; `method_version=phase3_v1`; dấu vân tay bắt đầu bằng `64e1cc7d7bcb`.
+- **Diễn giải:** quy mô ASEAN gần gấp bốn trong cửa sổ, nhưng cần đọc trong bối cảnh tổng thế giới cũng tăng mạnh.
+- **Giới hạn:** dòng World là tổng do nguồn công bố, không phải tổng dựng lại từ các quốc gia; không suy luận nguyên nhân tăng. **Tin cậy:** Cao.
+
+## P3-02 — Gió và mặt trời tăng nhanh từ nền rất thấp
+
+- **finding_id:** P3-02; **question_id:** Q2; **scope:** ASEAN; **period:** 2000–2021; **metric_name:** `generation_twh`.
+- **Bằng chứng số:** gió + mặt trời của ASEAN từ **0 TWh** năm 2000 lên **42,73 TWh** năm 2021; riêng CAGR 2000–2021 không xác định vì mẫu số bằng 0. Trong 2010–2021, CAGR là **69,3554%/năm**.
+- **Truy vết:** `output/stats/03_global_context.xlsx`, các sheet `annual_context`, `period_growth`, khóa `ASEAN_10|MODERN_WIND_SOLAR`; `method_version=phase3_v1`.
+- **Diễn giải:** tốc độ giai đoạn sau rất cao nhưng không được dùng CAGR từ năm 2000, nhờ vậy tránh giá trị vô hạn hoặc phóng đại từ nền 0.
+- **Giới hạn:** “hiện đại” là định nghĩa vận hành gió + mặt trời của đồ án. **Tin cậy:** Cao.
+
+## P3-03 — Thủy điện vẫn là thành phần lớn nhất năm 2021
+
+- **finding_id:** P3-03; **question_id:** Q2; **scope:** ASEAN; **period:** 2021; **metric_name:** `generation_twh`.
+- **Bằng chứng số:** thủy điện **185,58 TWh**, nguồn tái tạo khác **61,345745 TWh**, mặt trời **34,43 TWh**, gió **8,30 TWh**; tổng **289,655745 TWh**.
+- **Truy vết:** `output/stats/03_asean_cross_section.xlsx`, sheet `asean_annual`, năm 2021; `method_version=phase3_v1`.
+- **Diễn giải:** tách gió + mặt trời khỏi tổng tái tạo là cần thiết vì xếp hạng tổng có thể phản ánh lợi thế thủy điện sẵn có.
+- **Giới hạn:** số liệu là sản lượng điện, không phải công suất hoặc tổng năng lượng sơ cấp. **Tin cậy:** Cao.
+
+## P3-04 — Sản lượng gió + mặt trời tập trung mạnh
+
+- **finding_id:** P3-04; **question_id:** Q6; **scope:** ASEAN; **period:** 2021; **metric_name:** `hhi/gini/top3_share`.
+- **Bằng chứng số:** năm 2021, top 3 giữ **92,2537%** gió + mặt trời ASEAN; HHI **0,480404**, Gini **0,771285**. Với tổng tái tạo, các số tương ứng là **67,1023%**, **0,207886**, **0,529218**.
+- **Truy vết:** `output/stats/03_global_context.xlsx`, sheet `annual_concentration`, khóa `Y2021|MODERN_WIND_SOLAR` và `Y2021|RENEWABLE_TOTAL`; `method_version=phase3_v1`.
+- **Diễn giải:** phân bố gió + mặt trời giữa mười nước không đều hơn đáng kể so với tổng tái tạo.
+- **Giới hạn:** tập trung của mức sản lượng không tự chứng minh nước nào tạo ra tăng trưởng; phải đọc riêng sheet `growth_contribution`. **Tin cậy:** Cao.
+
+## P3-05 — Giá trị 0 làm mean và phân vị thấp nhạy với cách lọc
+
+- **finding_id:** P3-05; **question_id:** Q1; **scope:** GLOBAL/ASEAN; **period:** 2000, 2010, 2021; **metric_name:** bộ thống kê phân phối.
+- **Bằng chứng số:** gió ASEAN năm 2021 trên đủ 10 nước có mean **0,83 TWh**, median **0 TWh**, CV **1,655283**, gồm `zero_n=6`, `trace_n=0`, `material_n=4`. Khi chỉ giữ bốn nước `MATERIAL` từ **0,05 TWh**, mean tăng lên **2,075 TWh**, median **1,78 TWh**, CV giảm còn **0,704262**. Với mặt trời toàn cầu năm 2021 trên 210 quốc gia/vùng lãnh thổ quan sát được, mean là **4,954571 TWh**, median chỉ **0,06 TWh** và skewness **9,757789**.
+- **Truy vết:** `output/stats/03_global_cross_section.xlsx` và `03_asean_cross_section.xlsx`, sheet `generation_stats`; `method_version=phase3_v1`.
+- **Diễn giải:** median và các phân vị phù hợp hơn mean đơn độc khi phân phối lệch; ASEAN chỉ có n=10 nên các phân vị chỉ mang tính mô tả.
+- **Giới hạn:** không suy rộng thống kê ASEAN như ước lượng cho một tổng thể ngẫu nhiên. **Tin cậy:** Cao.
+
+## P3-06 — Hai cách đo làm thay đổi đáng kể vị trí của một số nước
+
+- **finding_id:** P3-06; **question_id:** Q3; **scope:** ASEAN-10; **period:** 2021; **metric_name:** `asean_rank/modern_rank_gain`.
+- **Bằng chứng số:** Việt Nam đứng hạng 1 theo cả tổng tái tạo và gió + mặt trời. Singapore tăng 4 bậc khi đổi cách đo; Indonesia giảm 4 bậc và Lào giảm 5 bậc. Thái Lan và Philippines đồng hạng 3 theo gió + mặt trời.
+- **Truy vết:** `output/stats/03_ranking_comparison.xlsx`, sheet `annual_ranks`, khóa `entity|Y2021`; `method_version=phase3_v1`.
+- **Diễn giải:** xếp hạng tổng tái tạo có thể phản ánh lợi thế thủy điện lịch sử, nên công tắc gió + mặt trời ở các phase sau có ý nghĩa phân tích thực.
+- **Giới hạn:** đây là xếp hạng sản lượng tuyệt đối, chưa điều chỉnh theo dân số, GDP hoặc nhu cầu điện. **Tin cậy:** Cao.
+
+## P3-07 — Việt Nam chiếm tỷ trọng lớn trong gió + mặt trời ASEAN năm 2021
+
+- **finding_id:** P3-07; **question_id:** Q4; **scope:** Vietnam/ASEAN-10/Global; **period:** 2021; **metric_name:** `generation_twh/country_share_asean/global_rank`.
+- **Bằng chứng số:** Việt Nam tạo **104,2180361 TWh** tái tạo, bằng **35,9800%** ASEAN và đứng **16/205** toàn cầu; gió + mặt trời đạt **28,16 TWh**, bằng **65,9022%** ASEAN và đứng **17/209** toàn cầu.
+- **Truy vết:** `output/stats/03_vietnam_time_series.xlsx`, sheet `annual`, các khóa `Vietnam|Y2021|RENEWABLE_TOTAL/MODERN_WIND_SOLAR`; `method_version=phase3_v1`.
+- **Diễn giải:** vị thế của Việt Nam trong phần gió + mặt trời nổi bật hơn tỷ trọng trong tổng tái tạo của khu vực.
+- **Giới hạn:** `ranked_n` thay đổi theo độ phủ toàn cầu nên không dùng hạng toàn cầu để kết luận thay đổi vị trí qua thời gian. **Tin cậy:** Cao.
+
+## P3-08 — TWh và tỷ trọng điện của Việt Nam không phải lúc nào cũng cùng hướng
+
+- **finding_id:** P3-08; **question_id:** Q5; **scope:** Vietnam; **period:** 2001–2021; **metric_name:** `direction_relation`.
+- **Bằng chứng số:** tổng tái tạo có 19 năm cùng hướng và 2 năm ngược hướng; gió + mặt trời có 9 năm cùng hướng, 1 năm ngược hướng và 11 năm một hoặc cả hai thước đo không đổi.
+- **Truy vết:** `output/stats/03_vietnam_time_series.xlsx`, sheet `annual_changes`, khóa `Y2001:Y2021|series_key|direction_relation`; `method_version=phase3_v1`.
+- **Diễn giải:** tăng sản lượng TWh không đủ để suy ra tỷ trọng tái tạo trong tổng điện cũng tăng.
+- **Giới hạn:** dữ liệu không có tổng nhu cầu điện, biến chính sách hay giá thành nên không quy nguyên nhân cho các năm ngược hướng. **Tin cậy:** Cao.
+
+## P3-09 — Đóng góp tăng dương giai đoạn 2010–2021 tập trung ở Việt Nam
+
+- **finding_id:** P3-09; **question_id:** Q6; **scope:** ASEAN-10; **period:** 2010–2021; **metric_name:** `positive_growth_share`.
+- **Bằng chứng số:** Việt Nam đóng góp **65,9859%** tổng phần tăng dương gió + mặt trời và **42,3781%** tổng phần tăng dương của toàn bộ sản lượng tái tạo ASEAN.
+- **Truy vết:** `output/stats/03_global_context.xlsx`, sheet `growth_contribution`, khóa `Vietnam|I2010_2021|MODERN_WIND_SOLAR/RENEWABLE_TOTAL`; `method_version=phase3_v1`.
+- **Diễn giải:** kết quả đóng góp tăng dương, không chỉ HHI/Gini của mức sản lượng, cho thấy phần tăng giai đoạn này tập trung mạnh ở Việt Nam.
+- **Giới hạn:** chỉ số loại phần giảm khỏi mẫu số và phải gọi đúng là tỷ trọng trong tổng phần tăng dương, không phải tỷ trọng trong tăng trưởng ròng. **Tin cậy:** Cao.
+
+## P3-10 — Bộ kiểm định Phase 3 bao phủ đầy đủ Q1–Q6
+
+- **finding_id:** P3-10; **question_id:** Q1–Q6; **scope:** Phase 3 release; **period:** 2000–2021; **metric_name:** `fact_metrics`.
+- **Bằng chứng số:** `fact_metrics` có **18.926** dòng: Q1=5.544, Q2=3.608, Q3=1.980, Q4=1.382, Q5=5.950, Q6=462; **18.926/18.926** đối chiếu Python–SQL và **92/92** kiểm định có mã duy nhất đều `PASS`.
+- **Truy vết:** `output/stats/03_fact_metrics.csv`, `03_crosscheck_results.csv`, `03_validation_results.csv`; dấu vân tay `64e1cc7d7bcb…`.
+- **Diễn giải:** phạm vi kiểm chứng gồm giá trị, chữ, trạng thái, lý do, số đếm, thành phần và mẫu số; không còn dùng số dòng/trùng khóa làm đại diện cho tính đúng đắn phân tích.
+- **Giới hạn:** kiểm định chứng minh hai cách triển khai và các bất biến đã khóa nhất quán; nó không thay thế việc thẩm định định nghĩa nghiệp vụ bên ngoài đồ án. **Tin cậy:** Cao.
 
 # Phase 4 — Trực quan hoá
 
