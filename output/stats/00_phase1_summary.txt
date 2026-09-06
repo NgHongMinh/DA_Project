@@ -1,0 +1,311 @@
+PHASE 1 - KHẢO SÁT DỮ LIỆU VÀ XÁC ĐỊNH VẤN ĐỀ
+========================================================================================================================
+Nguồn: 17 CSV trong D:\DA\Final_Project\archive
+Báo cáo không chứa timestamp để có thể đối chiếu giữa các lần chạy.
+
+STEP 1 - FILE PROFILE (mỗi dòng là một cột chỉ số)
+------------------------------------------------------------------------------------------------------------------------
+                                                 file_name                              metric_column  row_count  entity_count  year_min  year_max  year_count  missing_count  missing_pct  valid_numeric_count  invalid_numeric_count  zero_count  zero_pct_of_valid  min_value    max_value
+                             01 renewable-share-energy.csv   Renewables (% equivalent primary energy)       5603           104      1965      2021          57              0       0.0000                 5603                      0         372             6.6393        0.0    86.874535
+                02 modern-renewable-energy-consumption.csv                    Geo Biomass Other - TWh       5610           104      1965      2021          57            144       2.5668                 5466                      0        1914            35.0165        0.0   762.782650
+                02 modern-renewable-energy-consumption.csv                     Solar Generation - TWh       5610           104      1965      2021          57            168       2.9947                 5442                      0        3318            60.9702        0.0  1032.501200
+                02 modern-renewable-energy-consumption.csv                      Wind Generation - TWh       5610           104      1965      2021          57            165       2.9412                 5445                      0        3056            56.1249        0.0  1861.939800
+                02 modern-renewable-energy-consumption.csv                     Hydro Generation - TWh       5610           104      1965      2021          57              7       0.1248                 5603                      0         562            10.0303        0.0  4345.990000
+                              03 modern-renewable-prod.csv                Electricity from wind (TWh)       8851           251      1965      2022          58            175       1.9772                 8676                      0        5788            66.7128        0.0  1848.260000
+                              03 modern-renewable-prod.csv               Electricity from hydro (TWh)       8851           251      1965      2022          58             11       0.1243                 8840                      0        1748            19.7738        0.0  4340.610000
+                              03 modern-renewable-prod.csv               Electricity from solar (TWh)       8851           251      1965      2022          58            168       1.8981                 8683                      0        5984            68.9163        0.0  1040.500000
+                              03 modern-renewable-prod.csv Other renewables including bioenergy (TWh)       8851           251      1965      2022          58            220       2.4856                 8631                      0        3952            45.7884        0.0   761.930050
+                       04 share-electricity-renewables.csv                 Renewables (% electricity)       6871           246      1985      2022          38              0       0.0000                 6871                      0        1037            15.0924        0.0   100.000015
+                             05 hydropower-consumption.csv               Electricity from hydro (TWh)       8840           251      1965      2022          58              0       0.0000                 8840                      0        1748            19.7738        0.0  4340.610000
+                                 06 hydro-share-energy.csv        Hydro (% equivalent primary energy)       5603           104      1965      2021          57              0       0.0000                 5603                      0         562            10.0303        0.0    72.310486
+                            07 share-electricity-hydro.csv                      Hydro (% electricity)       6925           246      1985      2022          38              0       0.0000                 6925                      0        1431            20.6643        0.0   100.000010
+                                    08 wind-generation.csv                Electricity from wind (TWh)       8676           251      1965      2022          58              0       0.0000                 8676                      0        5788            66.7128        0.0  1848.260000
+09 cumulative-installed-wind-energy-capacity-gigawatts.csv                              Wind Capacity       1540            62      1995      2021          27              0       0.0000                 1540                      0          57             3.7013        0.0   824.874060
+                                  10 wind-share-energy.csv         Wind (% equivalent primary energy)       5445           104      1965      2021          57              0       0.0000                 5445                      0        3056            56.1249        0.0    24.614344
+                             11 share-electricity-wind.csv                       Wind (% electricity)       6871           246      1985      2022          38              0       0.0000                 6871                      0        4040            58.7978        0.0    56.839542
+                           12 solar-energy-consumption.csv               Electricity from solar (TWh)       8683           251      1965      2022          58              0       0.0000                 8683                      0        5984            68.9163        0.0  1040.500000
+                        13 installed-solar-PV-capacity.csv                             Solar Capacity       1659            64      1996      2021          26              0       0.0000                 1659                      0         266            16.0338        0.0   843.086060
+                                 14 solar-share-energy.csv        Solar (% equivalent primary energy)       5442           104      1965      2021          57              0       0.0000                 5442                      0        3318            60.9702        0.0     5.999280
+                            15 share-electricity-solar.csv                      Solar (% electricity)       6871           246      1985      2022          38              0       0.0000                 6871                      0        4187            60.9373        0.0    40.000000
+                                 16 biofuel-production.csv          Biofuels Production - TWh - Total       1081            35      1990      2021          32              0       0.0000                 1081                      0         275            25.4394        0.0  1114.488300
+                      17 installed-geothermal-capacity.csv                        Geothermal Capacity        758            33      1975      2020          26              0       0.0000                  758                      0          91            12.0053        0.0 14075.000000
+
+Tổng: 23 cột chỉ số trong 17 file.
+Lưu ý: zero là giá trị hợp lệ, khác missing; Entity gồm cả quốc gia và thực thể tổng hợp.
+
+STEP 2 - TẦNG ĐỘ PHỦ VÀ GIAO KHÓA
+------------------------------------------------------------------------------------------------------------------------
+Cột file_names dùng mã 2 ký tự; xem danh mục file ở STEP 5.
+
+2a. Độ phủ thực thể và năm:
+  tier_id  file_count                                                         file_names  entity_count_min  entity_count_max  entity_union_count  entity_intersection_count  entity_retention_pct  year_min  year_max  common_year_count
+       T1           4                                                     03, 05, 08, 12               251               251                 251                        251               100.000      1965      2022                 58
+       T2           4                                                     04, 07, 11, 15               246               246                 246                        246               100.000      1985      2022                 38
+       T3           5                                                 01, 02, 06, 10, 14               104               104                 104                        104               100.000      1965      2021                 57
+       T4           1                                                                 13                64                64                  64                         64               100.000      1996      2021                 26
+       T5           1                                                                 09                62                62                  62                         62               100.000      1995      2021                 27
+       T6           1                                                                 16                35                35                  35                         35               100.000      1990      2021                 32
+       T7           1                                                                 17                33                33                  33                         33               100.000      1975      2020                 26
+ALL_FILES          17 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17                33               251                 256                          8                 3.125      1965      2022                 21
+
+2b. Giao khóa (Entity, Year):
+  tier_id                                                         file_names  key_count_min  key_count_max  key_union_count  key_intersection_count  key_retention_pct
+       T1                                                     03, 05, 08, 12           8676           8851             8851                    8663            97.8759
+       T2                                                     04, 07, 11, 15           6871           6925             6926                    6870            99.1915
+       T3                                                 01, 02, 06, 10, 14           5442           5610             5610                    5426            96.7201
+       T4                                                                 13           1659           1659             1659                    1659           100.0000
+       T5                                                                 09           1540           1540             1540                    1540           100.0000
+       T6                                                                 16           1081           1081             1081                    1081           100.0000
+       T7                                                                 17            758            758              758                     758           100.0000
+ALL_FILES 01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17            758           8851             8997                     168             1.8673
+Lưu ý: tier một file có retention 100% vì giao một tập với chính nó, không có nghĩa độ phủ rộng.
+
+STEP 3 - TRÙNG LẶP VÀ XUNG ĐỘT GIÁ TRỊ
+------------------------------------------------------------------------------------------------------------------------
+Phạm vi: chỉ so các cột cùng đại lượng và cùng đơn vị TWh, thuộc 5 file (02, 03, 05, 08, 12).
+Không so 12 file còn lại (01, 04, 06, 07, 09, 10, 11, 13, 14, 15, 16, 17) vì không có file thứ hai đo cùng đại lượng và cùng đơn vị.
+
+                    pair_id  comparable_count  exact_match_count  value_conflict_count  immaterial_conflict_count  material_conflict_count  material_conflict_country_count  material_conflict_aggregate_count  match_pct  material_match_pct      classification
+           hydro_twh__02_03              5603               3593                  2010                       1469                      541                              408                                133    64.1264             90.3445 conflicting_overlap
+           hydro_twh__02_05              5603               3593                  2010                       1469                      541                              408                                133    64.1264             90.3445 conflicting_overlap
+           hydro_twh__03_05              8840               8840                     0                          0                        0                                0                                  0   100.0000            100.0000    redundant_subset
+            wind_twh__02_03              5445               3769                  1676                       1458                      218                              137                                 81    69.2195             95.9963 conflicting_overlap
+            wind_twh__02_08              5445               3769                  1676                       1458                      218                              137                                 81    69.2195             95.9963 conflicting_overlap
+            wind_twh__03_08              8676               8676                     0                          0                        0                                0                                  0   100.0000            100.0000    redundant_subset
+           solar_twh__02_03              5442               3878                  1564                       1248                      316                              202                                114    71.2606             94.1933 conflicting_overlap
+           solar_twh__02_12              5442               3878                  1564                       1248                      316                              202                                114    71.2606             94.1933 conflicting_overlap
+           solar_twh__03_12              8683               8683                     0                          0                        0                                0                                  0   100.0000            100.0000    redundant_subset
+other_renewables_twh__02_03              5466               3798                  1668                        960                      708                              517                                191    69.4841             87.0472 conflicting_overlap
+
+Khuyến nghị theo cặp:
+                    pair_id                                                                                             recommendation
+           hydro_twh__02_03                  Giu tach rieng (co ca o cap quoc gia); kiem tra dinh nghia/phien ban nguon truoc Phase 2.
+           hydro_twh__02_05                  Giu tach rieng (co ca o cap quoc gia); kiem tra dinh nghia/phien ban nguon truoc Phase 2.
+           hydro_twh__03_05   Uu tien 03 modern-renewable-prod.csv; 05 hydropower-consumption.csv la ung vien loai de tranh trung lap.
+            wind_twh__02_03                  Giu tach rieng (co ca o cap quoc gia); kiem tra dinh nghia/phien ban nguon truoc Phase 2.
+            wind_twh__02_08                  Giu tach rieng (co ca o cap quoc gia); kiem tra dinh nghia/phien ban nguon truoc Phase 2.
+            wind_twh__03_08          Uu tien 03 modern-renewable-prod.csv; 08 wind-generation.csv la ung vien loai de tranh trung lap.
+           solar_twh__02_03                  Giu tach rieng (co ca o cap quoc gia); kiem tra dinh nghia/phien ban nguon truoc Phase 2.
+           solar_twh__02_12                  Giu tach rieng (co ca o cap quoc gia); kiem tra dinh nghia/phien ban nguon truoc Phase 2.
+           solar_twh__03_12 Uu tien 03 modern-renewable-prod.csv; 12 solar-energy-consumption.csv la ung vien loai de tranh trung lap.
+other_renewables_twh__02_03                  Giu tach rieng (co ca o cap quoc gia); kiem tra dinh nghia/phien ban nguon truoc Phase 2.
+
+Chi tiết: 12168 VALUE_CONFLICT (9310 IMMATERIAL + 2858 MATERIAL); 12 MISSING_MISMATCH.
+Trong 2858 dòng MATERIAL có 847 dòng thuộc thực thể tổng hợp (Entity không có Code).
+Ngưỡng MATERIAL: abs_diff > 0.05 TWh VÀ relative_diff_pct > 1.0%.
+Phải vượt cả hai ngưỡng: chỉ dùng % thì 0 vs 0,005 TWh thành lệch 100%;
+chỉ dùng tuyệt đối thì 0,5 TWh trên 1.200 TWh của một nước lớn cũng bị tính là lệch.
+IMMATERIAL = không vượt đủ hai ngưỡng. Phần lớn là sai số làm tròn, nhưng nhóm này
+còn chứa các chênh lệch tuyệt đối lớn trên nền giá trị rất lớn (dưới 1%);
+vì vậy nhãn là IMMATERIAL chứ không phải ROUNDING.
+Các dòng conflict là theo cặp so sánh, không phải tất cả là sai lệch độc lập.
+
+STEP 4 - TÍNH NHẤT QUÁN KHÓA JOIN
+------------------------------------------------------------------------------------------------------------------------
+check_id                      check_name  result_count status                                                  meaning                                                recommendation
+      J1           unique_exact_entities           256   INFO           So ten Entity chinh xac trong hop cua 17 file.     Dung lam tap ten goc; chua dong nghia tat ca la quoc gia.
+      J2   entities_present_in_all_files             8   INFO                       So Entity co mat trong du 17 file.             Khong INNER JOIN tat ca file chi de giu nhom nay.
+      J3             whitespace_variants             0   PASS      Ten co khoang trang dau/cuoi hoac lap khoang trang.                          Exact match an toan ve khoang trang.
+      J4      normalized_name_collisions             0   PASS            So nhom ten xung dot sau NFKC/casefold/strip.                              Khong can chuan hoa ten de join.
+      J5 codes_mapping_multiple_entities             0   PASS                   So Code duoc gan cho nhieu ten Entity.                           Code nhat quan tren cac dong co ma.
+      J6 entities_mapping_multiple_codes             0   PASS                       So Entity duoc gan cho nhieu Code.                                Quan he Entity-Code nhat quan.
+      J7      duplicate_entity_year_rows             0   PASS So dong thuoc khoa (Entity, Year) trung trong tung file.                 Khoa (Entity, Year) duy nhat trong tung file.
+      J8        entities_with_blank_code            39 REVIEW             So Entity thieu Code trong it nhat mot file.        Khong join chi bang Code; giu Entity lam khoa Phase 1.
+      J9           fuzzy_candidate_pairs             4 REVIEW                        So cap ten co similarity >= 0.88.      Khong auto-fuzzy; cac cap gan ten phai review ngu nghia.
+     J10     safe_code_supported_aliases             0   INFO        Cap ten gan giong duoc cung Code ho tro la alias. Exact match duoc uu tien; hien khong co alias can auto-merge.
+
+Chi tiết: 39 Entity thiếu Code; 4 cặp fuzzy cần review.
+Kết luận: exact match theo (Entity, Year); Code chỉ kiểm chứng; không auto-fuzzy.
+
+STEP 5 - ĐỘ PHỦ ASEAN-10 X 17 FILE
+------------------------------------------------------------------------------------------------------------------------
+Quy ước: Y = có khóa Entity-Year; - = không có.
+    country 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17  files_present
+    Vietnam  Y  Y  Y  Y  Y  Y  Y  Y  -  Y  Y  Y  Y  Y  Y  -  -             14
+   Thailand  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  -             16
+  Indonesia  Y  Y  Y  Y  Y  Y  Y  Y  -  Y  Y  Y  -  Y  Y  Y  Y             15
+Philippines  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  Y  -  Y             16
+   Malaysia  Y  Y  Y  Y  Y  Y  Y  Y  -  Y  Y  Y  Y  Y  Y  -  -             14
+  Singapore  Y  Y  Y  Y  Y  Y  Y  Y  -  Y  Y  Y  -  Y  Y  -  -             13
+    Myanmar  -  -  Y  Y  Y  -  Y  Y  -  -  Y  Y  -  -  Y  -  -              8
+   Cambodia  -  -  Y  Y  Y  -  Y  Y  -  -  Y  Y  -  -  Y  -  -              8
+       Laos  -  -  Y  Y  Y  -  Y  Y  -  -  Y  Y  -  -  Y  -  -              8
+     Brunei  -  -  Y  Y  Y  -  Y  Y  -  -  Y  Y  -  -  Y  -  -              8
+
+Danh mục file:
+  01 = 01 renewable-share-energy.csv
+  02 = 02 modern-renewable-energy-consumption.csv
+  03 = 03 modern-renewable-prod.csv
+  04 = 04 share-electricity-renewables.csv
+  05 = 05 hydropower-consumption.csv
+  06 = 06 hydro-share-energy.csv
+  07 = 07 share-electricity-hydro.csv
+  08 = 08 wind-generation.csv
+  09 = 09 cumulative-installed-wind-energy-capacity-gigawatts.csv
+  10 = 10 wind-share-energy.csv
+  11 = 11 share-electricity-wind.csv
+  12 = 12 solar-energy-consumption.csv
+  13 = 13 installed-solar-PV-capacity.csv
+  14 = 14 solar-share-energy.csv
+  15 = 15 share-electricity-solar.csv
+  16 = 16 biofuel-production.csv
+  17 = 17 installed-geothermal-capacity.csv
+
+Tổng hợp theo file:
+                                                 file_name  asean_countries_present  asean_coverage_pct                                                                 countries_missing
+                             01 renewable-share-energy.csv                        6                60.0                                                Myanmar | Cambodia | Laos | Brunei
+                02 modern-renewable-energy-consumption.csv                        6                60.0                                                Myanmar | Cambodia | Laos | Brunei
+                              03 modern-renewable-prod.csv                       10               100.0                                                                                  
+                       04 share-electricity-renewables.csv                       10               100.0                                                                                  
+                             05 hydropower-consumption.csv                       10               100.0                                                                                  
+                                 06 hydro-share-energy.csv                        6                60.0                                                Myanmar | Cambodia | Laos | Brunei
+                            07 share-electricity-hydro.csv                       10               100.0                                                                                  
+                                    08 wind-generation.csv                       10               100.0                                                                                  
+09 cumulative-installed-wind-energy-capacity-gigawatts.csv                        2                20.0   Vietnam | Indonesia | Malaysia | Singapore | Myanmar | Cambodia | Laos | Brunei
+                                  10 wind-share-energy.csv                        6                60.0                                                Myanmar | Cambodia | Laos | Brunei
+                             11 share-electricity-wind.csv                       10               100.0                                                                                  
+                           12 solar-energy-consumption.csv                       10               100.0                                                                                  
+                        13 installed-solar-PV-capacity.csv                        4                40.0                        Indonesia | Singapore | Myanmar | Cambodia | Laos | Brunei
+                                 14 solar-share-energy.csv                        6                60.0                                                Myanmar | Cambodia | Laos | Brunei
+                            15 share-electricity-solar.csv                       10               100.0                                                                                  
+                                 16 biofuel-production.csv                        2                20.0 Vietnam | Philippines | Malaysia | Singapore | Myanmar | Cambodia | Laos | Brunei
+                      17 installed-geothermal-capacity.csv                        2                20.0    Vietnam | Thailand | Malaysia | Singapore | Myanmar | Cambodia | Laos | Brunei
+
+Tổng hợp theo quốc gia:
+    country  files_present  coverage_pct
+    Vietnam             14         82.35
+   Thailand             16         94.12
+  Indonesia             15         88.24
+Philippines             16         94.12
+   Malaysia             14         82.35
+  Singapore             13         76.47
+    Myanmar              8         47.06
+   Cambodia              8         47.06
+       Laos              8         47.06
+     Brunei              8         47.06
+Lưu ý: Y chỉ xác nhận có khóa, không đảm bảo mọi metric đều khác NaN.
+
+STEP 6 - TÍNH LIÊN TỤC THEO NĂM
+------------------------------------------------------------------------------------------------------------------------
+Hai cách đo biên cuối. Cột thô so với file_year_max; cột hiệu dụng so với
+năm cuối dùng được theo Step 7. Với 8 file có 2022 cắt cụt, mọi thực thể kết thúc
+ở 2021 bị cột thô gắn nhãn BOUNDARY_ONLY dù chuỗi của chúng không hề ngắn.
+Đọc cột *_effective để biết độ phủ thật; giữ cột thô làm bằng chứng cắt năm.
+
+                                                 file_name  entity_count  full_span_entities  full_span_effective_entities  boundary_only_entities  boundary_only_effective_entities  entities_with_internal_gaps  internal_gap_years  sampling_grid_entities  asean_entities_with_internal_gaps
+                             01 renewable-share-energy.csv           104                  82                            89                      22                                15                            0                   0                       0                                  0
+                02 modern-renewable-energy-consumption.csv           104                  89                            89                      15                                15                            0                   0                       0                                  0
+                              03 modern-renewable-prod.csv           251                  22                            89                     229                               162                            0                   0                       0                                  0
+                       04 share-electricity-renewables.csv           246                  22                            89                     224                               157                            0                   0                       0                                  0
+                             05 hydropower-consumption.csv           251                  22                            88                     229                               163                            0                   0                       0                                  0
+                                 06 hydro-share-energy.csv           104                  82                            89                      22                                15                            0                   0                       0                                  0
+                            07 share-electricity-hydro.csv           246                  25                            99                     221                               147                            0                   0                       0                                  0
+                                    08 wind-generation.csv           251                  22                            78                     228                               172                            1                  24                       0                                  0
+09 cumulative-installed-wind-energy-capacity-gigawatts.csv            62                   1                             1                      61                                61                            0                   0                       0                                  0
+                                  10 wind-share-energy.csv           104                  78                            78                      25                                25                            1                  24                       0                                  0
+                             11 share-electricity-wind.csv           246                  22                            89                     224                               157                            0                   0                       0                                  0
+                           12 solar-energy-consumption.csv           251                  22                            77                     228                               173                            1                  24                       0                                  0
+                        13 installed-solar-PV-capacity.csv            64                  62                            62                       2                                 2                            0                   0                       0                                  0
+                                 14 solar-share-energy.csv           104                  77                            77                      26                                26                            1                  24                       0                                  0
+                            15 share-electricity-solar.csv           246                  22                            89                     224                               157                            0                   0                       0                                  0
+                                 16 biofuel-production.csv            35                  32                            32                       3                                 3                            0                   0                       0                                  0
+                      17 installed-geothermal-capacity.csv            33                   0                             0                       2                                 2                           31                 260                      31                                  1
+
+Số chuỗi đổi nhãn giữa hai cách đo: 535/2702.
+Số chuỗi là lưới lấy mẫu (SAMPLING_GRID_NOT_MISSING): 31.
+
+Các chuỗi có lỗ hổng ở giữa:
+                           file_name                        Entity  is_asean  entity_year_min  entity_year_max  internal_gap_count                                       internal_gap_ranges      coverage_pattern coverage_pattern_effective           interpolation_decision
+              08 wind-generation.csv                      CIS (BP)     False             1965             2021                  24                                                 1966-1989 INTERNAL_AND_BOUNDARY              INTERNAL_GAPS DO_NOT_INTERPOLATE_REVIEW_SOURCE
+            10 wind-share-energy.csv                      CIS (BP)     False             1965             2021                  24                                                 1966-1989         INTERNAL_GAPS              INTERNAL_GAPS DO_NOT_INTERPOLATE_REVIEW_SOURCE
+     12 solar-energy-consumption.csv                      CIS (BP)     False             1965             2021                  24                                                 1966-1989 INTERNAL_AND_BOUNDARY              INTERNAL_GAPS DO_NOT_INTERPOLATE_REVIEW_SOURCE
+           14 solar-share-energy.csv                      CIS (BP)     False             1965             2021                  24                                                 1966-1989         INTERNAL_GAPS              INTERNAL_GAPS DO_NOT_INTERPOLATE_REVIEW_SOURCE
+17 installed-geothermal-capacity.csv                        Africa     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                  Asia Pacific     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                         Chile     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                         China     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                    Costa Rica     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                       Croatia     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                   El Salvador     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                      Ethiopia     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                        Europe     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                        France     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                       Germany     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                     Guatemala     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                      Honduras     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                       Iceland     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                         Italy     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                         Japan     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                         Kenya     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                        Mexico     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                   New Zealand     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                     Nicaragua     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                 North America     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                  Other Europe     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv Other South & Central America     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv              Papua New Guinea     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                   Philippines      True             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                      Portugal     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                        Russia     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv       South & Central America     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                        Turkey     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                 United States     False             1990             2020                   8                                     1991-1994 | 1996-1999 INTERNAL_AND_BOUNDARY      INTERNAL_AND_BOUNDARY        SAMPLING_GRID_NOT_MISSING
+17 installed-geothermal-capacity.csv                         World     False             1975             2020                  20 1976-1979 | 1981-1984 | 1986-1989 | 1991-1994 | 1996-1999         INTERNAL_GAPS              INTERNAL_GAPS        SAMPLING_GRID_NOT_MISSING
+Kết luận: không tự động nội suy; Step 6 kiểm tra khóa năm, không kiểm tra NaN metric.
+SAMPLING_GRID_NOT_MISSING = lịch báo cáo theo mốc, không phải dữ liệu bị mất;
+cả hai nhãn đều chặn nội suy nhưng khác nghĩa khi diễn giải ở Phase 2.
+
+STEP 7 - KIỂM TRA NĂM CUỐI
+------------------------------------------------------------------------------------------------------------------------
+                                                 file_name  year  entity_count  asean_entity_count  entity_baseline_median_5y  asean_baseline_median_5y  entity_coverage_pct  asean_coverage_pct last_year_status recommended_end_year
+                             01 renewable-share-energy.csv  2021            96                   5                      103.0                       6.0              93.2039             83.3333   PARTIAL_REVIEW                 2020
+                02 modern-renewable-energy-consumption.csv  2021           103                   6                      103.0                       6.0             100.0000            100.0000             FULL                 2021
+                              03 modern-renewable-prod.csv  2022            29                   0                      247.0                      10.0              11.7409              0.0000 TRUNCATED_SEVERE                 2021
+                       04 share-electricity-renewables.csv  2022            29                   0                      241.0                      10.0              12.0332              0.0000 TRUNCATED_SEVERE                 2021
+                             05 hydropower-consumption.csv  2022            29                   0                      246.0                      10.0              11.7886              0.0000 TRUNCATED_SEVERE                 2021
+                                 06 hydro-share-energy.csv  2021            96                   5                      103.0                       6.0              93.2039             83.3333   PARTIAL_REVIEW                 2020
+                            07 share-electricity-hydro.csv  2022            29                   0                      241.0                      10.0              12.0332              0.0000 TRUNCATED_SEVERE                 2021
+                                    08 wind-generation.csv  2022            29                   0                      246.0                      10.0              11.7886              0.0000 TRUNCATED_SEVERE                 2021
+09 cumulative-installed-wind-energy-capacity-gigawatts.csv  2021            62                   2                       62.0                       2.0             100.0000            100.0000             FULL                 2021
+                                  10 wind-share-energy.csv  2021           103                   6                      103.0                       6.0             100.0000            100.0000             FULL                 2021
+                             11 share-electricity-wind.csv  2022            29                   0                      241.0                      10.0              12.0332              0.0000 TRUNCATED_SEVERE                 2021
+                           12 solar-energy-consumption.csv  2022            29                   0                      247.0                      10.0              11.7409              0.0000 TRUNCATED_SEVERE                 2021
+                        13 installed-solar-PV-capacity.csv  2021            64                   4                       64.0                       4.0             100.0000            100.0000             FULL                 2021
+                                 14 solar-share-energy.csv  2021           103                   6                      103.0                       6.0             100.0000            100.0000             FULL                 2021
+                            15 share-electricity-solar.csv  2022            29                   0                      241.0                      10.0              12.0332              0.0000 TRUNCATED_SEVERE                 2021
+                                 16 biofuel-production.csv  2021            35                   2                       35.0                       2.0             100.0000            100.0000             FULL                 2021
+                      17 installed-geothermal-capacity.csv  2020            33                   2                       33.0                       2.0             100.0000            100.0000             FULL                 2020
+
+Ngưỡng: <50% = TRUNCATED_SEVERE; <95% = PARTIAL_REVIEW; >= 95% = FULL.
+Lấy tỷ lệ xấu hơn giữa toàn bộ Entity và ASEAN.
+
+KẾT LUẬN - NĂM QUYẾT ĐỊNH CUỐI PHASE 1
+========================================================================================================================
+1. FILE DÙNG/BỎ
+   Ưu tiên file 03 cho sản lượng điện theo công nghệ. File 05, 08, 12 là ứng viên loại
+   vì các cột tương ứng là redundant_subset; không gọi toàn bộ file là trùng hoàn toàn.
+   File 02 lệch với file 03 ở mức MATERIAL, tập trung ở thực thể tổng hợp;
+   giữ tách riêng đến khi review provenance/định nghĩa. Ở cấp quốc gia hai nguồn
+   chỉ khác nhau ở mức làm tròn.
+   Bằng chứng: 3 cặp trùng/dư thừa; 7 cặp xung đột thật; 0 cặp chỉ khác dưới ngưỡng material.
+2. CHIẾN LƯỢC JOIN
+   Không INNER JOIN 17 file. Dùng tidy/union cho fact và spine + LEFT JOIN khi cần bảng rộng.
+   Khóa exact (Entity, Year); không fuzzy matching; Code chỉ dùng kiểm chứng.
+3. ĐỘ PHỦ ASEAN
+   8 file phủ đủ ASEAN-10: 03, 04, 05, 07, 08, 11, 12, 15.
+   Các file capacity/biofuel/geothermal chỉ dùng cho tập con và phải ghi rõ nước thiếu.
+4. NỘI SUY
+   Không nội suy tự động, không điền trước năm đầu hay sau năm cuối; giữ NULL và review nguồn.
+5. CỬA SỔ PHÂN TÍCH
+   Cửa sổ chính ASEAN-10: 2000-2021. Giữ 2022 ở raw làm bằng chứng,
+   loại 2022 khỏi tầng phân tích sạch. File 01/06 với panel cố định kết thúc ở 2020;
+   geothermal kết thúc ở 2020.
+   Số file TRUNCATED_SEVERE: 8; PARTIAL_REVIEW: 2.
+
+CÁC CSV CHI TIẾT
+========================================================================================================================
+- 01_overlap_conflict_details.csv: 12180 dòng
+- 02_join_key_details.csv: 43 dòng
+- 03_asean_coverage_details.csv: 170 dòng
+- 04_year_continuity_details.csv: 2702 dòng
+- 05_last_year_check.csv: 780 dòng

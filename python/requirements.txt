@@ -1,0 +1,12 @@
+# Thu vien cho do an phan tich nang luong tai tao
+# Cai bang: python -m pip install -r python\requirements.txt
+#
+# Luu y: KHONG can SQLAlchemy hay driver SQL nao —
+# module sqlite3 da co san trong thu vien chuan cua Python.
+
+pandas
+numpy
+matplotlib
+seaborn
+scipy
+openpyxl

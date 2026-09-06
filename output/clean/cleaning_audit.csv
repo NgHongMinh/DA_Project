@@ -1,0 +1,428 @@
+source_file,source_column,entity,year,old_value,new_value,action,reason
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Africa,2021,9.555876,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Africa (BP),2021,9.574978,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Algeria,2021,0.26136735,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Argentina,2021,11.329249,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Asia,2021,10.954556,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Asia Pacific (BP),2021,12.723151,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Australia,2021,12.933532,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Austria,2021,37.481792,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Azerbaijan,2021,2.2015429,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Bangladesh,2021,0.6501469,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Belarus,2021,0.9698578,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Belgium,2021,9.336409,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Brazil,2021,46.21975,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Bulgaria,2021,11.486526,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),CIS (BP),2021,6.473814,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Canada,2021,29.88844,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Central America (BP),2021,31.522322,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Chile,2021,26.518875,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),China,2021,14.946244,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Colombia,2021,33.02041,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Croatia,2021,28.271935,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Czechia,2021,6.497798,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Denmark,2021,39.24958,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Eastern Africa (BP),2021,35.91689,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Ecuador,2021,32.3542,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Egypt,2021,6.230571,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Estonia,2021,14.325047,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Europe,2021,15.235615,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Europe (BP),2021,19.740942,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),European Union (27),2021,18.567877,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Finland,2021,34.61129,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),France,2021,13.671011,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Germany,2021,19.453121,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Greece,2021,19.391674,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),High-income countries,2021,12.304638,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Hong Kong,2021,0.108698964,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Hungary,2021,6.819573,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Iceland,2021,86.874535,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),India,2021,9.31085,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Indonesia,2021,10.385715,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Iran,2021,1.2903937,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Iraq,2021,1.502491,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Ireland,2021,17.581884,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Israel,2021,5.132294,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Italy,2021,18.36226,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Japan,2021,11.428995,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Kazakhstan,2021,3.988574,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Latvia,2021,23.917372,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Lithuania,2021,9.490351,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Lower-middle-income countries,2021,7.670769,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Luxembourg,2021,7.095166,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Malaysia,2021,8.059835,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Mexico,2021,10.514754,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Middle Africa (BP),2021,29.66652,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Middle East (BP),2021,0.95469177,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Morocco,2021,7.6361694,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Netherlands,2021,12.3737955,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),New Zealand,2021,40.21865,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Non-OECD (BP),2021,12.454243,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),North America,2021,11.45594,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),North America (BP),2021,13.004936,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),North Macedonia,2021,14.82318,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Norway,2021,71.558365,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),OECD (BP),2021,15.086277,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Oceania,2021,16.36516,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Pakistan,2021,10.622897,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Peru,2021,27.741009,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Philippines,2021,10.90163,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Poland,2021,7.7616863,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Portugal,2021,32.703953,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Romania,2021,17.481031,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Russia,2021,6.6202893,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Slovakia,2021,9.82116,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Slovenia,2021,18.768454,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),South Africa,2021,3.408608,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),South America,2021,32.356785,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),South Korea,2021,3.7249858,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),South and Central America (BP),2021,33.634804,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Spain,2021,22.341663,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Sri Lanka,2021,21.404533,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Sweden,2021,50.924007,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Switzerland,2021,36.716644,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Taiwan,2021,3.0361571,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Thailand,2021,7.113618,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Trinidad and Tobago,2021,0.007159467,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Turkey,2021,16.517044,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Turkmenistan,2021,0.007483229,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Ukraine,2021,6.1008415,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),United Kingdom,2021,17.946543,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),United States,2021,10.655991,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Upper-middle-income countries,2021,14.183052,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Uzbekistan,2021,2.6506786,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Venezuela,2021,28.434155,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Vietnam,2021,22.734407,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),Western Africa (BP),2021,8.060245,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+01 renewable-share-energy.csv,Renewables (% equivalent primary energy),World,2021,13.470907,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Austria,2022,36.07,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Belgium,2022,0.2,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Bulgaria,2022,3.71,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Croatia,2022,5.35,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Cyprus,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Czechia,2022,2.03,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Denmark,2022,0.02,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Estonia,2022,0.02,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),European Union (27),2022,282.96,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),European Union (27) (Ember),2022,282.96,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Finland,2022,14.02,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),France,2022,46.18,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Germany,2022,17.45,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Greece,2022,4.73,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Hungary,2022,0.19,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Ireland,2022,0.72,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Italy,2022,29.94,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Latvia,2022,2.77,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Lithuania,2022,0.45,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Luxembourg,2022,0.06,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Malta,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Netherlands,2022,0.07,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Poland,2022,2.06,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Portugal,2022,7.59,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Romania,2022,14.23,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Slovakia,2022,3.95,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Slovenia,2022,3.19,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Spain,2022,18.8,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from hydro (TWh),Sweden,2022,69.16,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Austria,2022,2.73,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Belgium,2022,7.35,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Bulgaria,2022,1.72,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Croatia,2022,0.15,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Cyprus,2022,0.62,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Czechia,2022,2.51,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Denmark,2022,1.99,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Estonia,2022,0.53,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),European Union (27),2022,203.15,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),European Union (27) (Ember),2022,203.15,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Finland,2022,0.3,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),France,2022,19.98,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Germany,2022,58.98,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Greece,2022,6.62,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Hungary,2022,4.47,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Ireland,2022,0.09,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Italy,2022,27.73,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Latvia,2022,0.01,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Lithuania,2022,0.43,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Luxembourg,2022,0.24,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Malta,2022,0.26,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Netherlands,2022,17.34,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Poland,2022,8,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Portugal,2022,3.07,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Romania,2022,1.79,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Slovakia,2022,0.69,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Slovenia,2022,0.44,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Spain,2022,32.77,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from solar (TWh),Sweden,2022,2.34,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Austria,2022,6.93,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Belgium,2022,12.07,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Bulgaria,2022,1.43,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Croatia,2022,2.27,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Cyprus,2022,0.22,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Czechia,2022,0.65,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Denmark,2022,18.94,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Estonia,2022,0.63,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),European Union (27),2022,419.59,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),European Union (27) (Ember),2022,419.59,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Finland,2022,11.19,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),France,2022,38.46,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Germany,2022,126.1,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Greece,2022,10.86,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Hungary,2022,0.61,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Ireland,2022,11.5,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Italy,2022,19.91,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Latvia,2022,0.19,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Lithuania,2022,1.59,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Luxembourg,2022,0.32,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Malta,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Netherlands,2022,20.52,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Poland,2022,19.76,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Portugal,2022,13.27,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Romania,2022,7.07,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Slovakia,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Slovenia,2022,0.01,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Spain,2022,61.85,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Electricity from wind (TWh),Sweden,2022,33.24,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Austria,2022,3.62,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Belgium,2022,4.45,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Bulgaria,2022,2.6,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Croatia,2022,1.17,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Cyprus,2022,0.06,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Czechia,2022,5.31,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Denmark,2022,7.95,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Estonia,2022,2.49,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),European Union (27),2022,173.28,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),European Union (27) (Ember),2022,173.28,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Finland,2022,13.99,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),France,2022,10.6,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Germany,2022,47.54,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Greece,2022,0.5,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Hungary,2022,2.26,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Ireland,2022,1.08,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Italy,2022,24.029999,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Latvia,2022,0.68,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Lithuania,2022,0.65,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Luxembourg,2022,0.4,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Malta,2022,0.01,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Netherlands,2022,9.85,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Poland,2022,7.76,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Portugal,2022,4.16,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Romania,2022,0.64,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Slovakia,2022,1.71,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Slovenia,2022,0.29,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Spain,2022,6.82,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+03 modern-renewable-prod.csv,Other renewables including bioenergy (TWh),Sweden,2022,12.66,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Austria,2022,76.2869,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Belgium,2022,25.449354,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Bhutan,2005,100.00001,100,SNAP_PERCENT_BOUNDARY,Within 0.0001 percentage points of the valid boundary.
+04 share-electricity-renewables.csv,Renewables (% electricity),Bulgaria,2022,18.703045,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Croatia,2022,63.314445,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Cyprus,2022,16.697588,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Czechia,2022,12.336976,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Denmark,2022,83.962814,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Estonia,2022,44.004795,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),European Union (27),2022,38.598827,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),European Union (27) (Ember),2022,38.598824,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Finland,2022,54.63347,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),France,2022,24.542046,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Germany,2022,42.893654,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Greece,2022,43.306637,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Hungary,2022,21.199324,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Iceland,1994,100.000015,100,SNAP_PERCENT_BOUNDARY,Within 0.0001 percentage points of the valid boundary.
+04 share-electricity-renewables.csv,Renewables (% electricity),Ireland,2022,39.486877,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Italy,2022,36.43764,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Latvia,2022,72.13439,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Lithuania,2022,74.820145,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Luxembourg,2022,85.71428,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Malta,2022,12.442397,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Netherlands,2022,39.536617,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Poland,2022,20.976837,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Portugal,2022,59.816868,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Romania,2022,42.1492,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Slovakia,2022,23.50111,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Slovenia,2022,29.615673,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Spain,2022,42.21762,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+04 share-electricity-renewables.csv,Renewables (% electricity),Sweden,2022,68.38304,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Africa,2021,7.227977,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Africa (BP),2021,7.227977,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Algeria,2021,0.0035544697,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Argentina,2021,5.3786182,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Asia,2021,5.732312,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Asia Pacific (BP),2021,6.401993,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Australia,2021,2.6343446,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Austria,2021,27.224585,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Azerbaijan,2021,1.823925,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Bangladesh,2021,0.38842055,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Belarus,2021,0.2921725,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Belgium,2021,0.12935764,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Brazil,2021,27.199343,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Bulgaria,2021,5.4861164,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),CIS (BP),2021,6.2208304,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Canada,2021,25.743002,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Central America (BP),2021,19.601103,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Chile,2021,9.360421,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),China,2021,7.768007,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Colombia,2021,29.314417,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Croatia,2021,18.83023,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Czechia,2021,1.3521881,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Denmark,2021,0.02287643,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Eastern Africa (BP),2021,31.35281,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Ecuador,2021,31.606415,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Egypt,2021,3.6341164,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Estonia,2021,0.12334465,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Europe,2021,7.0574656,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Europe (BP),2021,7.428291,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),European Union (27),2021,5.396225,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Finland,2021,12.769421,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),France,2021,5.8052735,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Germany,2021,1.423246,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Greece,2021,5.2092843,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),High-income countries,2021,4.9955883,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Hong Kong,2021,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Hungary,2021,0.19291607,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Iceland,2021,61.955643,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),India,2021,4.2628875,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Indonesia,2021,2.7996864,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Iran,2021,1.1500257,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Iraq,2021,1.3354203,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Ireland,2021,1.1231905,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Israel,2021,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Italy,2021,6.3820415,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Japan,2021,4.1224623,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Kazakhstan,2021,3.0065157,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Latvia,2021,16.8116,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Lithuania,2021,1.4354473,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Lower-middle-income countries,2021,4.229339,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Luxembourg,2021,0.6551031,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Malaysia,2021,7.2727385,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Mexico,2021,4.817839,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Middle Africa (BP),2021,29.538849,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Middle East (BP),2021,0.4855407,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Morocco,2021,0.80678946,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Netherlands,2021,0.024099192,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),New Zealand,2021,27.11879,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Non-OECD (BP),2021,7.307626,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),North America,2021,5.4852686,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),North America (BP),2021,5.5780973,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),North Macedonia,2021,13.073442,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Norway,2021,65.90561,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),OECD (BP),2021,5.9018087,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Oceania,2021,5.774175,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Pakistan,2021,9.204771,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Peru,2021,25.084099,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Philippines,2021,4.48094,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Poland,2021,0.49602374,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Portugal,2021,11.67335,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Romania,2021,11.344597,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Russia,2021,6.4571986,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Slovakia,2021,5.6123967,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Slovenia,2021,16.424103,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),South Africa,2021,0.2650949,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),South America,2021,23.90368,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),South Korea,2021,0.2288519,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),South and Central America (BP),2021,21.849436,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Spain,2021,4.980959,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Sri Lanka,2021,17.457203,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Sweden,2021,29.473484,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Switzerland,2021,31.890774,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Taiwan,2021,0.6564165,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Thailand,2021,0.8369817,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Trinidad and Tobago,2021,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Turkey,2021,7.6846533,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Turkmenistan,2021,0.0033958037,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Ukraine,2021,2.9429371,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),United Kingdom,2021,0.6580011,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),United States,2021,2.6109571,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Upper-middle-income countries,2021,8.300834,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Uzbekistan,2021,2.6268883,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Venezuela,2021,28.387844,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Vietnam,2021,16.551159,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),Western Africa (BP),2021,7.4566274,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+06 hydro-share-energy.csv,Hydro (% equivalent primary energy),World,2021,6.7646065,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1965-2020.
+07 share-electricity-hydro.csv,Hydro (% electricity),Austria,2022,55.75823,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Belgium,2022,0.21146119,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Bhutan,2005,100.00001,100,SNAP_PERCENT_BOUNDARY,Within 0.0001 percentage points of the valid boundary.
+07 share-electricity-hydro.csv,Hydro (% electricity),Bulgaria,2022,7.3349147,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Croatia,2022,37.88952,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Cyprus,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Czechia,2022,2.3851485,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Denmark,2022,0.058105756,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Estonia,2022,0.23980814,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),European Union (27),2022,10.122453,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),European Union (27) (Ember),2022,10.122452,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Finland,2022,19.391424,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),France,2022,9.836414,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Germany,2022,2.993139,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Greece,2022,9.019833,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Hungary,2022,0.5349099,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Ireland,2022,2.1232674,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Italy,2022,10.736571,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Latvia,2022,54.743084,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Lithuania,2022,10.791367,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Luxembourg,2022,5.0420165,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Malta,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Netherlands,2022,0.057923045,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Poland,2022,1.1498744,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Portugal,2022,16.162691,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Romania,2022,25.27531,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Slovakia,2022,14.618801,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Slovenia,2022,24.039185,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Spain,2022,6.6008916,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+07 share-electricity-hydro.csv,Hydro (% electricity),Sweden,2022,40.284256,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Austria,2022,10.712629,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Belgium,2022,12.7616825,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Bulgaria,2022,2.8272042,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Croatia,2022,16.076487,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Cyprus,2022,4.0816326,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Czechia,2022,0.76371753,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Denmark,2022,55.02615,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Estonia,2022,7.5539565,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),European Union (27),2022,15.010179,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),European Union (27) (Ember),2022,15.010177,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Finland,2022,15.477178,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),France,2022,8.192042,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Germany,2022,21.629503,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Greece,2022,20.709383,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Hungary,2022,1.7173424,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Ireland,2022,33.9133,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Italy,2022,7.139784,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Latvia,2022,3.7549407,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Lithuania,2022,38.129498,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Luxembourg,2022,26.890755,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Malta,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Netherlands,2022,16.979727,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Poland,2022,11.029863,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Portugal,2022,28.258093,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Romania,2022,12.557727,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Slovakia,2022,0,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Slovenia,2022,0.07535795,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Spain,2022,21.716232,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+11 share-electricity-wind.csv,Wind (% electricity),Sweden,2022,19.361605,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Austria,2022,4.2201266,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Belgium,2022,7.7711987,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Bulgaria,2022,3.4005535,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Croatia,2022,1.062323,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Cyprus,2022,11.502783,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Czechia,2022,2.9491246,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Denmark,2022,5.7815228,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Estonia,2022,6.3549156,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),European Union (27),2022,7.2673745,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),European Union (27) (Ember),2022,7.267374,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Finland,2022,0.41493776,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),France,2022,4.255772,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Germany,2022,10.116638,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Greece,2022,12.623952,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Hungary,2022,12.584458,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Ireland,2022,0.26540843,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Italy,2022,9.944058,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Latvia,2022,0.19762845,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Lithuania,2022,10.31175,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Luxembourg,2022,20.168066,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Malta,2022,11.981566,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Netherlands,2022,14.348366,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Poland,2022,4.465532,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Portugal,2022,6.537479,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Romania,2022,3.1793962,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Slovakia,2022,2.553664,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Slovenia,2022,3.3157496,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Spain,2022,11.505917,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.
+15 share-electricity-solar.csv,Solar (% electricity),Sweden,2022,1.3630009,,EXCLUDE_OUTSIDE_ANALYSIS_WINDOW,Canonical window is 1985-2021.

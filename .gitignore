@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+
+# File tam cua Power BI
+*.pbix.tmp
+
+# Luu y: sql/renewables.db va output/ ĐƯỢC giữ lại —
+# chung la san pham nop bai, khong phai file rac.

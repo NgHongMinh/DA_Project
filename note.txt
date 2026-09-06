@@ -1,0 +1,15 @@
+Dự án bắt buộc bao gồm các nội dung sau đây:
+1.1. Xác định và định nghĩa vấn đề và mục tiêu phân tích
+1.2. Tiền xử lý dữ liệu: Xử lý dữ liệu thiếu, làm sạch dữ liệu,...
+1.3. Phân tích mô tả: Sử dụng các phương pháp thống kê mô tả để tóm tắt các đặc điểm
+chính của dữ liệu (trung bình, trung vị, độ lệch chuẩn, phân vị v.v.)
+1.4. Trực quan hóa dữ liệu: Sử dụng các biểu đồ và đồ thị để trực quan hóa dữ liệu và nhận
+diện các mẫu hoặc xu hướng trong dữ liệu.
+1.5. Diễn giải và trình bày kết quả:
+a. Phân tích kết quả để đưa ra các kết luận có ý nghĩa
+b. Thiết kế slide trình bày kết quả phân tích, bao gồm các biểu đồ và đồ thị minh họa
+c. Thiết kế Dashboard trực quan hóa dữ liệu
+1.6. Đưa ra kết luận và đề xuất các giải pháp phù hợp
+ 
+
+Dự án cần được thực hiện bằng ít nhất 2 công cụ và ngôn ngữ lập trình : SQL, Power BI, Python.
