@@ -1316,7 +1316,7 @@ def build_workbook_frames(
 def validate_facts(
     facts: pd.DataFrame, cross: pd.DataFrame, definitions: pd.DataFrame,
     books: dict[str, dict[str, pd.DataFrame]], fp: str,
-    phase2_validation_rows: int,
+    phase2_validation_rows: int, workbook_format_errors: list[str],
 ) -> pd.DataFrame:
     results: list[dict[str, Any]] = []
     def add(identifier: str, group: str, question: str, ok: bool, expected: Any, actual: Any, details: str) -> None:
@@ -1333,7 +1333,11 @@ def validate_facts(
         EXPECTED_VALIDATION_ROWS, phase2_validation_rows,
         "Phase 2 validation is complete, passing, and bound to the current fingerprint",
     )
-    add("P3_INPUT", "INPUT", "NOT_APPLICABLE", len(facts) > 0, ">0", len(facts), "fact_metrics is non-empty")
+    add(
+        "P3_INPUT", "INPUT", "NOT_APPLICABLE",
+        len(facts) == EXPECTED_FACT_ROWS, EXPECTED_FACT_ROWS, len(facts),
+        "fact_metrics row count matches the locked Phase 3 release contract",
+    )
     duplicates = int(facts.duplicated(FACT_KEY).sum())
     add("P3_KEYS", "FACT_SCHEMA", "NOT_APPLICABLE", duplicates == 0, 0, duplicates, "nine-column semantic key is unique")
     finite = np.isfinite(pd.to_numeric(facts.metric_value, errors="coerce").dropna()).all()
@@ -1347,8 +1351,40 @@ def validate_facts(
     calculated_ok = facts[facts.value_status.eq("CALCULATED")].metric_value.notna().all()
     text_ok = facts[facts.value_status.eq("CALCULATED_TEXT")].metric_text_value.notna().all()
     null_ok = facts[~facts.value_status.isin(["CALCULATED", "CALCULATED_TEXT"])].metric_value.isna().all()
-    add("P3_STATUS", "FACT_SCHEMA", "NOT_APPLICABLE", bool(calculated_ok and text_ok and null_ok), True, bool(calculated_ok and text_ok and null_ok), "status/value contract")
-    add("P3_CROSS", "CROSSCHECK", "Q1-Q6", bool(cross.status.eq("PASS").all()), "all PASS", int(cross.status.ne("PASS").sum()), "complete Python-SQL surface")
+    distribution_key = [column for column in FACT_KEY if column != "metric_name"]
+    cv_rows = facts[facts.metric_name.eq("cv")].merge(
+        facts[facts.metric_name.eq("mean")][distribution_key + ["metric_value"]].rename(
+            columns={"metric_value": "mean_value"}
+        ),
+        on=distribution_key,
+        how="left",
+        validate="one_to_one",
+    )
+    zero_mean_cv = cv_rows[cv_rows.included_n.ge(2) & cv_rows.mean_value.eq(0)]
+    insufficient_cv = cv_rows[cv_rows.included_n.eq(1)]
+    empty_cv = cv_rows[cv_rows.included_n.eq(0)]
+    cv_status_ok = (
+        not zero_mean_cv.empty
+        and zero_mean_cv.value_status.eq("NOT_DEFINED").all()
+        and zero_mean_cv.exclusion_reason.eq("ZERO_MEAN").all()
+        and zero_mean_cv.metric_value.isna().all()
+        and insufficient_cv.value_status.eq("INSUFFICIENT_N").all()
+        and insufficient_cv.exclusion_reason.eq("INSUFFICIENT_N").all()
+        and empty_cv.value_status.eq("NOT_DEFINED").all()
+        and empty_cv.exclusion_reason.eq("EMPTY_GROUP").all()
+    )
+    status_ok = bool(calculated_ok and text_ok and null_ok and cv_status_ok)
+    add(
+        "P3_STATUS", "FACT_SCHEMA", "NOT_APPLICABLE", status_ok, True,
+        status_ok, "status/value contract, including CV zero-mean semantics",
+    )
+    cross_ok = len(cross) == EXPECTED_CROSSCHECK_ROWS and cross.status.eq("PASS").all()
+    add(
+        "P3_CROSS", "CROSSCHECK", "Q1-Q6", bool(cross_ok),
+        f"{EXPECTED_CROSSCHECK_ROWS} rows; all PASS",
+        f"rows={len(cross)}; failures={int(cross.status.ne('PASS').sum())}",
+        "complete Python-SQL surface matches the locked release count",
+    )
     definition_ok = set(facts.metric_name) == set(definitions.metric_name) and definitions.metric_name.is_unique and definitions.formula.notna().all()
     add("P3_DEFINITIONS", "DEFINITIONS", "Q1-Q6", bool(definition_ok), "exact metric coverage", f"facts={facts.metric_name.nunique()}, definitions={len(definitions)}", "metric definitions cover every fact metric")
     expected_pair_mapping = json.dumps(
@@ -1537,8 +1573,13 @@ def validate_facts(
     gini_ok = abs(gini(np.ones(10)) or 0) < 1e-12 and abs((gini([0] * 9 + [1]) or 0) - 0.9) < 1e-12 and gini(np.zeros(10)) is None
     hhi_ok = abs(np.square(np.ones(10) / 10).sum() - 0.1) < 1e-12 and abs(np.square(np.array([0] * 9 + [1])).sum() - 1) < 1e-12
     add("P3_CANONICAL_CONCENTRATION", "FORMULA", "Q6", bool(gini_ok and hhi_ok), "canonical cases", "checked", "HHI/Gini reference tests")
-    expected_questions = {"Q1", "Q2", "Q3", "Q4", "Q5", "Q6"}
-    add("P3_QUESTION_COVERAGE", "QUESTION_MAPPING", "Q1-Q6", set(facts.question_id) == expected_questions, sorted(expected_questions), sorted(set(facts.question_id)), "all questions represented in fact_metrics")
+    actual_question_rows = facts.groupby("question_id").size().to_dict()
+    add(
+        "P3_QUESTION_COVERAGE", "QUESTION_MAPPING", "Q1-Q6",
+        actual_question_rows == EXPECTED_QUESTION_ROWS,
+        EXPECTED_QUESTION_ROWS, actual_question_rows,
+        "question row distribution matches the locked Phase 3 release contract",
+    )
     vietnam_annual = books["03_vietnam_time_series.xlsx"]["annual"]
     vietnam_key_ok = len(vietnam_annual) == 770 and not vietnam_annual.duplicated(["period_start_year", "series_key", "metric_name"]).any()
     add("P3_VIETNAM_ANNUAL", "COVERAGE", "Q4", bool(vietnam_key_ok), "770 unique rows", len(vietnam_annual), "22 years x 35 Vietnam annual metrics")
@@ -1656,21 +1697,39 @@ def validate_facts(
         "60 country rows + 6 ASEAN summary rows", len(growth),
         "growth_contribution exposes gross growth, positive country count, and top-three share",
     )
-    workbook_provenance_ok = all(
+    frame_provenance_ok = all(
         "method_version" in frame.columns
         and frame.method_version.eq(VERSION).all()
         and "phase2_input_fingerprint" in frame.columns
         and frame.phase2_input_fingerprint.eq(fp).all()
         for sheets in books.values() for frame in sheets.values()
     )
-    add("P3_WORKBOOK_PROVENANCE", "WORKBOOK", "Q1-Q6", workbook_provenance_ok, True, workbook_provenance_ok, "every workbook sheet carries method version and Phase 2 fingerprint")
+    workbook_provenance_ok = frame_provenance_ok and not workbook_format_errors
+    add(
+        "P3_WORKBOOK_PROVENANCE", "WORKBOOK", "Q1-Q6",
+        workbook_provenance_ok, True,
+        True if workbook_provenance_ok else {
+            "frame_provenance_ok": frame_provenance_ok,
+            "format_errors": workbook_format_errors[:10],
+        },
+        "every workbook sheet carries provenance and serialized ratio formats",
+    )
     prospective_ids = [row["validation_id"] for row in results] + ["P3_VALIDATION_IDS_UNIQUE"]
-    ids_unique = len(prospective_ids) == len(set(prospective_ids))
+    actual_ids = set(prospective_ids)
+    ids_match = (
+        len(prospective_ids) == len(actual_ids)
+        and actual_ids == EXPECTED_PHASE3_VALIDATION_IDS
+    )
+    id_differences = {
+        "missing": sorted(EXPECTED_PHASE3_VALIDATION_IDS - actual_ids),
+        "unexpected": sorted(actual_ids - EXPECTED_PHASE3_VALIDATION_IDS),
+        "duplicates": len(prospective_ids) - len(actual_ids),
+    }
     add(
         "P3_VALIDATION_IDS_UNIQUE", "VALIDATION_SCHEMA", "NOT_APPLICABLE",
-        ids_unique, "all validation_id values unique",
-        len(prospective_ids) - len(set(prospective_ids)),
-        "validation identifiers are stable and unique",
+        ids_match, f"exact locked set of {len(EXPECTED_PHASE3_VALIDATION_IDS)} IDs",
+        len(actual_ids) if ids_match else id_differences,
+        "validation identifiers are stable, unique, and exactly match the release contract",
     )
     validations = pd.DataFrame(results)
     if not validations.validation_id.is_unique:
@@ -1682,11 +1741,42 @@ def write_csv(frame: pd.DataFrame, path: Path) -> None:
     frame.to_csv(path, index=False, encoding="utf-8", lineterminator="\n", float_format="%.12g")
 
 
-def write_workbooks(books: dict[str, dict[str, pd.DataFrame]], stage: Path) -> None:
+def apply_ratio_number_formats(worksheet: Any, frame: pd.DataFrame) -> None:
+    unit_pairs: list[tuple[str, str]] = []
+    if "unit" in frame.columns and "metric_value" in frame.columns:
+        unit_pairs.append(("metric_value", "unit"))
+    unit_pairs.extend(
+        (unit_name[:-5], unit_name)
+        for unit_name in frame.columns
+        if unit_name.endswith("_unit") and unit_name[:-5] in frame.columns
+    )
+    for value_name, unit_name in unit_pairs:
+        value_column = frame.columns.get_loc(value_name) + 1
+        for row_number, (unit, value) in enumerate(
+            zip(frame[unit_name], frame[value_name]), start=2,
+        ):
+            if unit == "ratio" and pd.notna(value):
+                worksheet.cell(row=row_number, column=value_column).number_format = (
+                    RATIO_NUMBER_FORMAT
+                )
+
+
+def write_workbooks(
+    books: dict[str, dict[str, pd.DataFrame]], stage: Path,
+) -> list[str]:
     for name, sheets in books.items():
         with pd.ExcelWriter(stage / name, engine="openpyxl") as writer:
             for sheet_name in WORKBOOKS[name]:
-                sheets[sheet_name].replace([np.inf, -np.inf], np.nan).to_excel(writer, sheet_name=sheet_name, index=False)
+                frame = sheets[sheet_name].replace([np.inf, -np.inf], np.nan)
+                frame.to_excel(writer, sheet_name=sheet_name, index=False)
+                apply_ratio_number_formats(writer.book[sheet_name], frame)
+    errors: list[str] = []
+    for name, sheet_names in WORKBOOKS.items():
+        errors.extend(
+            f"{name}: {error}"
+            for error in workbook_number_format_errors(stage / name, sheet_names)
+        )
+    return errors
 
 
 def sqlite_backup_replace(source: Path, target: Path) -> None:
@@ -1704,7 +1794,7 @@ def replace_outputs_atomically(staged_targets: list[tuple[Path, Path]]) -> None:
     backup_dir = staged_targets[0][0].parent / "backups"
     backup_dir.mkdir(parents=True, exist_ok=True)
     backups: dict[Path, Path | None] = {}
-    committed: list[Path] = []
+    changed_targets: list[Path] = []
     try:
         for index, (staged, target) in enumerate(staged_targets):
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -1719,20 +1809,35 @@ def replace_outputs_atomically(staged_targets: list[tuple[Path, Path]]) -> None:
             except PermissionError:
                 if target.resolve() != DB_PATH.resolve() or not target.exists():
                     raise
+                # The fallback can mutate the destination before either backup()
+                # or staged-file cleanup reports an error, so register it first.
+                changed_targets.append(target)
                 sqlite_backup_replace(staged, target)
                 staged.unlink()
-            committed.append(target)
-    except OSError as exc:
-        for target in reversed(committed):
-            backup = backups[target]
-            if backup is None:
-                if target.exists():
-                    target.unlink()
-            elif target.resolve() == DB_PATH.resolve():
-                sqlite_backup_replace(backup, target)
             else:
-                shutil.copy2(backup, target)
-        raise Phase3Error(f"Phase 3 publication failed; previous outputs restored: {exc}") from exc
+                changed_targets.append(target)
+    except (OSError, sqlite3.Error) as exc:
+        rollback_errors: list[str] = []
+        for target in reversed(changed_targets):
+            try:
+                backup = backups[target]
+                if backup is None:
+                    if target.exists():
+                        target.unlink()
+                elif target.resolve() == DB_PATH.resolve():
+                    sqlite_backup_replace(backup, target)
+                else:
+                    shutil.copy2(backup, target)
+            except (OSError, sqlite3.Error) as rollback_exc:
+                rollback_errors.append(f"{target}: {rollback_exc}")
+        if rollback_errors:
+            raise Phase3Error(
+                "Phase 3 publication failed; rollback incomplete; "
+                f"publication error: {exc}; rollback errors: {' | '.join(rollback_errors)}"
+            ) from exc
+        raise Phase3Error(
+            f"Phase 3 publication failed; previous outputs restored: {exc}"
+        ) from exc
 
 
 def clean_orphan_stages(active: Path) -> None:
@@ -1791,13 +1896,14 @@ def build_and_stage() -> tuple[Path, pd.DataFrame, pd.DataFrame, pd.DataFrame, s
         connection.close()
     definitions = build_definitions(python_facts, fp)
     books = build_workbook_frames(python_facts, definitions, source_catalog, fp)
+    workbook_format_errors = write_workbooks(books, stage)
     validations = validate_facts(
-        python_facts, cross, definitions, books, fp, phase2_validation_rows
+        python_facts, cross, definitions, books, fp, phase2_validation_rows,
+        workbook_format_errors,
     )
     if validations.status.eq("FAIL").any():
         print(validations[validations.status.eq("FAIL")][["validation_id", "actual_value", "failure_reason"]].to_string(index=False), file=sys.stderr)
         raise Phase3Error("Phase 3 validation failed")
-    write_workbooks(books, stage)
     write_csv(python_facts, stage / "03_fact_metrics.csv")
     write_csv(definitions, stage / "03_metric_definitions.csv")
     write_csv(cross, stage / "03_crosscheck_results.csv")

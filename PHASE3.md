@@ -152,7 +152,7 @@ ASEAN không mất quan sát vì quy tắc này; mục tiêu chính là ngăn t�
 - YoY, CAGR, cơ cấu công nghệ, tỷ trọng ASEAN/thế giới, tỷ trọng quốc gia trong ASEAN và đóng góp tăng trưởng: tỷ lệ thập phân; ví dụ `0,25` nghĩa là 25%.
 - Top-1 share và top-3 share: tỷ lệ thập phân.
 - `HHI` (chỉ số tập trung Herfindahl–Hirschman) và `Gini` (hệ số bất bình đẳng): tỷ lệ trong miền `[0,1]`, với giới hạn chặt hơn được nêu ở phần tương ứng.
-- Excel chỉ định dạng các tỷ lệ thập phân dưới dạng phần trăm; không nhân 100 rồi lưu lẫn với dữ liệu nguồn 0–100.
+- Excel định dạng mọi giá trị có đơn vị `ratio` bằng `0.0000%`; không nhân 100 và không áp dụng định dạng phần trăm cho đơn vị `pct`, vốn đã lưu ở thang 0–100.
 - Không làm tròn trước khi tính tổng, tốc độ, tỷ trọng hoặc xếp hạng. Làm tròn chỉ phục vụ hiển thị.
 
 ### 3.7. Quy ước thống kê mô tả
@@ -173,6 +173,7 @@ Quy tắc:
 - `skewness` (độ lệch) dùng hiệu chỉnh độ chệch, tương ứng `bias=False`; chỉ tính khi `included_n >= 3` và phương sai lớn hơn 0.
 - `kurtosis` (độ nhọn vượt chuẩn Fisher) dùng `fisher=True, bias=False`; chỉ tính khi `included_n >= 4` và phương sai lớn hơn 0.
 - Với `included_n = 1`, sum/mean/median/min/max/phân vị hợp lệ và `sd = 0` theo quy ước tổng thể; CV vẫn `NULL / INSUFFICIENT_N` vì cần ít nhất hai quan sát.
+- Với `included_n >= 2` nhưng mean bằng 0, CV là `NULL / NOT_DEFINED / ZERO_MEAN`; nguyên nhân là mẫu số bằng 0, không phải thiếu quan sát.
 - Nhóm không có quan sát trả `NULL / EMPTY_GROUP` cho sum và mọi thống kê giá trị; các số đếm vẫn bằng 0.
 - Nhóm rỗng hoặc không đủ `n` phải để `NULL` cho đúng thống kê không xác định. Với nhóm hằng, mean/median/min/max/phân vị vẫn xác định, `sd = 0` và `CV = 0` nếu mean dương; chỉ skewness và kurtosis là `NULL / CONSTANT_GROUP`.
 
@@ -844,11 +845,11 @@ Chạy các nhóm `gate` (điều kiện chặn):
 7. Ánh xạ Q1–Q6.
 8. Tính tái lập.
 
-Sau khi Bước 1 hoàn tất, sao chép toàn bộ database Phase 2 sang database staging (bản tạm) bằng SQLite backup API. Mọi bảng/view Phase 3, đối chiếu và kiểm định được tạo trên bản staging; các CSV/XLSX cũng được ghi vào thư mục staging. Chỉ sau khi tất cả gate đạt mới thay database và đúng danh sách file Phase 3 chính thức, có bản sao lưu để hoàn tác nếu một bước thay thế lỗi.
+Sau khi Bước 1 hoàn tất, sao chép toàn bộ database Phase 2 sang database staging (bản tạm) bằng SQLite backup API. Mọi bảng/view Phase 3, đối chiếu và kiểm định được tạo trên bản staging; các CSV/XLSX cũng được ghi vào thư mục staging. Chỉ sau khi tất cả gate đạt mới thay database và đúng danh sách file Phase 3 chính thức. Đích SQLite phải được đưa vào phạm vi hoàn tác trước khi nhánh backup có thể thay đổi nó; lỗi `OSError` và `sqlite3.Error` đều kích hoạt phục hồi từ bản sao lưu.
 
 Phạm vi bảo toàn nguyên tử bắt đầu **sau Bước 1**. Chạy lại Phase 2 ở đầu pipeline chủ động xóa sản phẩm Phase 3 cũ; kế hoạch không cam kết giữ bản Phase 3 cũ qua một lần rebuild Phase 2 đã thành công.
 
-Kiểm thử hoàn tác phải bao phủ cả thay thế tệp thông thường và nhánh SQLite backup khi `os.replace` gặp `PermissionError` do database đang bị khóa. Với nhánh SQLite, phải kiểm tra hai trường hợp: công bố thành công và công bố database xong nhưng một tệp sau đó lỗi, buộc khôi phục đầy đủ schema, dữ liệu và `user_version` cũ.
+Kiểm thử hoàn tác phải bao phủ cả thay thế tệp thông thường và nhánh SQLite backup khi `os.replace` gặp `PermissionError` do database đang bị khóa. Với nhánh SQLite, phải kiểm tra công bố thành công, lỗi trong backup, lỗi xóa tệp staging sau backup và lỗi ở một tệp công bố sau đó. Nếu chính phục hồi thất bại, thông báo phải ghi rõ `rollback incomplete`, lỗi công bố gốc và lỗi phục hồi; không được khẳng định đầu ra cũ đã được khôi phục.
 
 ### Vì sao
 
@@ -873,6 +874,8 @@ Không có lỗi runtime (lỗi khi chạy) chưa chứng minh kết quả đún
 - Sáu workbook được kiểm theo allow-list (danh sách cho phép) tên file ở Bước 13, không đếm bằng wildcard `03_*.xlsx`; mỗi file đúng tên và đủ sheet quy định.
 - Q1–Q6 đều ánh xạ tới ít nhất một sheet.
 - Mọi kiểm tra Python–SQL bắt buộc `PASS`.
+- Hợp đồng phát hành khóa trực tiếp 18.926 dòng fact, phân bố Q1–Q6, 18.926 dòng đối chiếu và chính xác tập 92 mã kiểm định; hai lần chạy giống nhau không đủ để đạt nếu cùng lệch khỏi các mốc này.
+- Đọc lại sáu workbook đã ghi và xác nhận mọi ô `ratio` dùng `0.0000%`, còn ô `pct` không dùng định dạng phần trăm.
 
 ### Kiểm thử chuẩn cho HHI và Gini
 

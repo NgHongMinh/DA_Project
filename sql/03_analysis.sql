@@ -183,9 +183,12 @@ SELECT 'STATISTICAL_SCOPE',scope,'YEAR','Y'||year,series_key,metric_name,scope,f
  'phase3_v1','Q1',year,year,metric_value,NULL,
  CASE WHEN metric_name='n' THEN 'count' WHEN metric_name IN ('cv','skewness','kurtosis','zero_share_population','zero_share_observed') THEN 'ratio' ELSE 'TWh' END,
  CASE WHEN metric_name='n' OR metric_value IS NOT NULL THEN 'CALCULATED'
-      WHEN n=0 THEN 'NOT_DEFINED' ELSE 'INSUFFICIENT_N' END,
+      WHEN n=0 THEN 'NOT_DEFINED'
+      WHEN metric_name='cv' AND n>=2 AND mean_v=0 THEN 'NOT_DEFINED'
+      ELSE 'INSUFFICIENT_N' END,
  CASE WHEN metric_name='n' OR metric_value IS NOT NULL THEN 'NONE'
       WHEN n=0 THEN 'EMPTY_GROUP'
+      WHEN metric_name='cv' AND n>=2 AND mean_v=0 THEN 'ZERO_MEAN'
       WHEN metric_name IN ('skewness','kurtosis') AND m2=0 THEN 'CONSTANT_GROUP' ELSE 'INSUFFICIENT_N' END,
  population_n,observed_n,missing_n,n,zero_n,trace_n,material_n,NULL,NULL,NULL,
  CASE WHEN metric_name='zero_share_population' THEN 'POPULATION'

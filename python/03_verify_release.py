@@ -11,17 +11,22 @@ import pandas as pd
 
 from config import ARCHIVE, BASE, DB_PATH, STATS
 from phase2_contract import EXPECTED_VALIDATION_ROWS, validate_phase2_gate
+from phase3_contract import (
+    EXPECTED_CROSSCHECK_ROWS,
+    EXPECTED_FACT_ROWS,
+    EXPECTED_PHASE3_VALIDATION_IDS,
+    EXPECTED_PHASE3_VALIDATION_ROWS,
+    EXPECTED_QUESTION_ROWS,
+    PHASE3_WORKBOOKS,
+    workbook_number_format_errors,
+)
 
 
 PHASE3_CSV = [
     "03_fact_metrics.csv", "03_metric_definitions.csv",
     "03_crosscheck_results.csv", "03_validation_results.csv",
 ]
-PHASE3_XLSX = [
-    "03_global_cross_section.xlsx", "03_asean_cross_section.xlsx",
-    "03_vietnam_time_series.xlsx", "03_ranking_comparison.xlsx",
-    "03_entry_lag.xlsx", "03_global_context.xlsx",
-]
+PHASE3_XLSX = list(PHASE3_WORKBOOKS)
 FACT_ORDER = (
     "subject_type,subject_key,period_type,period_key,series_key,metric_name,"
     "comparison_scope,filter_variant,method_version"
@@ -77,18 +82,63 @@ def run_release() -> None:
 
 def snapshot() -> dict[str, object]:
     phase2_validations = pd.read_csv(STATS / "02_validation_results.csv")
+    facts = pd.read_csv(STATS / "03_fact_metrics.csv")
     cross = pd.read_csv(STATS / "03_crosscheck_results.csv")
     validations = pd.read_csv(STATS / "03_validation_results.csv")
     if len(phase2_validations) != EXPECTED_VALIDATION_ROWS:
         raise AssertionError("Phase 2 validation output is incomplete")
     if phase2_validations.phase2_input_fingerprint.nunique() != 1:
         raise AssertionError("Phase 2 validation output is not bound to one fingerprint")
-    if not cross.status.eq("PASS").all():
-        raise AssertionError("Cross-check output contains non-PASS rows")
+    if len(facts) != EXPECTED_FACT_ROWS:
+        raise AssertionError(
+            f"fact_metrics must have {EXPECTED_FACT_ROWS} rows, found {len(facts)}"
+        )
+    question_rows = facts.groupby("question_id").size().to_dict()
+    if question_rows != EXPECTED_QUESTION_ROWS:
+        raise AssertionError(
+            f"Question distribution changed: expected={EXPECTED_QUESTION_ROWS}, "
+            f"actual={question_rows}"
+        )
+    if len(cross) != EXPECTED_CROSSCHECK_ROWS or not cross.status.eq("PASS").all():
+        raise AssertionError(
+            f"Cross-check contract failed: rows={len(cross)}, "
+            f"failures={int(cross.status.ne('PASS').sum())}"
+        )
     if not validations.status.eq("PASS").all():
         raise AssertionError("Phase 3 validation output contains non-PASS rows")
-    if not validations.validation_id.is_unique:
-        raise AssertionError("Phase 3 validation IDs are not unique")
+    actual_validation_ids = set(validations.validation_id)
+    if (
+        len(validations) != EXPECTED_PHASE3_VALIDATION_ROWS
+        or not validations.validation_id.is_unique
+        or actual_validation_ids != EXPECTED_PHASE3_VALIDATION_IDS
+    ):
+        raise AssertionError(
+            "Phase 3 validation ID contract failed: "
+            f"rows={len(validations)}, "
+            f"missing={sorted(EXPECTED_PHASE3_VALIDATION_IDS - actual_validation_ids)}, "
+            f"unexpected={sorted(actual_validation_ids - EXPECTED_PHASE3_VALIDATION_IDS)}"
+        )
+
+    distribution_key = [
+        "subject_type", "subject_key", "period_type", "period_key", "series_key",
+        "comparison_scope", "filter_variant", "method_version",
+    ]
+    cv_rows = facts[facts.metric_name.eq("cv")].merge(
+        facts[facts.metric_name.eq("mean")][distribution_key + ["metric_value"]].rename(
+            columns={"metric_value": "mean_value"}
+        ),
+        on=distribution_key,
+        how="left",
+        validate="one_to_one",
+    )
+    zero_mean_cv = cv_rows[cv_rows.included_n.ge(2) & cv_rows.mean_value.eq(0)]
+    if (
+        zero_mean_cv.empty
+        or not zero_mean_cv.metric_value.isna().all()
+        or not zero_mean_cv.value_status.eq("NOT_DEFINED").all()
+        or not zero_mean_cv.exclusion_reason.eq("ZERO_MEAN").all()
+    ):
+        raise AssertionError("Zero-mean CV rows do not use NOT_DEFINED/ZERO_MEAN")
 
     connection = sqlite3.connect(DB_PATH.resolve().as_uri() + "?mode=ro", uri=True)
     try:
@@ -110,6 +160,14 @@ def snapshot() -> dict[str, object]:
         "zero_rule", "threshold_rules", "fact_key_definition", "q5_pair_mapping",
     }
     for name in PHASE3_XLSX:
+        format_errors = workbook_number_format_errors(
+            STATS / name, PHASE3_WORKBOOKS[name]
+        )
+        if format_errors:
+            raise AssertionError(
+                f"Workbook number-format contract failed for {name}: "
+                f"{format_errors[:10]}"
+            )
         metadata = pd.read_excel(STATS / name, sheet_name="metadata")
         if not metadata.metadata_key.is_unique or set(metadata.metadata_key) != required_metadata:
             raise AssertionError(f"Workbook metadata contract failed: {name}")
@@ -135,7 +193,7 @@ def snapshot() -> dict[str, object]:
         "csv": file_hashes([STATS / name for name in PHASE3_CSV]),
         "workbooks": {name: workbook_data_hash(STATS / name) for name in PHASE3_XLSX},
         "database": database_fact_hash(),
-        "fact_count": len(pd.read_csv(STATS / "03_fact_metrics.csv")),
+        "fact_count": len(facts),
         "cross_count": len(cross),
         "validation_count": len(validations),
     }

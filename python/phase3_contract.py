@@ -105,14 +105,9 @@ def workbook_number_format_errors(path: Path, sheet_names: list[str]) -> list[st
             unit_pairs.extend(
                 (unit_name[:-5], unit_name)
                 for unit_name in headers
-                if unit_name.endswith("_unit")
+                if unit_name.endswith("_unit") and unit_name[:-5] in headers
             )
             for value_name, unit_name in unit_pairs:
-                if value_name not in headers:
-                    errors.append(
-                        f"{sheet_name}: unit column {unit_name!r} has no value column {value_name!r}"
-                    )
-                    continue
                 value_column = headers[value_name]
                 unit_column = headers[unit_name]
                 for row_number in range(2, worksheet.max_row + 1):

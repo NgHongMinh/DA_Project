@@ -311,7 +311,7 @@ Chạy: `python python\02_clean_build.py` và
 - **finding_id:** P3-10; **question_id:** Q1–Q6; **scope:** Phase 3 release; **period:** 2000–2021; **metric_name:** `fact_metrics`.
 - **Bằng chứng số:** `fact_metrics` có **18.926** dòng: Q1=5.544, Q2=3.608, Q3=1.980, Q4=1.382, Q5=5.950, Q6=462; **18.926/18.926** đối chiếu Python–SQL và **92/92** kiểm định có mã duy nhất đều `PASS`.
 - **Truy vết:** `output/stats/03_fact_metrics.csv`, `03_crosscheck_results.csv`, `03_validation_results.csv`; dấu vân tay `64e1cc7d7bcb…`.
-- **Diễn giải:** phạm vi kiểm chứng gồm giá trị, chữ, trạng thái, lý do, số đếm, thành phần và mẫu số; không còn dùng số dòng/trùng khóa làm đại diện cho tính đúng đắn phân tích.
+- **Diễn giải:** phạm vi kiểm chứng gồm giá trị, chữ, trạng thái, lý do, số đếm, thành phần, mẫu số và định dạng tỷ lệ trong workbook. Các mốc 18.926 dòng, phân bố Q1–Q6, 18.926 đối chiếu và chính xác tập 92 mã được khóa trực tiếp; CV đủ quan sát nhưng mean bằng 0 dùng `NOT_DEFINED / ZERO_MEAN`.
 - **Giới hạn:** kiểm định chứng minh hai cách triển khai và các bất biến đã khóa nhất quán; nó không thay thế việc thẩm định định nghĩa nghiệp vụ bên ngoài đồ án. **Tin cậy:** Cao.
 
 # Phase 4 — Trực quan hoá
