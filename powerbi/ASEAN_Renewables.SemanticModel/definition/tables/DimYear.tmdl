@@ -18,16 +18,17 @@ table DimYear
 	partition DimYear = m
 		mode: import
 		source =
-			let
-			    Source = Csv.Document(
-			        File.Contents( pCleanFolder & "\dim_year.csv" ),
-			        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
-			    ),
-			    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
-			    Typed = Table.TransformColumnTypes(
-			        Promoted,
-			        {{"year", Int64.Type}, {"is_main_asean_window", Int64.Type}},
-			        "en-US"
-			    )
-			in
-			    Typed
+				let
+				    Source = Csv.Document(
+				        File.Contents( pCleanFolder & "\dim_year.csv" ),
+				        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {{"year", Int64.Type}, {"is_main_asean_window", Int64.Type}},
+				        "en-US"
+				    )
+				in
+				    Typed
+

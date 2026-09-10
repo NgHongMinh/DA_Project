@@ -114,24 +114,25 @@ table DimMetric
 			            0
 			        )
 		dataType: int64
-		formatString: 0
 		isHidden
+		formatString: 0
 		lineageTag: 94c783d7-70ca-5f15-bb85-91444bbf9485
 		summarizeBy: none
 
 	partition DimMetric = m
 		mode: import
 		source =
-			let
-			    Source = Csv.Document(
-			        File.Contents( pCleanFolder & "\dim_metric.csv" ),
-			        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
-			    ),
-			    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
-			    Typed = Table.TransformColumnTypes(
-			        Promoted,
-			        {{"metric_key", type text}, {"technology", type text}, {"metric", type text}, {"canonical_unit", type text}, {"source_unit", type text}, {"conversion_factor", type number}, {"source_file", type text}, {"source_column", type text}, {"scope", type text}, {"trace_threshold", type number}, {"analysis_start_year", Int64.Type}, {"analysis_end_year", Int64.Type}},
-			        "en-US"
-			    )
-			in
-			    Typed
+				let
+				    Source = Csv.Document(
+				        File.Contents( pCleanFolder & "\dim_metric.csv" ),
+				        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {{"metric_key", type text}, {"technology", type text}, {"metric", type text}, {"canonical_unit", type text}, {"source_unit", type text}, {"conversion_factor", type number}, {"source_file", type text}, {"source_column", type text}, {"scope", type text}, {"trace_threshold", type number}, {"analysis_start_year", Int64.Type}, {"analysis_end_year", Int64.Type}},
+				        "en-US"
+				    )
+				in
+				    Typed
+

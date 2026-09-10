@@ -487,19 +487,362 @@ tiếp trên hình.
 
 ## 1.5a. Phân tích kết quả và kết luận có ý nghĩa
 
-*(Phase 6 — chưa thực hiện)*
+Năm phát hiện dưới đây được chọn từ 34 mục đã ghi trong `docs/NhatKyPhanTich.md`,
+theo bốn tiêu chí đặt trước khi chọn: trả lời trực tiếp câu hỏi trung tâm · có con
+số truy được về `output/stats/` · có ít nhất một biểu đồ đã nghiệm thu · không trùng
+thông điệp với phát hiện khác.
+
+**Mọi con số trong mục này đã được tính lại từ nguồn, không chép lại từ nhật ký.**
+`python/06_verify_findings.py` thu ba cách đọc độc lập cho từng con số — hằng số
+chép tay trong `python/phase6_contract.py`, tra cứu trong `03_fact_metrics.csv`, và
+một phép tính lại chỉ đọc `output/clean/*.csv` — rồi từ chối công bố nếu bất kỳ cặp
+nào lệch. Kết quả: **47/47 khớp**, chênh lệch lớn nhất `9,1 × 10⁻¹³`, dưới dung sai
+`10⁻⁹`. Bảng chứng cứ đầy đủ ở `output/stats/06_finding_evidence.csv`, mỗi dòng kèm
+khoá dòng cụ thể của nguồn.
+
+---
+
+### Phát hiện 1 — Quy mô tăng gần bốn lần, nhưng chỗ đứng trên thế giới gần như không đổi
+
+Sản lượng năng lượng tái tạo của ASEAN-10 đi từ **72,801 TWh** năm 2000 lên
+**289,656 TWh** năm 2021 — gấp **3,98 lần**. Đọc riêng con số này thì đó là một câu
+chuyện tăng trưởng mạnh.
+
+Nhưng thế giới cũng tăng trong cùng giai đoạn, từ **2.854,49** lên **7.885,04 TWh**.
+Kết quả là tỷ trọng của ASEAN chỉ nhích từ **2,5504%** lên **3,6735%** — thêm khoảng
+**1,1 điểm phần trăm** sau 21 năm.
+
+![Bối cảnh toàn cầu và ASEAN](../output/charts/04_01_global_asean_context.png)
+
+**Diễn giải.** Khu vực chạy nhanh, nhưng chạy trong một đoàn đang cùng tăng tốc. Mọi
+phát biểu kiểu "ASEAN đang bứt lên trong chuyển dịch năng lượng toàn cầu" cần được
+kèm ngay mẫu số này, nếu không nó đúng về lượng mà sai về vị thế. Đây cũng là lý do
+báo cáo dùng cả hai thước đo — sản lượng tuyệt đối và tỷ trọng — ở mọi chỗ có thể.
+
+*Truy vết:* `F1_ASEAN_2000`, `F1_ASEAN_2021`, `F1_WORLD_2000`, `F1_WORLD_2021`,
+`F1_SHARE_2000`, `F1_SHARE_2021`.
+
+---
+
+### Phát hiện 2 — Gió và mặt trời đi lên từ mức đúng bằng không, nhưng thuỷ điện vẫn là nguồn lớn nhất
+
+Năm 2000, tổng sản lượng gió cộng mặt trời của cả mười nước ASEAN là **0 TWh** —
+không phải "rất nhỏ", mà đúng bằng không. Năm 2010 mới đạt **0,13 TWh**. Đến 2021 là
+**42,73 TWh**.
+
+Chính vì nền xuất phát bằng 0 mà **tốc độ tăng của nhóm này không tính được** cho
+giai đoạn 2000–2021: mọi công thức tăng trưởng đều cần mẫu số dương. Đây không phải
+lỗi dữ liệu mà là một tính chất của hiện tượng, và báo cáo ghi `NOT_DEFINED` thay vì
+điền một con số cho đẹp bảng.
+
+Cơ cấu năm 2021 cho thấy phần còn lại của bức tranh:
+
+| Công nghệ | TWh | Tỷ trọng |
+|---|---:|---:|
+| Thuỷ điện | 185,58 | 64,07% |
+| Nguồn tái tạo khác | 61,3457 | 21,18% |
+| Mặt trời | 34,43 | 11,89% |
+| Gió | 8,30 | 2,87% |
+
+![Xu hướng công nghệ ASEAN](../output/charts/04_02_asean_technology_trend.png)
+
+**Diễn giải.** Gió và mặt trời cộng lại mới chiếm **14,75%** sản lượng tái tạo của
+khu vực. Câu chuyện "bùng nổ điện mặt trời Đông Nam Á" là có thật về tốc độ nhưng
+chưa đúng về quy mô: cấu trúc nguồn của ASEAN năm 2021 vẫn là cấu trúc thuỷ điện.
+Hai câu này chỉ mâu thuẫn khi người ta bỏ mất một trong hai thước đo.
+
+*Truy vết:* `F2_MODERN_2000`, `F2_MODERN_2010`, `F2_MODERN_2021`, `F2_HYDRO_2021`,
+`F2_OTHER_2021`, `F2_SOLAR_2021`, `F2_WIND_2021`.
+
+---
+
+### Phát hiện 3 — Đổi định nghĩa "năng lượng tái tạo" là đổi luôn bảng xếp hạng khu vực
+
+Cùng một năm 2021, cùng mười nước, chỉ đổi thước đo từ **tổng năng lượng tái tạo**
+sang **gió + mặt trời**, thứ hạng đảo lại:
+
+| Nước | Hạng theo tổng NLTT | Hạng theo gió + mặt trời | Thay đổi |
+|---|---:|---:|---:|
+| Việt Nam | 1 | 1 | 0 |
+| Indonesia | 2 | 6 | **−4** |
+| Lào | 4 | 9 | **−5** |
+| Thái Lan | 5 | 2 | **+3** |
+| Philippines | 6 | 3 | **+3** |
+| Singapore | 9 | 5 | **+4** |
+
+![So sánh hai cách xếp hạng](../output/charts/04_04_asean_rank_shift_2021.png)
+
+**Diễn giải.** Indonesia và Lào tụt vì thế mạnh của họ là thuỷ điện và địa nhiệt —
+những nguồn tái tạo lâu đời, phụ thuộc địa hình. Singapore vọt lên 4 bậc dù sản lượng
+tuyệt đối rất nhỏ, vì gần như toàn bộ phần tái tạo của họ là điện mặt trời.
+
+Việt Nam giữ hạng 1 ở **cả hai** cách đo, và đó là điều đáng chú ý nhất trong bảng:
+nó cho thấy sự đảo lộn không phải do cả bảng cùng xê dịch.
+
+Hệ quả về phương pháp: **một bảng xếp hạng năng lượng tái tạo không có nghĩa nếu
+không nói rõ nó đang đo cái gì.** Đây chính là lý do dashboard Phase 5 đặt công tắc
+chuyển giữa hai thước đo ngay trên hàng bộ lọc chứ không giấu trong một trang phụ.
+
+*Truy vết:* 18 claim `F3_RANK_*` và `F3_GAIN_*`.
+
+---
+
+### Phát hiện 4 — Việt Nam nắm hai phần ba lượng gió và mặt trời của ASEAN, và hai phần ba phần tăng thêm
+
+Năm 2021 Việt Nam sản xuất **104,2180 TWh** năng lượng tái tạo, chiếm **35,9800%**
+toàn khu vực và đứng **hạng 16 thế giới**.
+
+Riêng gió và mặt trời, mức tập trung còn cao hơn nhiều: **28,16 TWh**, bằng
+**65,9022%** của cả ASEAN, **hạng 17 thế giới**.
+
+Nhìn theo phần tăng thêm giai đoạn 2010–2021 thì bức tranh rõ hơn nữa. Trong tổng
+mức tăng dương của cả khu vực, Việt Nam đóng góp **42,3781%** ở tổng năng lượng tái
+tạo và **65,9859%** ở riêng gió + mặt trời.
+
+![Xu hướng công nghệ Việt Nam](../output/charts/04_07_vietnam_technology_trend.png)
+
+![Vị thế Việt Nam trong khu vực và thế giới](../output/charts/04_09_vietnam_regional_global_position.png)
+
+**Diễn giải.** Gần như toàn bộ tăng trưởng gió và mặt trời của Đông Nam Á trong hơn
+một thập kỷ đến từ một nước. Điều này khiến chỉ số trung bình của khu vực trở nên
+gây hiểu lầm: "ASEAN tăng trưởng điện mặt trời" thực chất mô tả Việt Nam cộng với
+chín nước tăng chậm hơn nhiều.
+
+⚠️ Bộ dữ liệu này **không** cho biết vì sao. Không có biến chính sách, giá thành hay
+cơ chế khuyến khích trong 17 file nguồn, nên mọi giải thích nguyên nhân — kể cả những
+giải thích nghe rất hợp lý — đều nằm ngoài phạm vi chứng minh được ở đây.
+
+*Truy vết:* `F4_VN_TOTAL_2021`, `F4_VN_MODERN_2021`, `F4_VN_SHARE_TOTAL`,
+`F4_VN_SHARE_MODERN`, `F4_VN_GLOBAL_RANK_TOTAL`, `F4_VN_GLOBAL_RANK_MODERN`,
+`F4_VN_GROWTH_TOTAL`, `F4_VN_GROWTH_MODERN`.
+
+---
+
+### Phát hiện 5 — Đà tăng của khu vực tập trung vào rất ít nước
+
+Ba chỉ số tập trung, đo trên cùng mười nước năm 2021, đều cho cùng một kết luận và
+đều cao hơn hẳn khi chuyển sang thước đo hiện đại:
+
+| Chỉ số | Tổng NLTT | Gió + mặt trời |
+|---|---:|---:|
+| Tỷ trọng ba nước dẫn đầu | 67,1023% | **92,2537%** |
+| HHI | 0,207886 | **0,480404** |
+| Gini | 0,529218 | **0,771285** |
+
+![Mức tập trung và tăng trưởng ASEAN](../output/charts/04_12_asean_concentration_growth.png)
+
+**Diễn giải.** Ba nước giữ hơn **92%** lượng gió và mặt trời của cả khối. HHI vượt
+0,48 — mức mà trong phân tích cạnh tranh được coi là tập trung rất cao. Ba chỉ số này
+đo ba thứ khác nhau (tỷ trọng nhóm dẫn đầu, độ phân tán bình phương, độ bất bình
+đẳng) nên việc cả ba cùng chỉ một hướng làm kết luận vững hơn một chỉ số đơn lẻ.
+
+Hệ quả trực tiếp: **một con số trung bình cho ASEAN sẽ che mất bức tranh thật.** Mọi
+biểu đồ ở mục 1.4 vì thế đều tách theo nước thay vì gộp khu vực, và dashboard giữ
+mẫu số khu vực cố định `ASEAN_SUM_10` khi người xem lọc theo một nước.
+
+*Truy vết:* `F5_TOP1_*`, `F5_TOP3_*`, `F5_HHI_*`, `F5_GINI_*`.
+
+---
+
+### Mạch nối năm phát hiện
+
+Năm phát hiện không rời rạc mà thu hẹp dần theo đúng câu hỏi trung tâm:
+
+> Khu vực tăng mạnh nhưng chưa đổi vị thế **(1)** · phần tăng ấy chủ yếu vẫn là thuỷ
+> điện, còn gió và mặt trời mới xuất phát **(2)** · nên trả lời "ai dẫn đầu" phụ
+> thuộc vào việc đo cái gì **(3)** · đo theo nguồn hiện đại thì gần như chỉ có một
+> nước **(4)** · và mức tập trung ấy cao đến độ trung bình khu vực mất ý nghĩa **(5)**.
 
 ## 1.5b. Slide trình bày
 
-*(Phase 6 — chưa thực hiện)*
+**Sản phẩm:** `output/slides/ASEAN_Renewables.pptx` — 11 slide, khổ 16:9, sinh bằng
+`python/06_build_slides.py`.
+
+Slide được **dựng bằng script** thay vì làm tay, cùng một nếp với 13 biểu đồ của
+Phase 4 và dự án Power BI của Phase 5. Lý do không phải tiện lợi mà là kiểm chứng:
+tiêu chí "mỗi con số trên slide truy được về một bảng trong `output/stats/`" nếu làm
+tay thì phải soi bằng mắt, còn sinh bằng script thì mọi con số đọc thẳng từ
+`python/phase6_contract.py` — tức từ chính tập 47 số đã qua kiểm chứng ba chiều.
+
+Ràng buộc này được **cưỡng chế** chứ không chỉ tuyên bố: hàm `assert_no_stray_numbers()`
+quét toàn bộ chữ trên 11 slide, đối chiếu từng chuỗi số với tập giá trị sinh ra từ
+hợp đồng, và **từ chối ghi file** nếu còn một con số không truy được nguồn.
+
+**Mạch 11 slide:**
+
+| # | Nội dung | Hình |
+|---|---|---|
+| 1 | Móc mở đầu — một câu hỏi, một con số | |
+| 2 | Câu hỏi trung tâm và sáu câu hỏi con | |
+| 3 | Dữ liệu **không** trả lời được những gì | C13 |
+| 4 | Bốn khuyết điểm tìm thấy trong 17 file gốc | |
+| 5 | Làm sạch, và cách chứng minh đã làm đúng | |
+| 6 | Phát hiện 1 — quy mô tăng, vị thế không đổi | C01 |
+| 7 | Phát hiện 2 — gió và mặt trời xuất phát từ 0 | C02 |
+| 8 | Phát hiện 3 — đổi cách đo là đổi thứ hạng | C04 |
+| 9 | Phát hiện 4 — hai phần ba nằm ở một nước | C07 |
+| 10 | Phát hiện 5 — đà tăng tập trung vào rất ít nước | C12 |
+| 11 | Hướng đi tiếp và dữ liệu còn thiếu | |
+
+Mạch đi theo **lập luận**, không theo trình tự công việc: câu hỏi → giới hạn dữ liệu
+→ khuyết điểm dữ liệu → cách chứng minh đã xử lý đúng → năm phát hiện → hướng tiếp.
+Không slide nào nói "tôi đã dùng pandas" hay "tôi đã viết SQL", vì đó là thứ tự làm
+việc chứ không phải mạch lý lẽ.
+
+Cặp slide **4 + 5** là chỗ đặt trọng tâm: nêu bốn khuyết điểm cụ thể của dữ liệu gốc,
+rồi cho thấy chúng đã được xử lý và **chứng minh** là xử lý đúng. Slide 11 cố ý chỉ
+mở hướng — kết luận và đề xuất đầy đủ thuộc mục 1.6.
+
+**Quy ước trình bày:** bảng màu và cách viết số lấy nguyên của Phase 4 — `1.000` cho
+hàng nghìn, `0,0` cho thập phân, màu nhấn `#D55E00` cho Việt Nam. Dựng hai lần cho
+tệp **giống hệt từng byte** (`44568cb7…`); dấu thời gian trong ZIP được chuẩn hoá để
+mã băm phản ánh nội dung chứ không phản ánh giờ chạy.
 
 ## 1.5c. Dashboard
 
-*(Phase 5 — chưa thực hiện)*
+Dashboard được dựng bằng Power BI Desktop trên mô hình sao đọc thẳng bảy tệp
+`output/clean/*.csv` của Phase 2 — **không** nối vào `sql/renewables.db`, vì Power BI
+không có connector SQLite native và trình điều khiển ODBC cần quyền quản trị mà máy
+thực hiện không có. Đây là lựa chọn có chủ ý, không phải hạn chế phát sinh.
+
+**Mô hình.** Tám bảng: bốn bảng vận hành (`FactEnergy` 89.075 dòng, `DimEntity` 256,
+`DimMetric` 16, `DimYear` 57) và ba bảng chọn không quan hệ (`SelReportYear`,
+`SelMode`, `SelBaseYear`) đóng vai bộ điều khiển cho các phép đo. Ba quan hệ một–nhiều
+từ ba bảng chiều sang bảng dữ kiện.
+
+**Phép đo.** 73 phép đo DAX sinh từ **một** nguồn duy nhất là `python/05_measures.py`,
+xuất song song ra TMDL và ra danh mục `powerbi/DAX_Measures.md`. Mỗi phép đo có mã
+`M###` và định nghĩa nghiệp vụ viết ra được — đây là điều kiện mà mục 1.5c đặt ra
+ngay từ đầu: KPI định nghĩa mơ hồ là chỗ dashboard mất tín nhiệm.
+
+**Ba trang, 47 ô trực quan.** Trang 1 tổng quan Đông Nam Á (14 ô), trang 2 Việt Nam
+chuyên sâu (15 ô), trang 3 so sánh và chẩn đoán (18 ô). Mỗi trang có cùng một hàng
+bộ lọc ở vị trí cố định — năm báo cáo, chế độ đo, quốc gia, công nghệ — và một chân
+trang ghi nguồn, cửa sổ năm, lý do loại năm 2022 và ghi chú đã loại thực thể tổng hợp.
+
+**Công tắc "chỉ NLTT hiện đại"** là trục phân tích của dashboard chứ không phải một
+tuỳ chọn trang trí: bật nó lên ở năm 2021 thì thứ hạng ASEAN đảo lại — Singapore
+tăng 4 bậc, Indonesia giảm 4, Lào giảm 5 — và đó chính là phát hiện P3-06.
+
+**Kiểm định.** 169 truy vấn nghiệm thu DAX sinh tự động từ bộ đích của Phase 3, cộng
+6 mã khoá đường cơ sở: **175/175 đạt, 0 dòng chặn**. Thêm 10 tiêu chí đọc thẳng tệp
+trên đĩa (C1–C10) bắt các sai lệch giữa danh mục phép đo và tệp bàn giao — bộ tiêu
+chí này ra đời sau khi một sai lệch như vậy thực sự xảy ra, xem phát hiện P5-03.
+
+**Giới hạn — phải đọc kèm.** Lớp định lượng đã được chứng minh; **lớp tương tác và
+trình bày chưa nghiệm thu**. Cụ thể: bộ lọc chưa đồng bộ giữa ba trang, chưa có dấu
+trang đặt lại và thanh điều hướng, chưa áp bảng màu Phase 4, ma trận tương tác để
+mặc định, và giao diện còn tiếng Anh. Tệp `.pbix` tại thời điểm nộp mang bản model
+cũ 71 phép đo, nên **sản phẩm hợp lệ của mục này là dự án dạng văn bản PBIP cộng
+`powerbi/DAX_Measures.md`**. Chi tiết đầy đủ ở `docs/Phase5_Review.md` §5.
 
 # 1.6. Kết luận và đề xuất
 
-*(Phase 7 — chưa thực hiện)*
+Mỗi kết luận dưới đây neo vào một con số đã qua kiểm chứng ba chiều ở Gate E3
+(`output/stats/06_finding_evidence.csv`, **56/56 khớp**). Mã trong ngoặc là
+`claim_id` để tra ngược.
+
+## 1.6.1. Năm kết luận
+
+**Kết luận 1 — Đông Nam Á đang chuyển dịch, nhưng chưa đủ nhanh để đổi vị thế.**
+Sản lượng năng lượng tái tạo của ASEAN-10 tăng từ **72,801** lên **289,656 TWh**
+trong 21 năm, tức gấp **3,98 lần**. Cùng kỳ, tỷ trọng của khu vực trong tổng sản
+lượng thế giới chỉ đi từ **2,5504%** lên **3,6735%** — thêm **1,12 điểm phần trăm**.
+Khu vực tăng nhanh hơn nền chung, nhưng biên độ vượt lên rất mỏng.
+*(`F1_ASEAN_2000`, `F1_ASEAN_2021`, `F1_SHARE_2000`, `F1_SHARE_2021`)*
+
+**Kết luận 2 — Cơ cấu nguồn của ASEAN năm 2021 vẫn là cơ cấu thuỷ điện.**
+Thuỷ điện chiếm **185,58 TWh**, tức **64,07%** tổng sản lượng tái tạo của khu vực.
+Gió và mặt trời cộng lại được **42,73 TWh**, tức **14,75%**. Nhóm nguồn hiện đại
+tăng rất nhanh nhưng xuất phát từ **đúng 0 TWh** năm 2000, nên tốc độ ấn tượng đang
+mô tả một nền rất thấp chứ chưa mô tả một sự thay thế.
+*(`F2_HYDRO_2021`, `F2_MODERN_2000`, `F2_MODERN_2021`, `F1_ASEAN_2021`)*
+
+**Kết luận 3 — Đà chuyển dịch sang nguồn hiện đại tập trung vào rất ít nước.**
+Ba nước dẫn đầu giữ **92,2537%** lượng gió và mặt trời của cả khối, so với
+**67,1023%** khi đo bằng tổng năng lượng tái tạo. HHI tăng từ **0,2079** lên
+**0,4804**; Gini từ **0,5292** lên **0,7713**. Ba chỉ số đo ba thứ khác nhau —
+tỷ trọng nhóm dẫn đầu, độ phân tán bình phương, độ bất bình đẳng — và cùng chỉ một
+hướng, nên kết luận vững hơn một chỉ số đơn lẻ.
+*(`F5_TOP3_TOTAL`, `F5_TOP3_MODERN`, `F5_HHI_*`, `F5_GINI_*`)*
+
+**Kết luận 4 — Việt Nam là nguồn tăng trưởng chính của khu vực ở nhóm nguồn hiện đại.**
+Năm 2021 Việt Nam chiếm **65,9022%** lượng gió và mặt trời của ASEAN-10, và đóng góp
+**65,9859%** toàn bộ mức tăng dương của khu vực giai đoạn 2010–2021. Ở tổng năng
+lượng tái tạo, hai con số tương ứng là **35,9800%** và **42,3781%**. Nói cách khác,
+"ASEAN tăng trưởng điện gió và mặt trời" thực chất mô tả Việt Nam cộng chín nước tăng
+chậm hơn nhiều.
+*(`F4_VN_SHARE_MODERN`, `F4_VN_GROWTH_MODERN`, `F4_VN_SHARE_TOTAL`, `F4_VN_GROWTH_TOTAL`)*
+
+**Kết luận 5 — Xếp hạng khu vực phụ thuộc vào định nghĩa được chọn.**
+Chỉ đổi thước đo trong cùng năm 2021, Singapore tăng **4 bậc**, Thái Lan và
+Philippines mỗi nước tăng **3 bậc**, còn Indonesia giảm **4** và Lào giảm **5**. Việt
+Nam giữ hạng **1** ở cả hai cách đo — chi tiết này cho thấy đây là sự đảo vị trí thật
+chứ không phải cả bảng cùng xê dịch. Hệ quả: mọi bảng xếp hạng năng lượng tái tạo đều
+vô nghĩa nếu không nói rõ nó đang đo cái gì.
+*(18 claim `F3_RANK_*` và `F3_GAIN_*`)*
+
+## 1.6.2. Đề xuất
+
+Mỗi đề xuất viết theo dạng *"dữ liệu cho thấy X, nên cần xem xét Y"*. Đây là hướng
+cần cân nhắc, **không** phải phương án đã tính chi phí hay đã đánh giá khả thi.
+
+### Cho Việt Nam
+
+| # | Dữ liệu cho thấy | Nên xem xét |
+|---|---|---|
+| VN-1 | Việt Nam chiếm **65,9022%** gió + mặt trời của ASEAN nhưng chỉ **35,9800%** tổng NLTT — tập trung vào một nhóm công nghệ | Đánh giá rủi ro vận hành hệ thống, vì gió và mặt trời là nguồn phát không điều độ được; cân nhắc đầu tư lưu trữ và điều độ song song với công suất mới |
+| VN-2 | Tỷ trọng NLTT trong sản lượng điện **giảm** từ **54,7816%** (2000) xuống **42,5787%** (2021) — mất **12,20 điểm phần trăm** — dù sản lượng tuyệt đối tăng **7,16 lần** | Đặt chỉ tiêu theo **tỷ trọng**, không chỉ theo TWh. Sản lượng tăng bảy lần vẫn có thể đi kèm tỷ trọng giảm nếu tổng cầu điện tăng nhanh hơn |
+| VN-3 | Có **2 năm** (2003, 2014) mà sản lượng và tỷ trọng đi ngược chiều nhau | Khi đặt chỉ tiêu, tách rõ hai loại mục tiêu — tăng sản lượng và tăng tỷ trọng không đồng nghĩa, và có năm chúng mâu thuẫn |
+| VN-4 | Hạng **16** thế giới về tổng NLTT nhưng hạng **17** về gió + mặt trời | Nhóm nguồn hiện đại chưa tạo được lợi thế xếp hạng tương xứng với quy mô; nên so chuẩn với các nước cùng hạng toàn cầu thay vì chỉ so trong ASEAN |
+
+### Cho khu vực ASEAN
+
+| # | Dữ liệu cho thấy | Nên xem xét |
+|---|---|---|
+| KV-1 | **6/10** nước — Brunei, Campuchia, Lào, Malaysia, Myanmar, Singapore — không sản xuất một kWh điện gió nào năm 2021 | Cơ chế hợp tác và mua bán điện khu vực có thể hiệu quả hơn nỗ lực đơn lẻ ở những nước quy mô nhỏ hoặc thiếu tiềm năng gió |
+| KV-2 | HHI nhóm hiện đại đạt **0,4804**, mức được coi là tập trung rất cao | Theo dõi chỉ số tập trung như một chỉ báo thường kỳ, vì mức này khiến cả khu vực nhạy cảm với biến động chính sách ở một nước duy nhất |
+| KV-3 | Tỷ trọng ASEAN trong thế giới chỉ tăng **1,12 điểm phần trăm** sau 21 năm | Đặt mục tiêu khu vực theo tỷ trọng toàn cầu, không chỉ theo tăng trưởng nội khối — nội khối tăng gần 4 lần mà vị thế gần như không đổi |
+| KV-4 | Thuỷ điện chiếm **64,07%** và phụ thuộc địa hình, không nhân rộng đều được | Kỳ vọng tăng trưởng tương lai nên đặt vào nhóm nguồn nhân rộng được, và đánh giá riêng cho từng nước thay vì áp một mục tiêu chung |
+
+## 1.6.3. Những gì **không** thể đề xuất từ bộ dữ liệu này
+
+Mục này liệt kê các đề xuất mà một báo cáo có thể bị cám dỗ đưa ra nhưng dữ liệu
+không cho phép. Ghi ra để người đọc biết ranh giới, và để không ai trích dẫn báo cáo
+này cho những kết luận nó không chứng minh được.
+
+| Không thể nói | Vì thiếu |
+|---|---|
+| Nên ưu tiên đầu tư công nghệ nào để đạt hiệu quả kinh tế cao nhất | Không có giá thành, suất đầu tư, LCOE |
+| Chính sách nào đã tạo ra tăng trưởng của Việt Nam | Không có biến chính sách, mốc thời gian cơ chế giá, mức trợ cấp |
+| Chuyển dịch này giảm được bao nhiêu phát thải | Không có hệ số phát thải lưới, không có dữ liệu phát thải |
+| Nước nào vận hành nhà máy hiệu quả hơn | Hệ số công suất chỉ tính được cho **104 cặp** nước–năm, dùng công suất cuối năm nên chỉ là chỉ báo xấp xỉ |
+| Mức tiêu thụ trên đầu người hay cường độ năng lượng | Không có dân số, không có GDP |
+| Nên đặt tua-bin gió trên bờ hay ngoài khơi | Dữ liệu chỉ có tổng sản lượng gió, không tách hai loại |
+| Điều gì xảy ra sau năm 2021 | Năm 2022 bị cắt cụt ở 8 file và có 0 nước ASEAN, nên đã bị loại khỏi cửa sổ phân tích |
+
+Đây là **điểm mạnh của báo cáo, không phải điểm yếu**: biết ranh giới của dữ liệu là
+điều kiện để những kết luận nằm trong ranh giới ấy đáng tin.
+
+## 1.6.4. Dữ liệu cần bổ sung cho bước tiếp theo
+
+| Bảng cần ghép thêm | Khoá ghép | Mở ra câu hỏi hiện chưa trả lời được |
+|---|---|---|
+| LCOE và suất đầu tư theo công nghệ | `(technology, year)` | Ưu tiên công nghệ nào cho mỗi đồng vốn |
+| Mốc thời gian chính sách và cơ chế giá từng nước | `(entity, year)` | Chính sách nào đi trước tăng trưởng, chính sách nào đi sau |
+| Công suất lắp đặt đầy đủ, cả 10 nước × 4 công nghệ | `(entity, year, technology)` | Hệ số công suất cho toàn khu vực thay vì 104 cặp |
+| Dân số và tổng sản lượng điện | `(entity, year)` | Chuẩn hoá theo quy mô, so sánh công bằng Singapore với Indonesia |
+| Hệ số phát thải lưới | `(entity, year)` | Quy đổi chuyển dịch thành lượng phát thải tránh được |
+| Sản lượng gió tách trên bờ / ngoài khơi | `(entity, year)` | Đánh giá tiềm năng gió ngoài khơi của Việt Nam và Philippines |
+
+## 1.6.5. Ghi chú về mức tin cậy
+
+Năm kết luận ở §1.6.1 dựa trên con số đã qua kiểm chứng ba chiều, **mức tin cậy cao**
+trong phạm vi 10 nước ASEAN, cửa sổ 2000–2021, nguồn Our World in Data (Ember + BP).
+
+Các đề xuất ở §1.6.2 có mức tin cậy **thấp hơn** kết luận, vì chúng bắc cầu từ mô tả
+sang hành động — và bước bắc cầu ấy cần dữ liệu ở §1.6.4 mới kiểm chứng được. Đó là
+lý do mọi đề xuất được viết dưới dạng *"nên xem xét"* chứ không phải *"nên làm"*.
 
 ---
 
@@ -521,3 +864,10 @@ tiếp trên hình.
 | `output/stats/03_validation_results.csv` | Các gate Phase 3; không có dòng FAIL |
 | `docs/Phase1_KhaoSatDuLieu.md` | Giải thích phương pháp và giới hạn diễn giải |
 | `docs/NhatKyPhanTich.md` | Nhật ký phát hiện, có mức tin cậy từng mục |
+| `output/stats/04_chart_data.xlsx` | 16 sheet dữ liệu đứng sau 13 biểu đồ Phase 4 |
+| `output/stats/03_global_context.xlsx` | Bối cảnh toàn cầu, tăng trưởng theo giai đoạn, tập trung theo năm |
+| `output/stats/03_ranking_comparison.xlsx` | Xếp hạng theo năm ở cả hai thước đo |
+| `output/stats/03_vietnam_time_series.xlsx` | Chuỗi Việt Nam, biến động, TWh so với tỷ trọng điện |
+| `python/phase6_contract.py` | 47 con số được phép lên báo cáo và slide, kèm quan hệ tự kiểm |
+| `output/stats/06_finding_evidence.csv` | Chứng cứ ba chiều cho từng con số của mục 1.5a và 1.5b |
+| `python/06_verify_findings.py` | Bộ kiểm chứng Gate E3; `output/slides/ASEAN_Renewables.pptx` là sản phẩm 1.5b |

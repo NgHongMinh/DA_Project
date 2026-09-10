@@ -425,3 +425,156 @@ chứng đã kiểm chứng: C01 dẫn `P3-01`; C02 dẫn `P3-02`/`P3-03`; C04 d
   lại V08/V09 vào bản `ToDate`. Hệ quả phụ: mọi phép đo trên trang 2 giờ đều
   mang cờ cửa sổ, nên các năm trước 2000 tự rụng khỏi trang mà không cần bộ
   lọc mức trang. **Tin cậy:** Cao.
+
+## P5-03 — Tệp bàn giao đi sau catalogue mà không kiểm định nào bắt được
+
+- **finding_id:** P5-03; **question_id:** — (phát hiện phương pháp);
+  **scope:** toàn Phase 5; **period:** 2026-09-09 → 2026-09-10;
+  **metric_name:** `measure_count`, `entry_key_rows`.
+- **Bằng chứng số:** ngày 2026-09-09, ba lỗi được sửa và đo đạt **trên model
+  đang sống trong Power BI Desktop**. Hôm sau, PBIP nằm trong `powerbi/` vẫn
+  mang **71** phép đo chống lại catalogue **73** — thiếu `Entry Metric Count`
+  (M120) và `ASEAN Completeness Label` (M121). Kéo theo: 0/5 phép đo gia nhập
+  còn chốt `[Entry Metric Count]`, nên bảng V12 quay lại **10 × 7 = 70** dòng
+  thay vì **40**; và `Rank Status` trả `NOT_DEFINED / ZERO_SCOPE_TOTAL` **có dấu
+  cách** trong khi Phase 3 ghép chuỗi **không dấu cách** — sai lệch này chạm cả
+  trang 2 qua `VN Rank Label`. Nguyên nhân: Desktop lưu lúc 22:25 từ bản nó nạp
+  **trước** khi `05_measures.py` (22:16) và `05_visuals.py` (22:20) được sửa.
+- **Truy vết:** `docs/Phase5_Review.md` §"Bản PBIP đi sau catalogue";
+  `python/05_test_artifacts.py` tiêu chí C1, C2, C3, C5.
+- **Diễn giải:** điều khoản §8.5 của `PHASE5.md` đã lường trước đúng rủi ro này
+  và yêu cầu "sau mỗi lượt MCP ghi, xuất lại danh mục và so với
+  `DAX_Measures.md`". Lượt 2026-09-09 **đã làm đúng vậy** và vẫn trượt, vì phép
+  so được thực hiện trên **model sống**, còn thứ đem nộp là **tệp trên đĩa**.
+  Một quy trình đúng chữ vẫn hỏng khi nó so nhầm vật. Sai lệch thứ ba — dấu cách
+  trong một chuỗi trạng thái — soi bằng mắt không thể thấy; chỉ phép đối chiếu
+  biểu thức mới bắt được.
+- **Cách chặn:** cơ giới hoá phép so bằng `python/05_test_artifacts.py`, đọc
+  thẳng TMDL, `report.json` và `DAX_Measures.md`, **không cần Power BI**. Bộ tiêu
+  chí được viết trước khi sửa và bắt buộc phải trượt trên bản hỏng: lần chạy đầu
+  cho `FAIL | failed=C1,C2,C3,C5,C6 | passed=4/9`; sau khi dựng lại thì `PASS`.
+  **Tin cậy:** Cao.
+
+## P5-04 — Khối định dạng chỉ vào được catalogue sau khi đi vòng qua Desktop
+
+- **finding_id:** P5-04; **question_id:** — (phát hiện phương pháp);
+  **scope:** ô V10 và V08_GLOBAL, trang 2 và trang 3; **period:** 2026-09-10;
+  **metric_name:** —.
+- **Bằng chứng số:** `05_build_report.py` chỉ ghi những hình dạng JSON đã được
+  **lấy mẫu thật** từ Desktop, nên khối `objects` — lớp định dạng bên trong ô —
+  trước đây luôn được ghi rỗng. Hệ quả đo được: lưới small multiples của V10 rơi
+  về mặc định **2 × 2**, tức **4/10** nước hiện và 6 nước phải cuộn, trong khi
+  Gate B9 đòi đủ 10 và Gate B10 đòi PDF không cắt — mà bản xuất tĩnh chỉ in phần
+  đang hiện. Cùng lý do, `invertAxis` của V08_GLOBAL không sinh được nên biểu đồ
+  hạng đọc **ngược** (hạng 1 nằm dưới).
+- **Truy vết:** `python/05_visuals.py` hằng số `SMALL_MULTIPLES_5X2` và
+  `INVERTED_RANK_AXIS`; `python/05_build_report.py :: render_visual`;
+  `python/05_test_artifacts.py` tiêu chí C10.
+- **Diễn giải:** thế bí ở đây có cấu trúc vòng — catalogue không sinh được thứ
+  chưa có mẫu, mà mẫu chỉ sinh ra khi đặt tay trong Desktop. Lối ra là chấp nhận
+  một vòng lấy mẫu: đặt tay → Desktop ghi JSON → trích khối → đưa vào catalogue →
+  thêm tiêu chí chống hồi quy. Một khi mẫu đã có, nó dùng lại được cho ô khác:
+  đúng thuộc tính `valueAxis.invertAxis` lấy từ mẫu lưới V10 đã giải phóng luôn
+  mục 7, biến một việc tay thành việc catalogue.
+- **Cách chặn:** thứ tự là bắt buộc, vì `05_build_pbip.py :: main()` gọi
+  `shutil.rmtree` lên cả `.SemanticModel/` và `.Report/` trước khi dựng — trích
+  mẫu **trước**, dựng lại **sau**. C10 khoá **văn bản literal** chứ không khoá
+  giá trị đã phân giải: Desktop viết số nguyên có hậu tố `L` còn boolean thì
+  không, và một boolean viết thành `1L` vẫn được định dạng tệp chấp nhận rồi đọc
+  lại như chưa đặt gì — cùng lớp bẫy kiểu với `is_asean = 1L`. **Tin cậy:** Cao.
+
+# Phase 6 — Diễn giải và slide
+
+## P6-01 — Hai nguồn khớp nhau không chứng minh gì nếu một nguồn chép từ nguồn kia
+
+- **finding_id:** P6-01; **question_id:** — (phát hiện phương pháp);
+  **scope:** 47 con số của mục 1.5a và 1.5b; **period:** 2026-09-10.
+- **Bằng chứng số:** bộ kiểm chứng Gate E3 thu **ba** cách đọc cho mỗi con số: hằng
+  số chép tay trong `phase6_contract.py`, tra cứu trong `03_fact_metrics.csv`, và một
+  phép tính lại **chỉ đọc** `output/clean/*.csv`. Kết quả **47/47 MATCH**. Điểm đáng
+  chú ý nằm ở phân bố chênh lệch: **17/47** claim có delta khác 0, lớn nhất
+  `9,095 × 10⁻¹³`, dưới dung sai `10⁻⁹`.
+- **Truy vết:** `python/06_verify_findings.py`; `output/stats/06_finding_evidence.csv`,
+  cột `max_abs_delta`.
+- **Diễn giải:** chính những delta khác 0 ấy mới là bằng chứng. Nếu nhánh thứ ba đọc
+  lại bảng thay vì tự tính thì **mọi** delta sẽ bằng 0 tuyệt đối — và một bộ kiểm
+  chứng trả toàn số 0 hoàn hảo là dấu hiệu nó đang so một thứ với chính nó. Nhiễu kết
+  hợp dấu phẩy động ở mức `10⁻¹³` là dấu vân tay của phép cộng chạy theo thứ tự khác,
+  tức là đường đi thật sự độc lập.
+- **Cách chặn:** ba nhánh phải có ít nhất một nhánh **tính lại từ dữ liệu thô**, không
+  phải ba lần đọc ba bảng dẫn xuất. Ràng buộc dòng 13 của chính nhật ký này —
+  *"mọi con số đưa vào BaoCao.md phải tính lại từ nguồn"* — nay được cơ giới hoá thay
+  vì trông cậy vào kỷ luật. **Tin cậy:** Cao.
+
+## P6-02 — Tiêu chí truy vết chỉ có nghĩa khi máy cưỡng chế được
+
+- **finding_id:** P6-02; **question_id:** — (phát hiện phương pháp);
+  **scope:** 11 slide của mục 1.5b; **period:** 2026-09-10.
+- **Bằng chứng số:** `PLAN.md` dòng 348 đòi *"mỗi con số trên slide truy được về một
+  bảng trong `output/stats/`"*. Phát biểu này không kiểm được bằng mắt trên 11 slide
+  mà không bỏ sót. `06_build_slides.py` biến nó thành một phép so tập hợp: quét mọi
+  chuỗi số trong chữ trên slide, đối chiếu với tập giá trị sinh từ hợp đồng, và **từ
+  chối ghi tệp** nếu còn số lạ. Lần chạy đầu trả `FAIL` với bốn token.
+- **Truy vết:** `python/06_build_slides.py`, hàm `assert_no_stray_numbers()` và
+  `scannable()`.
+- **Diễn giải:** bốn token bị bắt đều là **chữ tài liệu** chứ không phải số liệu —
+  `00` và `02` nằm trong tên tệp ở chân trang, `1.6` là số hiệu mục. Cám dỗ tự nhiên
+  là thêm cả bốn vào danh sách cho phép. Làm vậy vài lần thì danh sách phình đến mức
+  bộ chặn không còn chặn gì; tiêu chí vẫn "đạt" mà không còn ý nghĩa.
+- **Cách chặn:** lọc tên tệp và số hiệu mục **trước** khi quét, giữ danh sách cho phép
+  nhỏ và ghi rõ lý do từng mục trong đó. Nguyên tắc chung: khi một bộ kiểm định báo
+  sai, sửa **phạm vi quét** chứ đừng nới **ngưỡng chấp nhận**. **Tin cậy:** Cao.
+
+# Phase 7 — Kết luận, đề xuất và bộ hồ sơ nộp
+
+## P7-01 — Sản lượng tăng bảy lần mà tỷ trọng vẫn giảm
+
+- **finding_id:** P7-01; **question_id:** Q4, Q5; **scope:** Vietnam;
+  **period:** 2000–2021; **metric_name:** `generation_twh`, `share_electricity_pct`.
+- **Bằng chứng số:** sản lượng NLTT của Việt Nam đi từ **14,55** lên **104,2180 TWh**
+  — gấp **7,16 lần**. Cùng kỳ, tỷ trọng NLTT trong tổng sản lượng điện lại **giảm**
+  từ **54,7816%** xuống **42,5787%**, mất **12,20 điểm phần trăm**.
+- **Truy vết:** `F6_VN_TOTAL_2000`, `F4_VN_TOTAL_2021`, `F6_VN_SHARE_ELEC_2000`,
+  `F6_VN_SHARE_ELEC_2021` trong `output/stats/06_finding_evidence.csv`.
+- **Diễn giải:** hai con số này cùng đúng và ngược chiều nhau, vì mẫu số — tổng cầu
+  điện — tăng còn nhanh hơn tử số. Một báo cáo chỉ trích dẫn "tăng bảy lần" sẽ để
+  người đọc hiểu ngược hẳn thực tế về mức độ chuyển dịch của hệ thống điện.
+- **Cách chặn:** mọi chỉ tiêu năng lượng tái tạo phải nói rõ đo bằng **sản lượng**
+  hay bằng **tỷ trọng**; đây cũng là lý do đề xuất VN-2 khuyến nghị đặt mục tiêu theo
+  tỷ trọng thay vì chỉ theo TWh. **Tin cậy:** Cao.
+
+## P7-02 — Một danh sách rủi ro không tự chặn được rủi ro
+
+- **finding_id:** P7-02; **question_id:** — (phát hiện phương pháp);
+  **scope:** quy trình dựng notebook; **period:** 2026-09-10.
+- **Bằng chứng số:** bảng rủi ro của kế hoạch có sẵn dòng *"Tiếng Việt trên Windows
+  → `UnicodeEncodeError` → lưu UTF-8"*. Rủi ro đó **vẫn xảy ra**: tệp nội dung
+  notebook phần 4–5 được ghi ra với **toàn bộ dấu tiếng Việt biến thành dấu hỏi**
+  (`M?c 1.3 ? Th?ng k? m? t?`), đếm ký tự ngoài ASCII bằng **0**.
+- **Truy vết:** `docs/Phase7_Review.md` §2.1 lỗi L1; chốt chặn nay nằm ở
+  `python/07_build_notebook.py`, hàm `main()`.
+- **Diễn giải:** điều làm lỗi này nguy hiểm không phải độ khó mà là **sự im lặng**:
+  tệp hỏng vẫn decode được bằng UTF-8, vẫn chạy đúng, vẫn cho số đúng. Không một
+  ngoại lệ nào được ném ra. Chỉ đọc bằng mắt mới thấy — mà tệp dài 39 KB thì không
+  ai đọc hết.
+- **Cách chặn:** biến dòng cảnh báo thành một phép kiểm chạy được — sau khi ghi tệp,
+  đếm ký tự có mã > 127 trong **tệp vừa ghi trên đĩa**; bằng 0 thì ném lỗi. Nguyên
+  tắc rút ra: một rủi ro đã biết chỉ thực sự được chặn khi có mã kiểm nó, còn nằm
+  trong bảng rủi ro thì mới chỉ là được ghi nhớ. **Tin cậy:** Cao.
+
+## P7-03 — Phép kiểm số hiệu liên tục bắt được lỗi mất nội dung
+
+- **finding_id:** P7-03; **question_id:** — (phát hiện phương pháp);
+  **scope:** `07_notebook_cells.py`; **period:** 2026-09-10.
+- **Bằng chứng số:** khi sửa docstring đầu tệp nội dung, ô markdown số 1 — phần giới
+  thiệu đồ án — bị cắt mất. `read_cells()` báo ngay
+  `so hieu o khong lien tuc: [2, 3, ..., 42]`.
+- **Truy vết:** `python/07_build_notebook.py :: read_cells`.
+- **Diễn giải:** nguyên nhân là dùng `partition` trên dấu nháy ba hai lần; lần thứ
+  hai bắt trúng dấu nháy **mở đầu** của ô markdown 1 chứ không phải dấu đóng
+  docstring. Nếu `read_cells()` chỉ đếm tổng số ô thay vì kiểm tính liên tục thì
+  notebook sẽ được dựng với 41 ô, chạy trơn tru, và thiếu hẳn phần giới thiệu mà
+  không ai biết.
+- **Cách chặn:** kiểm **tính liên tục** chứ không kiểm số đếm. Số đếm chỉ phát hiện
+  được mất mát khi ta biết trước phải có bao nhiêu; tính liên tục phát hiện được cả
+  khi không biết. **Tin cậy:** Cao.

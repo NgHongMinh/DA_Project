@@ -5,6 +5,13 @@ __pycache__/
 # File tam cua Power BI
 *.pbix.tmp
 
+# Desktop sinh lai cac muc nay moi lan mo PBIP; chung khong phai san pham.
+# `05_build_pbip.py` rmtree ca .SemanticModel/ va .Report/ nen chung cung bien
+# mat sau moi lan dung — theo doi trong git chi tao nhieu tieng on.
+powerbi/**/.pbi/
+powerbi/**/DAXQueries/
+powerbi/**/diagramLayout.json
+
 # Luu y: sql/renewables.db va output/ ĐƯỢC giữ lại —
 # chung la san pham nop bai, khong phai file rac.
 

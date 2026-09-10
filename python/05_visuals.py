@@ -67,6 +67,7 @@ def _v(
     group: str = "",
     note: str = "",
     filters: tuple[tuple[str, str, tuple[str, ...]], ...] = (),
+    objects: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     x, y, width, height = box
     return {
@@ -83,7 +84,53 @@ def _v(
         "note": note,
         # (entity, column, values) -- a visual-level categorical filter.
         "filters": filters,
+        # In-plot formatting (axes, grid). Distinct from `vcObjects`, which is
+        # container chrome. Only shapes SAMPLED from a real Desktop save go here
+        # -- see SMALL_MULTIPLES_5X2 for where the sample came from.
+        "objects": objects or {},
     }
+
+
+def _literal(value: str) -> dict[str, Any]:
+    """Wrap a literal the way Desktop writes it inside an `objects` property.
+
+    The text is passed through verbatim: Desktop suffixes whole numbers with `L`
+    and writes booleans bare, and a boolean written as `1L` is accepted by the
+    file format then read back as if unset.
+    """
+    return {"expr": {"Literal": {"Value": value}}}
+
+
+# Sampled from the block Desktop 2.157.1354.0 wrote for V10 on 2026-09-10 at
+# 14:46, after the grid was set by hand (manual item 12b). Folding it back here
+# is item 12c: `05_build_pbip.py :: main()` rmtree's `.Report/` before every
+# build, so anything set only in Desktop survives until the next build and no
+# further. Criterion C10 in `05_test_artifacts.py` is the regression guard.
+#
+# 5 x 2 because Desktop defaults to 2 x 2: four countries render and six need
+# scrolling, while Gate B9 wants all ten and Gate B10 wants a PDF that is not
+# cropped -- and a static export prints only what is on screen.
+SMALL_MULTIPLES_5X2: Final[dict[str, Any]] = {
+    "smallMultiplesLayout": [
+        {"properties": {"columnCount": _literal("5L"), "rowCount": _literal("2L")}}
+    ],
+    # Shared, not independent: Phase 4 published both readings (C05 shared,
+    # C06 free) and this grid is the shared one, so the title says so too.
+    "valueAxis": [
+        {"properties": {
+            "invertAxis": _literal("false"),
+            "sharedAxis": _literal("true"),
+            "scaleToFit": _literal("true"),
+        }}
+    ],
+}
+
+# Same `valueAxis.invertAxis` property as the sample above, on another lineChart.
+# Rank 1 is the best rank, so an axis that grows upward puts the best year at the
+# bottom and the chart reads as decline where there is improvement.
+INVERTED_RANK_AXIS: Final[dict[str, Any]] = {
+    "valueAxis": [{"properties": {"invertAxis": _literal("true")}}]
+}
 
 
 # ---------------------------------------------------------------------------
@@ -292,11 +339,14 @@ VISUALS.append(
 VISUALS.append(
     _v("V08_GLOBAL", PAGE2, "lineChart", BOX_LOWER_LEFT_BOTTOM,
        {"Category": ["DimYear.year"], "Y": ["KPI_Measures.VN Global Rank ToDate"]},
-       title="Panel 2 of 2 - Vietnam global rank (lower is better)",
+       title="Panel 2 of 2 - Vietnam global rank (axis inverted, rank 1 on top)",
        group="V08",
-       note="INVERT THE Y AXIS IN DESKTOP so rank 1 sits at the top -- invertAxis "
-            "lives in the visual objects block, which this project does not generate, "
-            "so the chart reads upside down until that is done by hand")
+       objects=INVERTED_RANK_AXIS,
+       note="the Y axis is inverted from the catalogue so rank 1 sits at the top. "
+            "This was manual item 7 until 2026-09-10: the blocker was that no "
+            "`objects` block had ever been sampled, and the V10 grid sample "
+            "supplied one. Verify in Desktop -- the failure mode is a chart that "
+            "reads upside down, not an error")
 )
 
 VISUALS.append(
@@ -388,10 +438,12 @@ VISUALS.append(
        {"Category": ["DimYear.year"],
         "Y": ["KPI_Measures.ASEAN Country Gen TWh ToDate"],
         "Rows": ["DimEntity.entity_label"]},
-       title="Small multiples - ASEAN-10 output by country, 2000 to selected year",
+       title="Small multiples (shared axis) - ASEAN-10 output by country, 2000 to selected year",
        group="V10",
-       note="set the Y axis to shared or independent in Desktop; Phase 4 published "
-            "both (C05 shared, C06 free) and the reading changes between them")
+       objects=SMALL_MULTIPLES_5X2,
+       note="5 x 2 grid and shared Y axis now come from the catalogue, not from a "
+            "hand-set option that the next build would erase; the title states "
+            "which of the two Phase 4 readings this is (C05 shared, not C06 free)")
 )
 
 VISUALS.append(

@@ -307,7 +307,7 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 ---
 
-# PHASE 5 — Dashboard *(yêu cầu 1.5c)*
+# ✅ PHASE 5 — Dashboard *(yêu cầu 1.5c — ĐÃ ĐÓNG, phạm vi thu hẹp)*
 
 **Mục tiêu:** dashboard 3 trang cho phép người xem tự khám phá, không chỉ xem hình tĩnh.
 
@@ -325,11 +325,17 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 **Đầu ra:** `powerbi/ASEAN_Renewables.pbix`
 
-**Tiêu chí hoàn thành:** đổi filter năm → cả 3 trang cập nhật nhất quán; mọi KPI có định nghĩa DAX viết ra được; bật/tắt công tắc "chỉ NLTT hiện đại" tạo ra thay đổi có ý nghĩa phân tích.
+**Tiêu chí hoàn thành — đạt một phần, ký ngày 2026-09-10 với phạm vi thu hẹp:**
+
+*Đã chứng minh:* mô hình 8 bảng / 3 quan hệ / **73 phép đo** sinh từ một nguồn duy nhất; ba trang với **47 ô** trực quan; **175/175** mã nghiệm thu DAX `PASS`, 0 dòng chặn; **C1–C10** đọc thẳng tệp trên đĩa đều `PASS`, dựng hai lần cho nội dung giống hệt; mọi KPI có định nghĩa DAX viết ra được trong `powerbi/DAX_Measures.md`; công tắc "chỉ NLTT hiện đại" đổi đúng thứ hạng (Singapore +4, Indonesia −4, Lào −5).
+
+*Chấp nhận không đo:* 14 mục việc tay trong Desktop và 32 ca kiểm tương tác — nên tiêu chí "đổi filter năm → cả 3 trang cập nhật nhất quán" **chưa được kiểm**, và bộ lọc thực tế chưa đồng bộ giữa ba trang. `.pbix` còn mang model cũ 71 phép đo; sản phẩm hợp lệ là PBIP + `DAX_Measures.md`.
+
+Ranh giới đầy đủ ở `docs/Phase5_Review.md` §5.1–§5.3.
 
 ---
 
-# PHASE 6 — Diễn giải & slide *(yêu cầu 1.5a, 1.5b)*
+# ✅ PHASE 6 — Diễn giải & slide *(yêu cầu 1.5a, 1.5b — ĐÃ HOÀN THÀNH)*
 
 **Mục tiêu:** chuyển từ "đã phân tích" sang "kể được một mạch lập luận".
 
@@ -349,7 +355,7 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 ---
 
-# PHASE 7 — Kết luận & đề xuất *(yêu cầu 1.6)*
+# ✅ PHASE 7 — Kết luận & đề xuất *(yêu cầu 1.6 — ĐÃ HOÀN THÀNH)*
 
 **Mục tiêu:** kết luận có căn cứ và đề xuất **không vượt quá phạm vi dữ liệu**.
 
@@ -364,7 +370,19 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 **Đầu ra:** mục 1.6 của `docs/BaoCao.md`
 
-**Tiêu chí hoàn thành:** không kết luận nào vượt quá dữ liệu; mỗi kết luận có số dẫn chiếu; có mục giới hạn tường minh.
+**Tiêu chí hoàn thành — đã đạt:** năm kết luận, mỗi kết luận neo vào một `claim_id` đã qua kiểm chứng ba chiều; đề xuất tách riêng cho Việt Nam và cho khu vực, viết dạng "nên xem xét" chứ không phải "nên làm"; có mục "không thể đề xuất" và mục "dữ liệu cần bổ sung". **77/77** claim khớp cả ba nguồn.
+
+**Phase 7 gánh thêm việc hoàn tất bộ hồ sơ nộp**, sau khi yêu cầu định dạng được biết:
+
+| Tệp nộp | Sản phẩm | Trạng thái |
+|---|---|---|
+| 1. Báo cáo dạng slide | `output/slides/ASEAN_Renewables.pptx` — 17 slide (15 nội dung + mở đầu + kết thúc), 16:9 | ĐẠT |
+| 2. File xử lý dữ liệu | `output/notebook/ASEAN_Renewables_DataProcessing.ipynb` — 42 ô tự chứa, 31 ô có kết quả, 5 biểu đồ | ĐẠT |
+| 3. Dashboard | `powerbi/ASEAN_Renewables.pbix` | **CẦN SỬA** — còn là bản cũ 71 phép đo |
+
+Notebook chỉ đọc `archive/`, không `import` script nào của dự án, không đọc `output/`. Bảng `fact_energy` nó tự dựng khớp **từng dòng** với dữ liệu đã công bố: 89.075 dòng, lệch lớn nhất `1,1e-13`, `value_class` khớp tuyệt đối.
+
+Chi tiết ở `docs/Phase7_Review.md`.
 
 ---
 

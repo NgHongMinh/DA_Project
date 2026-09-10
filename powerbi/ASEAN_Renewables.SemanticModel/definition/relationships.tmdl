@@ -9,3 +9,4 @@ relationship a5302d7a-2446-5a9c-a7c2-8202742761fe
 relationship 65e0ef5a-ed17-5a35-8076-615e0c0ad233
 	fromColumn: FactEnergy.metric_key
 	toColumn: DimMetric.metric_key
+

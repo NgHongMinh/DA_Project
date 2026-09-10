@@ -3,32 +3,28 @@ table KPI_Measures
 	lineageTag: 250b25c8-a69d-5af7-8ae4-8d92f6a37895
 
 	/// [M001] Report year currently chosen. Defaults to 2021 when the viewer has not picked one.
-	measure 'Selected Year' =
-			SELECTEDVALUE( SelReportYear[year], 2021 )
+	measure 'Selected Year' = SELECTEDVALUE( SelReportYear[year], 2021 )
 		formatString: #,0
-		lineageTag: 072a08da-d665-5e79-bc9e-9dd94e97bdee
 		displayFolder: 00 Selection
+		lineageTag: 072a08da-d665-5e79-bc9e-9dd94e97bdee
 
 	/// [M002] Measurement mode currently chosen: RENEWABLE_TOTAL or MODERN_WIND_SOLAR.
-	measure 'Selected Mode' =
-			SELECTEDVALUE( SelMode[mode_key], "RENEWABLE_TOTAL" )
-		lineageTag: 151ecfdb-28f9-561d-a0ef-36e39e41550d
+	measure 'Selected Mode' = SELECTEDVALUE( SelMode[mode_key], "RENEWABLE_TOTAL" )
 		displayFolder: 00 Selection
+		lineageTag: 151ecfdb-28f9-561d-a0ef-36e39e41550d
 
 	/// [M003] Base year for indexation and for the positive-growth contribution period.
-	measure 'Selected Base Year' =
-			SELECTEDVALUE( SelBaseYear[year], 2010 )
+	measure 'Selected Base Year' = SELECTEDVALUE( SelBaseYear[year], 2010 )
 		formatString: #,0
-		lineageTag: 37fcae54-bb30-5f57-af77-1237fc08cfd1
 		displayFolder: 00 Selection
+		lineageTag: 37fcae54-bb30-5f57-af77-1237fc08cfd1
 
 	/// [M004] How many technologies the current mode covers: 4 for the renewable total, 2 for wind plus solar.
-	measure 'Mode Tech Count' =
-			IF( [Selected Mode] = "MODERN_WIND_SOLAR", 2, 4 )
+	measure 'Mode Tech Count' = IF( [Selected Mode] = "MODERN_WIND_SOLAR", 2, 4 )
 		formatString: #,0
 		isHidden
-		lineageTag: c188885e-53e5-5621-b25e-da7f79b1cf90
 		displayFolder: 00 Selection
+		lineageTag: c188885e-53e5-5621-b25e-da7f79b1cf90
 
 	/// [M010] Raw generation total for the technologies in the current mode, BEFORE the completeness rule is applied. Not for direct use on the report.
 	measure 'Gen TWh Raw' =
@@ -38,8 +34,8 @@ table KPI_Measures
 			        )
 		formatString: #,0.0###
 		isHidden
-		lineageTag: 150ced23-98d1-5dfb-84f9-10813c0d9b6e
 		displayFolder: 01 Base
+		lineageTag: 150ced23-98d1-5dfb-84f9-10813c0d9b6e
 
 	/// [M011] Observations actually present in the current scope. This is the component_count that B10 reconciles against 03_fact_metrics.csv.
 	measure 'Component Count' =
@@ -49,8 +45,8 @@ table KPI_Measures
 			        ) + 0
 		formatString: #,0
 		isHidden
-		lineageTag: 827fe336-2d76-59ed-931d-86729d85859a
 		displayFolder: 01 Base
+		lineageTag: 827fe336-2d76-59ed-931d-86729d85859a
 
 	/// [M012] Cells required = entities in scope x metrics REMAINING after intersecting the mode with any technology filter. It scales on both axes: 4/4 for one country, 40/40 for the ASEAN-10 aggregate, 2/2 and 20/20 in modern mode, and 10/10 when the viewer drills to a single technology. Hard-coding the mode's technology count would demand 40 cells where only 10 exist, and the visual would go blank instead of returning a number.
 	measure 'Required Component Count' =
@@ -66,8 +62,8 @@ table KPI_Measures
 			        _Entities * _Metrics
 		formatString: #,0
 		isHidden
-		lineageTag: 43772baa-eba1-532e-bdc6-379b4678dfbe
 		displayFolder: 01 Base
+		lineageTag: 43772baa-eba1-532e-bdc6-379b4678dfbe
 
 	/// [M013] Generation for the current mode, returned ONLY when every component is present. A missing cell yields blank rather than a partial sum -- hard-coding 4/4 at the regional level would still return a number when a country filter removes cells.
 	measure 'Gen TWh' =
@@ -76,8 +72,8 @@ table KPI_Measures
 			            [Gen TWh Raw]
 			        )
 		formatString: #,0.0###
-		lineageTag: 44905ade-79bf-5816-8ff8-f105906729e7
 		displayFolder: 01 Base
+		lineageTag: 44905ade-79bf-5816-8ff8-f105906729e7
 
 	/// [M014] Generation at exactly the selected year. Used by the KPI row and every single-year slice.
 	measure 'Gen TWh @Year' =
@@ -89,8 +85,8 @@ table KPI_Measures
 			            DimYear[year] = _Year
 			        )
 		formatString: #,0.0###
-		lineageTag: de453803-1fd2-52fb-9181-a945720ebfa7
 		displayFolder: 01 Base
+		lineageTag: de453803-1fd2-52fb-9181-a945720ebfa7
 
 	/// [M015] Generation for time-series visuals: shows 2000 through the selected year. The year filter means "up to the selected year", not "collapse the series to a single point".
 	measure 'Gen TWh ToDate' =
@@ -100,8 +96,8 @@ table KPI_Measures
 			            [Gen TWh]
 			        )
 		formatString: #,0.0###
-		lineageTag: 234a2228-79e8-56ab-888d-33c088d05779
 		displayFolder: 01 Base
+		lineageTag: 234a2228-79e8-56ab-888d-33c088d05779
 
 	/// [M020] ASEAN-10 total at the selected year. Always uses the fixed is_asean = 1 cohort, so a country selection on Page 1 or Page 3 does NOT change the regional denominator.
 	measure 'ASEAN Gen TWh' =
@@ -111,8 +107,8 @@ table KPI_Measures
 			            DimEntity[is_asean] = 1
 			        )
 		formatString: #,0.0###
-		lineageTag: 74d46c34-6aa4-5578-a127-6c862a87762d
 		displayFolder: 02 Scope
+		lineageTag: 74d46c34-6aa4-5578-a127-6c862a87762d
 
 	/// [M021] ASEAN-10 total as a series from 2000 to the selected year.
 	measure 'ASEAN Gen TWh ToDate' =
@@ -122,8 +118,8 @@ table KPI_Measures
 			            DimEntity[is_asean] = 1
 			        )
 		formatString: #,0.0###
-		lineageTag: 36a81d65-a6a0-573a-9a3d-1ccc88d85dc5
 		displayFolder: 02 Scope
+		lineageTag: 36a81d65-a6a0-573a-9a3d-1ccc88d85dc5
 
 	/// [M022] World total taken from the World ROW as published by the source, not from summing the countries present. The two differ, and summing countries would build a wrong denominator.
 	measure 'World Gen TWh' =
@@ -133,8 +129,8 @@ table KPI_Measures
 			            DimEntity[entity] = "World"
 			        )
 		formatString: #,0.0###
-		lineageTag: ed25d355-10a9-5d1b-8b7a-7e2d6c3c5343
 		displayFolder: 02 Scope
+		lineageTag: ed25d355-10a9-5d1b-8b7a-7e2d6c3c5343
 
 	/// [M023] The World row as a series from 2000 to the selected year.
 	measure 'World Gen TWh ToDate' =
@@ -144,15 +140,14 @@ table KPI_Measures
 			            DimEntity[entity] = "World"
 			        )
 		formatString: #,0.0###
-		lineageTag: 257e475f-791d-5cc1-aade-a4a40d572a3b
 		displayFolder: 02 Scope
+		lineageTag: 257e475f-791d-5cc1-aade-a4a40d572a3b
 
 	/// [M030] ASEAN-10 as a share of the World row. STORED ON THE 0-1 SCALE; the x100 lives only in format_string.
-	measure 'ASEAN Share World' =
-			DIVIDE( [ASEAN Gen TWh], [World Gen TWh] )
+	measure 'ASEAN Share World' = DIVIDE( [ASEAN Gen TWh], [World Gen TWh] )
 		formatString: 0.0000%
-		lineageTag: 8ec915b8-68b4-553f-9f02-24db6e42bff0
 		displayFolder: 03 Shares
+		lineageTag: 8ec915b8-68b4-553f-9f02-24db6e42bff0
 
 	/// [M031] One country as a share of the ASEAN-10 total. The denominator is always the fixed ASEAN_SUM_10. STORED ON THE 0-1 SCALE.
 	measure 'Country Share ASEAN' =
@@ -161,8 +156,8 @@ table KPI_Measures
 			            DIVIDE( [Gen TWh @Year], [ASEAN Gen TWh] )
 			        )
 		formatString: 0.0000%
-		lineageTag: 9d154c95-6529-58f3-bf7a-11919b604e9e
 		displayFolder: 03 Shares
+		lineageTag: 9d154c95-6529-58f3-bf7a-11919b604e9e
 
 	/// [M032] One technology as a share of the renewable total for the same scope. STORED ON THE 0-1 SCALE.
 	measure 'Technology Share' =
@@ -174,8 +169,8 @@ table KPI_Measures
 			            )
 			        )
 		formatString: 0.0000%
-		lineageTag: 867e8932-0c51-562f-a72a-d16653773ea7
 		displayFolder: 03 Shares
+		lineageTag: 867e8932-0c51-562f-a72a-d16653773ea7
 
 	/// [M033] Share of total electricity, in the ambient year context. RENEWABLE_TOTAL takes the source column renewables_share_electricity_pct AS IS (1/1 pass-through) -- never sum the four components: summing them gives Vietnam 2021 = 42.513379% instead of 42.578747%, and the model has no other-renewables share column to add anyway. MODERN_WIND_SOLAR is wind plus solar and needs both (2/2). ALREADY STORED ON THE 0-100 SCALE -- do not multiply.
 	measure 'Share Electricity Pct' =
@@ -206,8 +201,8 @@ table KPI_Measures
 			            IF( _PartCount = 2, _Parts )
 			        )
 		formatString: #,0.0####"%"
-		lineageTag: 1c91581e-462b-5bbf-9603-643c891a8270
 		displayFolder: 03 Shares
+		lineageTag: 1c91581e-462b-5bbf-9603-643c891a8270
 
 	/// [M034] Share of electricity at exactly the selected year -- used by the Vietnam KPI row.
 	measure 'Share Electricity Pct @Year' =
@@ -219,8 +214,8 @@ table KPI_Measures
 			            DimYear[year] = _Year
 			        )
 		formatString: #,0.0####"%"
-		lineageTag: 463be5f8-202c-59d2-b9cf-75925fbb17ad
 		displayFolder: 03 Shares
+		lineageTag: 463be5f8-202c-59d2-b9cf-75925fbb17ad
 
 	/// [M035] Share of electricity for the time-series panel, 2000 through the selected year. This panel must NOT share an axis with the TWh panel.
 	measure 'Share Electricity Pct ToDate' =
@@ -230,8 +225,8 @@ table KPI_Measures
 			            [Share Electricity Pct]
 			        )
 		formatString: #,0.0####"%"
-		lineageTag: 101302dd-ab62-50b8-a2ff-30477a66cb8c
 		displayFolder: 03 Shares
+		lineageTag: 101302dd-ab62-50b8-a2ff-30477a66cb8c
 
 	/// [M036] Compares the direction of the TWh move against the direction of the share-of-electricity move in the same year. Vietnam: the renewable total moves opposite ways in 2003 and 2014, the modern measure in 2016. This only FLAGS the divergence -- it licenses no causal reading between the two quantities.
 	/// The prior year must ALSO be inside the window. Without that condition the ALL( DimYear ) reaches back to 1999, where Vietnam went 13,774 -> 14,550 TWh while its share went 58,46598 -> 54,781628 percent, and the year 2000 comes back OPPOSITE_DIRECTION. The reference walks K.YEARS[1:] and so never asks about 2000; the two sides would then disagree by one year.
@@ -263,8 +258,8 @@ table KPI_Measures
 			            ( _DeltaTwh > 0 ) <> ( _DeltaShare > 0 ), "OPPOSITE_DIRECTION",
 			            "SAME_DIRECTION"
 			        )
-		lineageTag: ebf8e581-df22-5b53-854a-82dcafbb5361
 		displayFolder: 03 Shares
+		lineageTag: ebf8e581-df22-5b53-854a-82dcafbb5361
 
 	/// [M037] M031 as a SERIES: the same share, read at the year the axis supplies instead of the year the slicer holds. M031 cannot be plotted over time -- it is built on Gen TWh @Year, whose ALL( DimYear ) replaces the axis year with the slicer's, so every point returns the same number and the line comes out flat across all fifty-seven rows of DimYear. Both sides carry the window guard from Gen TWh ToDate, so the pre-2000 years fall away on their own. STORED ON THE 0-1 SCALE.
 	measure 'Country Share ASEAN ToDate' =
@@ -273,8 +268,8 @@ table KPI_Measures
 			            DIVIDE( [Gen TWh ToDate], [ASEAN Gen TWh ToDate] )
 			        )
 		formatString: 0.0000%
-		lineageTag: 3a2e64dd-7a2f-5bfe-baed-98d5354d3e45
 		displayFolder: 03 Shares
+		lineageTag: 3a2e64dd-7a2f-5bfe-baed-98d5354d3e45
 
 	/// [M040] Rank within the fixed ASEAN-10 cohort (population_n = 10). Ties take the smallest rank and the next rank is skipped. Zeros are still ranked. If the whole scope totals zero the rank is BLANK with reason ZERO_SCOPE_TOTAL -- not every country tied at rank 1.
 	measure 'ASEAN Rank' =
@@ -289,8 +284,8 @@ table KPI_Measures
 			            RANKX( _Values, [@Value], _Current, DESC, Skip )
 			        )
 		formatString: #,0
-		lineageTag: 608e6fa8-2e2f-5c41-acf7-efd3a3080470
 		displayFolder: 04 Ranking
+		lineageTag: 608e6fa8-2e2f-5c41-acf7-efd3a3080470
 
 	/// [M041] Rank within the current countries and territories cohort (population_n = 215), counting only countries complete in that year. Uses is_current_country_or_territory = 1: is_aggregate = 0 returns 216 rows because USSR is still in it.
 	measure 'Global Rank' =
@@ -304,8 +299,8 @@ table KPI_Measures
 			            RANKX( _Values, [@Value], _Current, DESC, Skip )
 			        )
 		formatString: #,0
-		lineageTag: a4383b72-1c19-555d-a341-117620aed13d
 		displayFolder: 04 Ranking
+		lineageTag: a4383b72-1c19-555d-a341-117620aed13d
 
 	/// [M042] The denominator shown next to a global rank: how many countries are complete that year. IT MOVES WITH BOTH YEAR AND MODE -- 2021 is 205 for the total and 209 for modern, 2000 is 209 and 212, 2010 is 211 and 214. Never hard-code it.
 	measure 'Global Ranked N' =
@@ -314,15 +309,14 @@ table KPI_Measures
 			    RETURN
 			        COUNTROWS( FILTER( _Values, NOT ISBLANK( [@Value] ) ) )
 		formatString: #,0
-		lineageTag: 36b2812b-c957-5fa2-be3a-7036f02faa18
 		displayFolder: 04 Ranking
+		lineageTag: 36b2812b-c957-5fa2-be3a-7036f02faa18
 
 	/// [M043] Size of the global cohort -- always 215, independent of year and mode. Kept separate from ranked_n so the two denominators are never confused.
-	measure 'Global Population N' =
-			COUNTROWS( CALCULATETABLE( VALUES( DimEntity[entity] ), ALL( DimEntity ), DimEntity[is_current_country_or_territory] = 1 ) )
+	measure 'Global Population N' = COUNTROWS( CALCULATETABLE( VALUES( DimEntity[entity] ), ALL( DimEntity ), DimEntity[is_current_country_or_territory] = 1 ) )
 		formatString: #,0
-		lineageTag: 759e126b-9130-5bd5-83d8-20265ec4133e
 		displayFolder: 04 Ranking
+		lineageTag: 759e126b-9130-5bd5-83d8-20265ec4133e
 
 	/// [M044] Rank change when the measure switches: modern_rank_gain = total_rank - modern_rank. A POSITIVE number means a BETTER rank on wind plus solar alone. In 2021: Singapore +4, Indonesia -4, Laos -5.
 	measure 'Modern Rank Gain' =
@@ -337,8 +331,8 @@ table KPI_Measures
 			            _Total - _Modern
 			        )
 		formatString: +#,0;-#,0;0
-		lineageTag: e33dd956-3ae3-576e-ae65-eb4293765321
 		displayFolder: 04 Ranking
+		lineageTag: e33dd956-3ae3-576e-ae65-eb4293765321
 
 	/// [M045] M040 read at the year the axis supplies, for a per-year table or a rank line. Same fixed ASEAN-10 cohort (population_n = 10), same tie handling: smallest rank shared, next rank skipped, zeros still ranked. If the whole scope totals zero the rank is BLANK -- read Rank Status beside it for the reason.
 	measure 'ASEAN Rank ToDate' =
@@ -353,8 +347,8 @@ table KPI_Measures
 			            RANKX( _Values, [@Value], _Current, DESC, Skip )
 			        )
 		formatString: #,0
-		lineageTag: 7b48a545-3cab-5446-9c42-32b8481fb2db
 		displayFolder: 04 Ranking
+		lineageTag: 7b48a545-3cab-5446-9c42-32b8481fb2db
 
 	/// [M046] M041 read at the year the axis supplies. Same 215-country cohort, counting only the countries complete in that year. A rank line drawn from this needs its axis INVERTED in Desktop so rank 1 sits at the top; the invertAxis property lives in the visual `objects` block, which this project does not generate.
 	measure 'Global Rank ToDate' =
@@ -368,8 +362,8 @@ table KPI_Measures
 			            RANKX( _Values, [@Value], _Current, DESC, Skip )
 			        )
 		formatString: #,0
-		lineageTag: 17134a03-dda3-56ce-bae5-bcff555cfc27
 		displayFolder: 04 Ranking
+		lineageTag: 17134a03-dda3-56ce-bae5-bcff555cfc27
 
 	/// [M047] M042 read at the year the axis supplies -- the denominator that belongs beside Global Rank ToDate in a per-year table. Entity-independent by construction, so it needs no Vietnam-locked twin.
 	measure 'Global Ranked N ToDate' =
@@ -378,12 +372,12 @@ table KPI_Measures
 			    RETURN
 			        COUNTROWS( FILTER( _Values, NOT ISBLANK( [@Value] ) ) )
 		formatString: #,0
-		lineageTag: 32e36233-81fc-5785-8ce8-a23b0bdbbb1c
 		displayFolder: 04 Ranking
+		lineageTag: 32e36233-81fc-5785-8ce8-a23b0bdbbb1c
 
 	/// [M050] Growth against the prior year. DEFINED ONLY when the denominator is > 0 -- with a dataset this full of zeros that is the number one source of Inf/NaN. An end value of zero giving -1 is still valid. STORED ON THE 0-1 SCALE.
 	/// The prior year is required to be inside the window too. Vietnam has data back to 1965, so without that condition the year 2000 returns +5,63 percent while `03_fact_metrics.csv` holds yoy Y2000 as NOT_DEFINED.
-	measure 'YoY' =
+	measure YoY =
 			VAR _Year = MAX( DimYear[year] )
 			    VAR _Current = [Gen TWh]
 			    VAR _Previous =
@@ -399,8 +393,8 @@ table KPI_Measures
 			            DIVIDE( _Current, _Previous ) - 1
 			        )
 		formatString: 0.0000%
-		lineageTag: 13ee18dc-5d9d-54d2-8e18-da996a5540f6
 		displayFolder: 05 Growth
+		lineageTag: 13ee18dc-5d9d-54d2-8e18-da996a5540f6
 
 	/// [M051] CAGR from the base year to the report year. Applies a 0.05 TWh START FLOOR: without it, countries starting from near zero take over the top of the ranking with meaningless figures. STORED ON THE 0-1 SCALE.
 	measure 'CAGR From Base' =
@@ -418,8 +412,8 @@ table KPI_Measures
 			            ( DIVIDE( _End, _Start ) ^ DIVIDE( 1, _Years ) ) - 1
 			        )
 		formatString: 0.0000%
-		lineageTag: e880bd40-ddc6-5b40-abbe-b70c22b097d3
 		displayFolder: 05 Growth
+		lineageTag: e880bd40-ddc6-5b40-abbe-b70c22b097d3
 
 	/// [M052] Indexed to 100 at the base year. A zero base, or a base later than the report year, returns BLANK -- it never produces an infinity.
 	measure 'Indexed 100' =
@@ -437,8 +431,8 @@ table KPI_Measures
 			            DIVIDE( [Gen TWh ToDate], _Base ) * 100
 			        )
 		formatString: #,0.0
-		lineageTag: b2e922a0-eda0-5e2e-b19c-ce6c44aa1166
 		displayFolder: 05 Growth
+		lineageTag: b2e922a0-eda0-5e2e-b19c-ce6c44aa1166
 
 	/// [M053] A country's POSITIVE addition between the base year and the report year. Declines are clipped to zero and reported separately, never netted off the total.
 	measure 'Positive Addition TWh' =
@@ -454,8 +448,8 @@ table KPI_Measures
 			            MAX( _End - _Start, 0 )
 			        )
 		formatString: #,0.0###
-		lineageTag: bd955b9e-9e5c-5279-892c-9a9c1386d6ba
 		displayFolder: 05 Growth
+		lineageTag: bd955b9e-9e5c-5279-892c-9a9c1386d6ba
 
 	/// [M054] Sum of the positive additions across all of ASEAN-10 -- the GROSS_POSITIVE_ADDITION denominator.
 	measure 'Gross Positive Addition TWh' =
@@ -463,8 +457,8 @@ table KPI_Measures
 			    RETURN
 			        SUMX( _Cohort, CALCULATE( [Positive Addition TWh] ) )
 		formatString: #,0.0###
-		lineageTag: 5f82b07d-d2fb-59f3-a82b-156ff202145a
 		displayFolder: 05 Growth
+		lineageTag: 5f82b07d-d2fb-59f3-a82b-156ff202145a
 
 	/// [M055] A country's share OF THE GROSS POSITIVE ADDITION -- not its share of the region's net growth. Vietnam 2010-2021: modern 65.985915493%, total 42.3780539369% (held on the ratio scale). STORED ON THE 0-1 SCALE. The is_asean guard is what keeps the page 3 bar chart to ten bars: the denominator is ASEAN-only, so the ratio is meaningless for any other entity, and without the guard entity_label on an axis returns all 256 of them.
 	measure 'Positive Growth Share' =
@@ -473,8 +467,8 @@ table KPI_Measures
 			            DIVIDE( [Positive Addition TWh], [Gross Positive Addition TWh] )
 			        )
 		formatString: 0.0000%
-		lineageTag: 605a5997-0ee4-5430-abe4-a239ea70806f
 		displayFolder: 05 Growth
+		lineageTag: 605a5997-0ee4-5430-abe4-a239ea70806f
 
 	/// [M060] How many ASEAN countries clear the 0.05 TWh threshold in the current mode. The threshold applies to the DERIVED TOTAL (PHASE3_DERIVED_FLOOR); a component's value_class is never assigned back to the total.
 	measure 'Above 0.05 TWh N' =
@@ -484,8 +478,8 @@ table KPI_Measures
 			            FILTER( _Cohort, CALCULATE( [Gen TWh @Year] ) >= 0.05 )
 			        ) + 0
 		formatString: #,0
-		lineageTag: ac390f97-abb7-5dbc-a890-273ff9bd29af
 		displayFolder: 06 Concentration
+		lineageTag: ac390f97-abb7-5dbc-a890-273ff9bd29af
 
 	/// [M061] Share held by the largest country in the ASEAN-10 total. In 2021 this equals Vietnam's share EXACTLY, because both use the ASEAN_SUM_10 denominator and Vietnam leads in both modes -- it is ONE quantity, not two measures. STORED ON THE 0-1 SCALE.
 	measure 'Top1 Share' =
@@ -503,8 +497,8 @@ table KPI_Measures
 			            DIVIDE( MAXX( _Values, [@Value] ), _Total )
 			        )
 		formatString: 0.0000%
-		lineageTag: 88f9272e-ade2-5362-970d-ba9bd73ac426
 		displayFolder: 06 Concentration
+		lineageTag: 88f9272e-ade2-5362-970d-ba9bd73ac426
 
 	/// [M062] Share held by EXACTLY the three largest values. Uses a sequential position rather than "rank <= 3": on a tie for third place a rank condition returns more than three countries. Tied values are equal, so the top-3 total is the same whichever is picked. STORED ON THE 0-1 SCALE.
 	measure 'Top3 Share' =
@@ -542,11 +536,11 @@ table KPI_Measures
 			            )
 			        )
 		formatString: 0.0000%
-		lineageTag: 4b34bfc1-6a70-5418-8a7b-52410caf5641
 		displayFolder: 06 Concentration
+		lineageTag: 4b34bfc1-6a70-5418-8a7b-52410caf5641
 
 	/// [M063] Herfindahl-Hirschman concentration index over all ten countries, KEEPING the countries whose value is zero. STORED ON THE 0-1 SCALE, with no percent sign.
-	measure 'HHI' =
+	measure HHI =
 			VAR _Total = [ASEAN Gen TWh]
 			    VAR _Cohort = CALCULATETABLE( VALUES( DimEntity[entity] ), ALL( DimEntity ), DimEntity[is_asean] = 1 )
 			    VAR _Values =
@@ -561,11 +555,11 @@ table KPI_Measures
 			            SUMX( _Values, DIVIDE( [@Value], _Total ) ^ 2 )
 			        )
 		formatString: 0.000000
-		lineageTag: c2adf674-9ec8-5693-a161-3fe4107e4c45
 		displayFolder: 06 Concentration
+		lineageTag: c2adf674-9ec8-5693-a161-3fe4107e4c45
 
 	/// [M064] Gini inequality coefficient by the empirical formula over all ten values sorted ascending: 2*SUM(i*x_i)/(n*SUM x) - (n+1)/n. Position i must be a distinct 1..10; tied values contribute the same product wherever they sit, so the country name only makes the walk stable. STORED ON THE 0-1 SCALE.
-	measure 'Gini' =
+	measure Gini =
 			VAR _Total = [ASEAN Gen TWh]
 			    VAR _Cohort = CALCULATETABLE( VALUES( DimEntity[entity] ), ALL( DimEntity ), DimEntity[is_asean] = 1 )
 			    VAR _Values =
@@ -599,8 +593,8 @@ table KPI_Measures
 			                - DIVIDE( _N + 1, _N )
 			        )
 		formatString: 0.000000
-		lineageTag: b8c08fcc-c813-5e39-906c-fc079275d1e8
 		displayFolder: 06 Concentration
+		lineageTag: b8c08fcc-c813-5e39-906c-fc079275d1e8
 
 	/// [M070] End-of-year installed capacity, wind and solar only. KEEPFILTERS rather than a bare ALL( DimMetric ): the bare form WIPES the technology the slicer or the small-multiple row supplied, so wind and solar were always summed together and the B9 reading of 2 countries for wind against 4 for solar could not be made.
 	measure 'Capacity GW' =
@@ -615,8 +609,8 @@ table KPI_Measures
 			            )
 			        )
 		formatString: #,0.000
-		lineageTag: 48c0f48b-8c72-5868-bb2e-c1509755bc12
 		displayFolder: 07 Capacity factor
+		lineageTag: 48c0f48b-8c72-5868-bb2e-c1509755bc12
 
 	/// [M071] APPROXIMATE capacity factor = TWh / (GW x 8.76). Keeps only pairs with capacity_gw > 0 and non-blank generation: a raw join over the window gives 132 pairs, the 28 with zero capacity are dropped, and none of those carries positive generation, so the filter loses no observation. 104 pairs remain -- wind 33, solar 71. Uses DIVIDE() to return BLANK, NOT the / operator. This is an indicator built on end-of-year capacity, NOT a measure of technical efficiency.
 	measure 'Capacity Factor' =
@@ -639,8 +633,8 @@ table KPI_Measures
 			            DIVIDE( _Generation, _Capacity * 8.76 )
 			        )
 		formatString: 0.0000%
-		lineageTag: 4c4d9a82-0147-563c-bcae-6e859aaf44cc
 		displayFolder: 07 Capacity factor
+		lineageTag: 4c4d9a82-0147-563c-bcae-6e859aaf44cc
 
 	/// [M072] How many ASEAN countries actually have capacity-factor data: 2 for wind, 4 for solar. Show this next to the chart so nobody reads it as covering all ten. It reads 4 with no technology picked, because the union of the two sets is Malaysia, the Philippines, Thailand and Vietnam.
 	measure 'Capacity Factor Country N' =
@@ -655,8 +649,8 @@ table KPI_Measures
 			            )
 			        ) + 0
 		formatString: #,0
-		lineageTag: a4d4c2ae-4b01-520e-b89a-53e12cd6fbf3
 		displayFolder: 07 Capacity factor
+		lineageTag: a4d4c2ae-4b01-520e-b89a-53e12cd6fbf3
 
 	/// [M110] One ASEAN country's generation as a series, 2000 through the selected year. This is what the ten-panel grid plots. TWh rather than a share, to stay with the Phase 4 convention: C05 and C06 drew output, and a grid of shares would answer a different question.
 	measure 'ASEAN Country Gen TWh ToDate' =
@@ -665,8 +659,8 @@ table KPI_Measures
 			            [Gen TWh ToDate]
 			        )
 		formatString: #,0.0###
-		lineageTag: 7955937e-03f5-5c3d-9097-58c9ec9ad564
 		displayFolder: 02 Scope
+		lineageTag: 7955937e-03f5-5c3d-9097-58c9ec9ad564
 
 	/// [M111] M052 restricted to the ASEAN-10 cohort, for the indexed trajectory chart. M052 itself is left unguarded on purpose so the same index can be read for World or a region when a later question asks for it.
 	measure 'ASEAN Indexed 100' =
@@ -675,8 +669,8 @@ table KPI_Measures
 			            [Indexed 100]
 			        )
 		formatString: #,0.0
-		lineageTag: e9615066-63b6-5d05-9218-b09d5272c1ac
 		displayFolder: 05 Growth
+		lineageTag: e9615066-63b6-5d05-9218-b09d5272c1ac
 
 	/// [M112] M071 restricted to the ASEAN-10 cohort. Wind and solar capacity exist for many countries outside the region, so an unguarded series would quietly widen a chart whose caption says ASEAN. Still an APPROXIMATE indicator on end-of-year capacity, never a measure of technical efficiency.
 	measure 'ASEAN Capacity Factor' =
@@ -685,8 +679,8 @@ table KPI_Measures
 			            [Capacity Factor]
 			        )
 		formatString: 0.0000%
-		lineageTag: 9efd1380-430b-58d3-9880-5376dd0ab4d9
 		displayFolder: 07 Capacity factor
+		lineageTag: 9efd1380-430b-58d3-9880-5376dd0ab4d9
 
 	/// [M113] First year inside the window with generation above zero, for whichever technology the row supplies. Helper only -- read Entry Status and Entry Year Label, which say what a blank means.
 	measure 'Entry First Year' =
@@ -701,8 +695,8 @@ table KPI_Measures
 			        )
 		formatString: #,0
 		isHidden
-		lineageTag: d4dc500c-c516-51d0-ac90-f2f05ed4a8e6
 		displayFolder: 10 Entry lag
+		lineageTag: d4dc500c-c516-51d0-ac90-f2f05ed4a8e6
 
 	/// [M114] M113 at the 0.05 TWh material threshold instead of at any positive value. The two families answer different questions -- Vietnam's solar turns positive in 2010 and only reaches 0.05 TWh in 2018 -- so both are carried, which is why forty key rows hold eighty status values.
 	measure 'Material First Year' =
@@ -717,8 +711,8 @@ table KPI_Measures
 			        )
 		formatString: #,0
 		isHidden
-		lineageTag: 5867aef2-467f-5a5b-98ed-58cebb56a794
 		displayFolder: 10 Entry lag
+		lineageTag: 5867aef2-467f-5a5b-98ed-58cebb56a794
 
 	/// [M120] How many generation metrics survive the current technology filter. Numbered out of sequence because it was added after the first pass, when the entry table came back with SEVENTY rows instead of forty: technology_label resolves seven labels, and Renewables total, Biofuel and Geothermal have no generation metric at all. Those three returned NOT_OBSERVED_BY_2021, which is a false claim -- nothing was ever measured there, so nothing failed to be observed. Every public measure in this folder is blank when this count is zero.
 	measure 'Entry Metric Count' =
@@ -732,8 +726,8 @@ table KPI_Measures
 			        ) + 0
 		formatString: #,0
 		isHidden
-		lineageTag: 9429eebf-be53-5520-bc1a-cbe01a5c53eb
 		displayFolder: 10 Entry lag
+		lineageTag: 9429eebf-be53-5520-bc1a-cbe01a5c53eb
 
 	/// [M115] Censoring status on the positive threshold. ACTIVE_AT_WINDOW_START is LEFT-CENSORED: the series was already running in 2000 and the real entry year is before the window, so it must not be reported as an entry in 2000. NOT_OBSERVED_BY_2021 is right-censored the same way.
 	measure 'Entry Status' =
@@ -749,8 +743,8 @@ table KPI_Measures
 			                "OBSERVED_TRANSITION"
 			            )
 			        )
-		lineageTag: ec10b4d2-4440-5fa5-9c61-75eac1ac1709
 		displayFolder: 10 Entry lag
+		lineageTag: ec10b4d2-4440-5fa5-9c61-75eac1ac1709
 
 	/// [M116] The observed entry year, or the censoring code when the event was not seen inside the window. Text rather than a number so a censored row shows the reason instead of an empty cell that reads like a data gap. FORMAT uses '0' and not '#,0': the model culture is vi-VN, where a thousands separator turns 2010 into 2.010.
 	measure 'Entry Year Label' =
@@ -765,8 +759,8 @@ table KPI_Measures
 			                "CENSORED/EVENT_NOT_EXACTLY_OBSERVED"
 			            )
 			        )
-		lineageTag: aa6b5725-08c1-54b2-9c61-6392c1e9a476
 		displayFolder: 10 Entry lag
+		lineageTag: aa6b5725-08c1-54b2-9c61-6392c1e9a476
 
 	/// [M117] M115 on the 0.05 TWh threshold. Brunei's solar holds NOT_MATERIAL_BY_2021 through 2021 and must keep it: substituting 2021 as an event year would invent an entry that was never observed.
 	measure 'Material Entry Status' =
@@ -782,8 +776,8 @@ table KPI_Measures
 			                "OBSERVED_MATERIAL_TRANSITION"
 			            )
 			        )
-		lineageTag: 3bccb715-9485-5c2f-ae6a-585aec0f8d23
 		displayFolder: 10 Entry lag
+		lineageTag: 3bccb715-9485-5c2f-ae6a-585aec0f8d23
 
 	/// [M118] M116 on the 0.05 TWh threshold. Vietnam's solar reads 2018 here against 2010 on the positive threshold; the series never takes the value 0.05 exactly, it reaches 0.10 TWh in 2018.
 	measure 'Material Entry Year Label' =
@@ -798,8 +792,8 @@ table KPI_Measures
 			                "CENSORED/EVENT_NOT_EXACTLY_OBSERVED"
 			            )
 			        )
-		lineageTag: 1de1d3ad-82fd-570e-9cf3-390f9f20ef7e
 		displayFolder: 10 Entry lag
+		lineageTag: 1de1d3ad-82fd-570e-9cf3-390f9f20ef7e
 
 	/// [M121] M082 given the two scopes it needs to mean anything. Read bare on a card it returned 34.714/1.024 -- every entity in the model across every year, which is true and useless. Pinning the report year and intersecting with ASEAN-10 produces the three readings Phase5_Review 3.4 asks for: 40/40 with nothing selected, 4/4 with one country, 10/10 with one technology. KEEPFILTERS rather than a replacement, so a country picked on this page still narrows it. Blank rather than the bare string '0/' when the selection lands outside ASEAN-10 entirely -- an empty card reads as no data, which is the truth, where '0/' reads as a broken measure.
 	measure 'ASEAN Completeness Label' =
@@ -820,8 +814,8 @@ table KPI_Measures
 			        )
 			    RETURN
 			        IF( NOT ISBLANK( _Need ), _Label )
-		lineageTag: fc021efb-7b00-5c17-83f8-0b4bac9477e6
 		displayFolder: 08 Status
+		lineageTag: fc021efb-7b00-5c17-83f8-0b4bac9477e6
 
 	/// [M119] Years from the start of the window to the observed entry. Numeric and BLANK for a censored series -- Entry Status beside it carries the reason. Writing 0 for a left-censored series would claim the start was watched in 2000; writing 21 for a right-censored one would claim an entry that never happened.
 	measure 'Entry Lag From 2000' =
@@ -834,84 +828,73 @@ table KPI_Measures
 			            _First - 2000
 			        )
 		formatString: #,0
-		lineageTag: 97b8b832-843b-5194-b7a4-ac77f24d6bb5
 		displayFolder: 10 Entry lag
+		lineageTag: 97b8b832-843b-5194-b7a4-ac77f24d6bb5
 
 	/// [M090] Vietnam generation at the selected year. Locked to Vietnam, so a country selection made on another page cannot move this page off its subject.
-	measure 'VN Gen TWh @Year' =
-			CALCULATE( [Gen TWh @Year], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Gen TWh @Year' = CALCULATE( [Gen TWh @Year], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: #,0.0###
-		lineageTag: e4b7b7a9-6e47-52cf-8c75-ba61505614c3
 		displayFolder: 09 Vietnam page
+		lineageTag: e4b7b7a9-6e47-52cf-8c75-ba61505614c3
 
 	/// [M091] Vietnam generation as a series, 2000 through the selected year.
-	measure 'VN Gen TWh ToDate' =
-			CALCULATE( [Gen TWh ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Gen TWh ToDate' = CALCULATE( [Gen TWh ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: #,0.0###
-		lineageTag: 1e18bb22-ea04-55a8-b5bf-2f061529a79c
 		displayFolder: 09 Vietnam page
+		lineageTag: 1e18bb22-ea04-55a8-b5bf-2f061529a79c
 
 	/// [M092] Vietnam share of total electricity at the selected year. Stored on the 0-100 scale already -- do not multiply.
-	measure 'VN Share Electricity Pct @Year' =
-			CALCULATE( [Share Electricity Pct @Year], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Share Electricity Pct @Year' = CALCULATE( [Share Electricity Pct @Year], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: #,0.0####"%"
-		lineageTag: e61d30c2-ed87-5a23-a53f-00fb418e4760
 		displayFolder: 09 Vietnam page
+		lineageTag: e61d30c2-ed87-5a23-a53f-00fb418e4760
 
 	/// [M093] Vietnam share of electricity as a series. Goes on its OWN panel, never on a second axis beside the TWh series.
-	measure 'VN Share Electricity Pct ToDate' =
-			CALCULATE( [Share Electricity Pct ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Share Electricity Pct ToDate' = CALCULATE( [Share Electricity Pct ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: #,0.0####"%"
-		lineageTag: 1c5e95b8-38d8-5754-9c88-4dba3fec1d39
 		displayFolder: 09 Vietnam page
+		lineageTag: 1c5e95b8-38d8-5754-9c88-4dba3fec1d39
 
 	/// [M094] Vietnam as a share of the ASEAN-10 total. STORED ON THE 0-1 SCALE. In 2021 this equals Top1 Share, because Vietnam leads in both modes and both use the ASEAN_SUM_10 denominator.
-	measure 'VN Country Share ASEAN' =
-			CALCULATE( [Country Share ASEAN], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Country Share ASEAN' = CALCULATE( [Country Share ASEAN], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: 0.0000%
-		lineageTag: 79890f8c-9a8e-5513-8331-bef902f72d50
 		displayFolder: 09 Vietnam page
+		lineageTag: 79890f8c-9a8e-5513-8331-bef902f72d50
 
 	/// [M095] Vietnam's rank among the 215 current countries and territories. Read it beside Global Ranked N, which moves with both year and mode: 16/205 for the renewable total in 2021 and 17/209 for the modern measure.
-	measure 'VN Global Rank' =
-			CALCULATE( [Global Rank], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Global Rank' = CALCULATE( [Global Rank], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: #,0
-		lineageTag: 41371e7b-2ce7-53e4-b6a4-9381be3f347f
 		displayFolder: 09 Vietnam page
+		lineageTag: 41371e7b-2ce7-53e4-b6a4-9381be3f347f
 
 	/// [M096] Vietnam year-on-year growth. Blank when the prior year is zero, which is common early in the window for wind and solar.
-	measure 'VN YoY' =
-			CALCULATE( [YoY], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN YoY' = CALCULATE( [YoY], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: 0.0000%
-		lineageTag: eeb1321f-03d7-5303-8cca-e8cdfece7ff4
 		displayFolder: 09 Vietnam page
+		lineageTag: eeb1321f-03d7-5303-8cca-e8cdfece7ff4
 
 	/// [M097] Whether Vietnam's TWh and its share of electricity moved the same way that year. Opposite in 2003 and 2014 on the renewable total, and in 2016 on the modern measure. A flag only -- it explains nothing about cause.
-	measure 'VN Direction Relation' =
-			CALCULATE( [Direction Relation], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
-		lineageTag: 33e8f143-d7c5-57b4-b0fe-a549ebf92e26
+	measure 'VN Direction Relation' = CALCULATE( [Direction Relation], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		displayFolder: 09 Vietnam page
+		lineageTag: 33e8f143-d7c5-57b4-b0fe-a549ebf92e26
 
 	/// [M098] Vietnam's share of the ASEAN-10 total as a SERIES. This is what the position chart plots; M094 is the single-year card and produces a flat line if it is put on a time axis. STORED ON THE 0-1 SCALE.
-	measure 'VN Country Share ASEAN ToDate' =
-			CALCULATE( [Country Share ASEAN ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Country Share ASEAN ToDate' = CALCULATE( [Country Share ASEAN ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: 0.0000%
-		lineageTag: 6acd1684-0d55-5128-8b08-6e6b480cc076
 		displayFolder: 09 Vietnam page
+		lineageTag: 6acd1684-0d55-5128-8b08-6e6b480cc076
 
 	/// [M099] Vietnam's rank inside ASEAN-10 at the year the axis supplies. The year table carries this so the rank can be read as a trajectory rather than as one number repeated down the column.
-	measure 'VN ASEAN Rank ToDate' =
-			CALCULATE( [ASEAN Rank ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN ASEAN Rank ToDate' = CALCULATE( [ASEAN Rank ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: #,0
-		lineageTag: 1b19bb59-46c6-5da5-969f-1331271ede9f
 		displayFolder: 09 Vietnam page
+		lineageTag: 1b19bb59-46c6-5da5-969f-1331271ede9f
 
 	/// [M100] Vietnam's rank among the 215 current countries and territories at the year the axis supplies. Read it beside Global Ranked N ToDate, which moves with both year and mode.
-	measure 'VN Global Rank ToDate' =
-			CALCULATE( [Global Rank ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
+	measure 'VN Global Rank ToDate' = CALCULATE( [Global Rank ToDate], ALL( DimEntity ), DimEntity[entity] = "Vietnam" )
 		formatString: #,0
-		lineageTag: 2614323c-7469-5350-8a0d-e26bd06edd9f
 		displayFolder: 09 Vietnam page
+		lineageTag: 2614323c-7469-5350-8a0d-e26bd06edd9f
 
 	/// [M101] Both of Vietnam's ranks with both denominators, on one card: 2021 on the renewable total reads `ASEAN 1/10 | World 16/205`. A bare rank is unreadable -- 16 means nothing until the reader knows whether it is out of 205 or out of 215 -- and ranked_n moves with year AND mode, so it cannot be typed into a title. When the ASEAN rank is undefined the reason takes its place: 2000 in modern mode reads `NOT_DEFINED/ZERO_SCOPE_TOTAL | World 40/212`, which shows the reason without hiding the global rank that IS defined. The ASEAN denominator is counted, not typed, for the same reason ranked_n is.
 	measure 'VN Rank Label' =
@@ -933,8 +916,8 @@ table KPI_Measures
 			        )
 			    RETURN
 			        _AseanText & _GlobalText
-		lineageTag: cbdcaa4e-2db5-5d5c-92d6-48a5b2ab4f59
 		displayFolder: 09 Vietnam page
+		lineageTag: cbdcaa4e-2db5-5d5c-92d6-48a5b2ab4f59
 
 	/// [M102] Font colour for the direction column of the year table, so the two divergent years stand out instead of hiding among twenty-two rows of SAME_DIRECTION. Returns the Phase 4 Vietnam accent on an opposing year and BLANK everywhere else, which leaves the other rows in the default colour rather than painting the whole column. Exists because a TEXT column can only be conditionally formatted through `Format by: Field value` -- the Rules option needs a numeric field -- so the colour has to come from a measure. Wire it up in Desktop: the column's dropdown in the Values well -> Conditional formatting -> Font colour -> Format by `Field value` -> this measure.
 	measure 'VN Direction Color' =
@@ -942,8 +925,8 @@ table KPI_Measures
 			            [VN Direction Relation] = "OPPOSITE_DIRECTION",
 			            "#D55E00"
 			        )
-		lineageTag: 314ad792-a670-5cd4-94dd-5a60612fabbc
 		displayFolder: 09 Vietnam page
+		lineageTag: 314ad792-a670-5cd4-94dd-5a60612fabbc
 
 	/// [M080] Reason label shown when a rank is undefined. Placed next to the rank so the viewer sees WHY it is empty instead of assuming a bug.
 	measure 'Rank Status' =
@@ -953,8 +936,8 @@ table KPI_Measures
 			            ISBLANK( _ScopeTotal ) || _ScopeTotal = 0,
 			            "NOT_DEFINED/ZERO_SCOPE_TOTAL"
 			        )
-		lineageTag: 2829e70d-361f-50fc-b6f8-5adde7733e95
 		displayFolder: 08 Status
+		lineageTag: 2829e70d-361f-50fc-b6f8-5adde7733e95
 
 	/// [M081] Reason label when top-1, top-3, HHI and Gini are undefined -- the mandatory edge case is the year 2000 in modern mode, where the ASEAN total is zero.
 	measure 'Concentration Status' =
@@ -964,8 +947,8 @@ table KPI_Measures
 			            ISBLANK( _Total ) || _Total = 0,
 			            "NOT_DEFINED/ZERO_DENOMINATOR"
 			        )
-		lineageTag: 1ffd9f73-f623-593b-8f33-717b67030cc6
 		displayFolder: 08 Status
+		lineageTag: 1ffd9f73-f623-593b-8f33-717b67030cc6
 
 	/// [M082] A have/need label so the viewer can see which level the completeness rule is operating at: 4/4 for one country, 40/40 for the ASEAN-10 aggregate.
 	measure 'Completeness Label' =
@@ -973,8 +956,8 @@ table KPI_Measures
 			    VAR _Need = [Required Component Count]
 			    RETURN
 			        FORMAT( _Have, "#,0" ) & "/" & FORMAT( _Need, "#,0" )
-		lineageTag: 91a0b07e-78cd-5004-b61f-8ad30a58c746
 		displayFolder: 08 Status
+		lineageTag: 91a0b07e-78cd-5004-b61f-8ad30a58c746
 
 	/// [M083] Fixed footer for all three pages: source, year window, why 2022 was dropped and the note that aggregate entities were excluded. Retype in Vietnamese inside Desktop if the report should read in Vietnamese -- that text lives in the .pbix, not in TMDL.
 	measure 'Footer Note' =
@@ -983,8 +966,8 @@ table KPI_Measures
 			        & "2022 excluded: severely truncated in 8 source files, 0 ASEAN countries | "
 			        & "Aggregate entities excluded from every country list | "
 			        & "No interpolation"
-		lineageTag: 20f8520e-3a91-50b4-b839-2611c2c0eaa8
 		displayFolder: 08 Status
+		lineageTag: 20f8520e-3a91-50b4-b839-2611c2c0eaa8
 
 	column _placeholder
 		dataType: string
@@ -995,5 +978,5 @@ table KPI_Measures
 
 	partition KPI_Measures = calculated
 		mode: import
-		source =
-			ROW( "_placeholder", "" )
+		source = ROW( "_placeholder", "" )
+

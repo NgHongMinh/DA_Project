@@ -3,10 +3,13 @@ model Model
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	discourageImplicitMeasures
 	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
 
-	annotation PBI_QueryOrder = ["pCleanFolder", "FactEnergy", "DimEntity", "DimMetric", "DimYear"]
+annotation PBI_QueryOrder = ["pCleanFolder", "FactEnergy", "DimEntity", "DimMetric", "DimYear"]
 
-	annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode"]
 
 ref table FactEnergy
 ref table DimEntity
@@ -18,3 +21,4 @@ ref table SelBaseYear
 ref table KPI_Measures
 
 ref cultureInfo vi-VN
+

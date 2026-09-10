@@ -30,9 +30,12 @@ and dropped `resourcePackages` -- and none of that is drift the catalogue owns.
 What the catalogue does own is each visual's type, box, title, wells and filters,
 and those must match exactly.
 
-`objects` (the in-plot formatting layer) is NOT compared yet: no small-multiples
-grid has ever been sampled from Desktop, so the catalogue cannot express one. Once
-that shape is sampled and folded in, add it to the comparison.
+`objects` (the in-plot formatting layer) went the other way on 2026-09-10. The
+grid was set by hand in Desktop, the block Desktop wrote became the project's
+first real sample, and the catalogue now expresses it -- so C10 compares it on
+both sides. Only sampled shapes belong there; an invented one is accepted by the
+file format and then renders wrong or blank with no error, which is why the rest
+of section 2b is still manual.
 
 Run:  python python\\05_test_artifacts.py
 """
@@ -107,6 +110,25 @@ PAGE3_ID = "03_SoSanh_ChanDoan"
 PAGE3_VISUAL_COUNT = 18
 V12_COLUMN_COUNT = 7
 SMALL_MULTIPLE_VISUALS = ("V10", "V14")
+
+# Agreed 2026-09-10: V10 shows the ASEAN-10 on a 5 x 2 grid with a shared Y axis.
+# Sampled from the block Desktop wrote at 14:46 that day -- the project's only
+# real sample of `smallMultiplesLayout`, which is why manual item 12b had to be
+# set by hand first and folded back into the catalogue as item 12c. Without it
+# Desktop falls back to a 2 x 2 grid: four countries show, six need scrolling,
+# and the static PDF Gate B10 asks for prints only what is on screen.
+#
+# Shared, not independent: Phase 4 published both readings (C05 shared, C06
+# free) and V10 is the shared one, so the panel subtitle must say so.
+#
+# The literal TEXT is locked, not the parsed value. Desktop writes whole numbers
+# with an `L` suffix and booleans without one; a boolean written as `1L` is still
+# accepted by the file format and then read back as a missing setting -- silent,
+# and the same class of type trap as the `is_asean = 1L` warning in section 2b.
+LOCKED_V10_OBJECTS = {
+    "smallMultiplesLayout": {"columnCount": "5L", "rowCount": "2L"},
+    "valueAxis": {"invertAxis": "false", "sharedAxis": "true", "scaleToFit": "true"},
+}
 
 
 def _load(module_name: str, file_name: str):
@@ -242,6 +264,7 @@ def disk_visuals() -> dict[str, dict[str, Any]]:
                     for role, items in single.get("projections", {}).items()
                 },
                 "filters": json.loads(container.get("filters") or "[]"),
+                "objects": single.get("objects", {}),
             }
     return found
 
@@ -259,8 +282,28 @@ def catalogue_visuals() -> dict[str, dict[str, Any]]:
             "title": visual["title"],
             "roles": {role: list(refs) for role, refs in visual["roles"].items()},
             "filters": report_module.visual_filters(visual),
+            "objects": visual.get("objects", {}),
         }
     return expected
+
+
+def object_literals(objects: dict[str, Any]) -> dict[str, dict[str, str]]:
+    """{group: {property: literal text}} for an `objects` block.
+
+    Reads the same shape whether it came from the catalogue or off disk, and
+    keeps the literal as written -- see LOCKED_V10_OBJECTS on why the text
+    matters and the parsed value does not.
+    """
+    flat: dict[str, dict[str, str]] = {}
+    for group, entries in (objects or {}).items():
+        props: dict[str, str] = {}
+        for entry in entries:
+            for prop, expr in entry.get("properties", {}).items():
+                literal = expr.get("expr", {}).get("Literal", {}).get("Value")
+                if literal is not None:
+                    props[prop] = literal
+        flat[group] = props
+    return flat
 
 
 def filter_triples(filters: list[dict[str, Any]]) -> set[tuple[str, str, tuple[str, ...]]]:
@@ -507,6 +550,38 @@ def c9_diagnostic_wells_intact() -> str:
     return f"V10/V14 keep the Rows well, V12 keeps {V12_COLUMN_COUNT} columns"
 
 
+def c10_small_multiples_grid_is_locked() -> str:
+    """C10 -- V10 keeps the sampled 5 x 2 grid and shared axis, in catalogue AND on disk.
+
+    This is the criterion manual item 12c exists for. `05_build_pbip.py :: main()`
+    rmtree's the whole `.Report/` directory before it builds, so a grid set by
+    hand in Desktop survives exactly until the next build. Checking the catalogue
+    alone would pass while report.json had lost it; checking disk alone would pass
+    on a Desktop save the catalogue cannot reproduce. Both, or neither.
+    """
+    by_id = {v["visual_id"]: v for v in VISUALS}
+    catalogue = object_literals(by_id["V10"].get("objects", {}))
+    on_disk = object_literals(disk_visuals()[report_module.visual_name("V10")]["objects"])
+
+    problems: list[str] = []
+    for source, actual in (("catalogue", catalogue), ("report.json", on_disk)):
+        for group, wanted in LOCKED_V10_OBJECTS.items():
+            got = actual.get(group, {})
+            for prop, expected in wanted.items():
+                if got.get(prop) != expected:
+                    problems.append(
+                        f"{source}: V10 {group}.{prop} = {got.get(prop)!r}, expected {expected!r}"
+                    )
+    if problems:
+        raise AssertionError("\n".join(problems))
+
+    grid = catalogue["smallMultiplesLayout"]
+    return (
+        f"V10 grid {grid['columnCount'].rstrip('L')}x{grid['rowCount'].rstrip('L')}, "
+        "shared axis, locked in catalogue and on disk"
+    )
+
+
 CRITERIA = (
     ("C1", c1_model_carries_every_catalogue_measure),
     ("C2", c2_entry_measures_carry_the_guard),
@@ -517,6 +592,7 @@ CRITERIA = (
     ("C7", c7_technology_slicer_keeps_its_filter),
     ("C8", c8_page3_layout_holds),
     ("C9", c9_diagnostic_wells_intact),
+    ("C10", c10_small_multiples_grid_is_locked),
 )
 
 

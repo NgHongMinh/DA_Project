@@ -358,6 +358,12 @@ def render_visual(visual: dict[str, Any]) -> dict[str, Any]:
     }
     if visual["title"]:
         single["vcObjects"] = title_objects(visual["title"])
+    # `objects` formats the plot itself (axes, small-multiples grid); `vcObjects`
+    # above formats the container. Written only when the catalogue carries a
+    # sampled shape -- an empty block and an absent one are not the same thing to
+    # Desktop, so absent is what an unformatted visual gets.
+    if visual.get("objects"):
+        single["objects"] = visual["objects"]
 
     config = {
         "name": visual_name(visual["visual_id"]),

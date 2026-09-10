@@ -11,7 +11,8 @@ table SelBaseYear
 	partition SelBaseYear = calculated
 		mode: import
 		source =
-			SELECTCOLUMNS(
-			    GENERATESERIES( 2000, 2021, 1 ),
-			    "year", [Value]
-			)
+				SELECTCOLUMNS(
+				    GENERATESERIES( 2000, 2021, 1 ),
+				    "year", [Value]
+				)
+

@@ -5,7 +5,9 @@ số có đúng không) và lớp tương tác/trực quan (bố cục, bộ l�
 Kiểm định số không thay thế việc mở dashboard ra bấm; ngược lại, bấm thấy đẹp
 không chứng minh được mẫu số đúng.
 
-**Trạng thái tổng thể hiện tại:** `CHỜ NGHIỆM THU`.
+**Trạng thái tổng thể:** `ĐẠT — lớp định lượng`, ký ngày 2026-09-10. Lớp tương tác
+và trình bày **chưa nghiệm thu** và được chấp nhận không đo — xem §5.1 và §5.2 để
+biết chính xác cái gì đã chứng minh và cái gì chưa.
 
 Trạng thái hợp lệ cho mỗi mục: `CHỜ NGHIỆM THU` · `CẦN SỬA` (ghi rõ lỗi và cách
 tái hiện) · `ĐẠT`.
@@ -30,15 +32,15 @@ Hiện trạng B0 tính đến 2026-09-08:
 |---|---|---|---|---|
 | B0 | Đóng chính thức Phase 4 | Người | `docs/Phase4_Review.md` | ĐẠT |
 | B1 | Khóa hợp đồng và đường cơ sở | Máy | `python/phase5_contract.py` tự kiểm khi import | ĐẠT |
-| B2 | Nạp dữ liệu, khai kiểu | Tay trong Desktop | 14 mã `P5_B2_*` | CHỜ NGHIỆM THU |
-| B3 | Mô hình sao và bảng chọn | Sinh sẵn trong TMDL | `relationships.tmdl`, ba bảng `Sel*` | CHỜ NGHIỆM THU |
-| B4 | DAX nền tảng | Sinh sẵn | 73 phép đo trong `DAX_Measures.md` | CHỜ NGHIỆM THU |
-| B5 | DAX chẩn đoán | Sinh sẵn | các phép đo nhóm 05–07 và **10 Entry lag** | CHỜ NGHIỆM THU |
-| B6 | Khung ba trang và hàng bộ lọc | Tay | `ASEAN_Renewables.Report/` | CHỜ NGHIỆM THU |
-| B7 | Trang 1 — V01–V04 | Sinh sẵn + tay | 14 ô · 54 mã `P5_B7_*` | CHỜ NGHIỆM THU |
-| B8 | Trang 2 — V05–V09 | Sinh sẵn + tay | 15 ô · 34 mã `P5_B8_*` | CHỜ NGHIỆM THU |
+| B2 | Nạp dữ liệu, khai kiểu | Tay trong Desktop | **14/14 mã `P5_B2_*` PASS** | ĐẠT |
+| B3 | Mô hình sao và bảng chọn | Sinh sẵn trong TMDL | `relationships.tmdl`, ba bảng `Sel*` | ĐẠT (qua B2 và C4) |
+| B4 | DAX nền tảng | Sinh sẵn | 73 phép đo trong `DAX_Measures.md`, C1/C3 khớp | ĐẠT |
+| B5 | DAX chẩn đoán | Sinh sẵn | các phép đo nhóm 05–07 và **10 Entry lag**; C2 + D1 | ĐẠT |
+| B6 | Khung ba trang và hàng bộ lọc | Tay | `ASEAN_Renewables.Report/` | CHỜ NGHIỆM THU (thiếu dấu trang + thanh điều hướng) |
+| B7 | Trang 1 — V01–V04 | Sinh sẵn + tay | 14 ô · **54/54 mã `P5_B7_*` PASS** | CHỜ NGHIỆM THU (còn lớp trực quan) |
+| B8 | Trang 2 — V05–V09 | Sinh sẵn + tay | 15 ô · **34/34 mã `P5_B8_*` PASS** | CHỜ NGHIỆM THU (còn lớp trực quan) |
 | B9 | Trang 3 — V10–V14 | Sinh sẵn + tay | 18 ô · **67/67 mã `P5_B9_*` PASS** | CHỜ NGHIỆM THU (còn lớp trực quan) |
-| B10 | Kiểm thử tích hợp và bằng chứng phát hành | MCP + người | `05_validation_results.csv`, PDF, SHA-256 | CHỜ NGHIỆM THU |
+| B10 | Kiểm thử tích hợp và bằng chứng phát hành | MCP + người | **175/175 PASS**; còn PDF và SHA-256 | CHỜ NGHIỆM THU (lớp định lượng ĐẠT) |
 | B11 | Nghiệm thu tổng thể | Người | phiếu này | CHỜ NGHIỆM THU |
 
 ## 2. Kiểm định máy chạy được
@@ -164,6 +166,56 @@ và `DAX_Measures.md` giống hệt nhau.
 mã băm `597b0a61…` và vẫn mang model 71 phép đo cho tới khi mở lại `.pbip` trong
 Desktop và lưu đè. Mọi phép đo D1–D5 phải làm **sau** bước lưu đè đó.
 
+### Gate B10 lớp định lượng — chạy đủ 169 mã ngày 2026-09-10
+
+Ba lượt trước chỉ chạy khối B9. Lượt này chạy nốt **102 mã còn lại** qua MCP
+`dax_query_operations` trên model đang mở trong Desktop (port 59758, khởi động
+13:45), mỗi khối `EVALUATE` một lần với `maxRows` đặt tường minh:
+
+| Khối | Số ô | Trả về | Ghi chú |
+|---|---|---|---|
+| B2 | 14 | 14 | cohort 215 / 10 / **216** — đúng bẫy §2.2, `USSR` là `historical` |
+| B7 | 54 | 54 | `maxRows=200`; đây là khối mà mức trần mặc định sẽ cắt âm thầm |
+| B8 số | 31 | 31 | |
+| B8 chữ | 3 | 3 | |
+
+Kết quả nối vào `output/stats/05_test_results.tsv` — **nối thêm**, không ghi đè,
+và có chốt chặn trùng `test_id` để 67 dòng B9 cũ không bị mất. Tổng 169 dòng.
+
+`python python\05_validate.py` → **175/175 `PASS`** (169 đích + 6 mã khoá
+`P5_LOCK_*`), **0 dòng `BLOCKING` khác `PASS`**, `method_version = phase5_v1`,
+dấu vân tay `64e1cc7d…` khớp hợp đồng. Không đích nào lệch giá trị.
+
+Ba ô chữ của B8 xác nhận hai bản sửa trước vẫn giữ: `Rank Status` trả
+`NOT_DEFINED/ZERO_SCOPE_TOTAL` **không dấu cách**, và năm ngược hướng chế độ tổng
+trả đúng `2003,2014` — **không** có năm 2000 giả mà P5-01 đã mô tả.
+
+⚠️ Lượt này chứng minh **các phép đo** đúng trên model sống. Nó không nói gì về
+`.pbix` trên đĩa, vốn vẫn là bản 71 phép đo, và không nói gì về lớp hiển thị —
+đó là D2/D3-hiển-thị/D4 và mục 3.
+
+### D5 — đối chiếu độc lập ngày 2026-09-10
+
+67 dòng B9 trong TSV được đo ở một **phiên Desktop khác** (2026-09-09). Đo lại các
+mốc trọng yếu trên phiên hiện tại, tất cả tái lập chính xác: bảng gia nhập **40
+dòng khoá / 80 giá trị trạng thái** · top-3 `0,6710232689098` · HHI
+`0,2078862160292` · Gini `0,5292181826108` · bộ hiện đại `0,9225368593494` /
+`0,4804039252012` / `0,7712848116078` · đóng góp tăng trưởng Việt Nam
+`0,4237805393688` và `0,6598591549296` · `Capacity Factor Country N` = 4.
+
+Trần hệ số công suất giữ đúng `0,3257639133464354` (`P5_B9_CF_MAX`), cùng 33 cặp
+gió / 71 cặp mặt trời / 104 tổng.
+
+> Một ghi chú về phương pháp: probe đầu tiên cho trần hệ số công suất trả `5,14`,
+> trông như một hồi quy nghiêm trọng. Nguyên nhân là **probe viết sai** — lấy
+> `MAXX` trên toàn bộ entity × year mà quên chốt cửa sổ và tập cặp hợp lệ, nên nó
+> quét cả những ô mà tỷ số vô nghĩa. Mã nghiệm thu thật trả đúng trần. Bài học
+> giống hệt P5-01: một con số sai vẫn có thể trông hoàn toàn hợp lý, và ở đây thứ
+> cứu là có sẵn một đích khoá để đối chiếu chứ không phải trực giác.
+
+D5 vẫn **CHỜ**: định nghĩa của nó là chạy trên model *vừa lưu đè `.pbix`*, mà
+bước lưu đó chưa xảy ra.
+
 ## 2b. Việc tay bắt buộc trong Desktop — chưa sinh được bằng script
 
 Mười mục dưới đây **không** nằm trong `05_visuals.py` được. Lý do kỹ thuật, không
@@ -221,9 +273,14 @@ lường trước việc này.
   ⚠️ Một chi tiết chưa lấy mẫu: `is_asean` là `int64` nên literal phải là `1L`,
   trong khi mẫu duy nhất đã có từ Desktop (`'generation'`) là cột chữ. Nếu sai,
   triệu chứng là slicer vẫn liệt kê 256 mục — đó chính là thứ tiêu chí **D3** đo.
-- [ ] **7. Đảo trục Y** của `V08_GLOBAL` để hạng 1 nằm trên. `invertAxis` nằm
-  trong khối `objects` của ô trực quan — chưa có mẫu — nên biểu đồ hạng đọc
-  ngược cho tới khi làm bước này.
+- [x] **7. Đảo trục Y** của `V08_GLOBAL` để hạng 1 nằm trên.
+  → **Không còn là việc tay từ 2026-09-10.** Lý do chặn trước đây là `invertAxis`
+  nằm trong khối `objects` mà dự án chưa có mẫu nào; mẫu lưới V10 (mục 12b) đã
+  cung cấp đúng thuộc tính đó, cùng nhóm `valueAxis`, trên cùng loại ô
+  `lineChart`. Catalogue nay sinh `invertAxis = true` cho V08_GLOBAL.
+  ⚠️ Vẫn phải **nhìn bằng mắt trong Desktop** để xác nhận: đây là thuộc tính đã
+  lấy mẫu nhưng áp sang một ô thứ hai, và triệu chứng khi sai là biểu đồ đọc
+  ngược chứ không phải một lỗi được báo.
 - [ ] **8. Màu theo Phase 4** — phần lớn đã tự động. Áp tệp chủ đề:
   *View → Themes → Browse for themes* → `powerbi\ASEAN_Renewables_theme.json`.
   `dataColors` xếp theo đúng thứ tự `technology_sort` (thuỷ điện `#0072B2` →
@@ -258,24 +315,30 @@ lường trước việc này.
   trang 2 — lần này làm cho đúng: slicer `Technology` giữ **Filter** với V06 và
   đặt **None** với 13 ô còn lại. Bản cũ đặt cùng một giá trị cho **cả 14** ô,
   tức V06 cũng bị ngắt, nên slicer đó không tác động được vào đâu.
-- [ ] **12a. Trục Y của V10 và V14** (*Format → Y axis → Scale*): chọn **Shared**
-  hay **Independent** cho lưới small multiples. Phase 4 công bố cả hai bản
-  (C05 chung trục, C06 tự do trục) vì hai cách đọc khác nhau — chọn xong phải
-  ghi rõ đang là bản nào trong phụ đề, đúng như checklist Phase 4 đòi.
-- [ ] **12b. Lưới small multiples của V10** (*Format → Small multiples → Grid
-  layout*): đặt **5 cột × 2 dòng**. Khối `objects` của ô đang **rỗng hoàn toàn**,
-  nghĩa là chưa ai đặt gì và Desktop dùng mặc định 2×2 — bốn nước hiện, sáu nước
-  phải cuộn. Gate B9 đòi lưới có đúng 10 nước và Gate B10 đòi PDF không cắt, mà
-  bản xuất tĩnh chỉ in phần đang hiện.
-  Không sinh được bằng script: `05_build_report.py` chỉ ghi hình dạng JSON **đã
-  lấy mẫu thật** từ Desktop, và `smallMultiplesLayout` chưa có mẫu nào trong dự
-  án — đoán thì Desktop vẫn mở được tệp nhưng ô render sai hoặc trắng mà không
-  báo lỗi. Vì vậy đi vòng lấy mẫu: đặt tay ở đây → lưu → trích khối JSON Desktop
-  vừa ghi → đưa vào catalogue (mục 12c) để nó sống sót qua các lần dựng lại.
-- [ ] **12c. Gói mẫu lưới vào catalogue** — sau 12b. Không làm bước này thì lần
-  chạy `05_build_pbip.py` kế tiếp xoá mất cài đặt lưới, vì `main()` gọi
-  `shutil.rmtree` lên cả `.SemanticModel/` và `.Report/` trước khi dựng. Xong thì
-  bổ sung tiêu chí **C10**: ô V10 mang khối lưới đúng số cột/dòng đã chốt.
+- [x] **12a. Trục Y của V10 và V14** — chốt **Shared** (bản chung trục, tương ứng
+  C05 của Phase 4, không phải C06 tự do trục). Phụ đề ô V10 nay ghi thẳng
+  "shared axis" trong tiêu đề do catalogue sinh, đúng như checklist Phase 4 đòi.
+  Từ 2026-09-10 do catalogue sinh; tiêu chí C10 chống hồi quy.
+- [x] **12b. Lưới small multiples của V10** — **5 cột × 2 dòng**, đã đặt tay trong
+  Desktop và lưu lúc 14:46 ngày 2026-09-10. Đây là **mẫu `smallMultiplesLayout`
+  đầu tiên và duy nhất của dự án**, nên nó vừa là việc tay vừa là nguyên liệu
+  cho 12c. Mặc định của Desktop là 2×2: bốn nước hiện, sáu nước phải cuộn, trong
+  khi Gate B9 đòi đủ 10 nước và Gate B10 đòi PDF không cắt — mà bản xuất tĩnh chỉ
+  in phần đang hiện.
+- [x] **12c. Gói mẫu lưới vào catalogue** — làm ngày 2026-09-10, **trước** lần
+  dựng lại kế tiếp. Thứ tự này là bắt buộc: `05_build_pbip.py :: main()` gọi
+  `shutil.rmtree` lên cả `.SemanticModel/` và `.Report/`, nên nếu dựng trước khi
+  trích mẫu thì mẫu duy nhất biến mất và phải đặt tay lại từ đầu.
+  Ba tệp đã sửa: `05_visuals.py` (tham số `objects` cho `_v()`, hằng số
+  `SMALL_MULTIPLES_5X2`), `05_build_report.py` (`render_visual` ghi khối
+  `objects` cạnh `vcObjects`), `05_test_artifacts.py` (tiêu chí **C10**).
+  C10 được viết **trước** khi sửa và đã xác nhận trượt trên bản chưa gói
+  (`catalogue: V10 smallMultiplesLayout.columnCount = None, expected '5L'`), rồi
+  đạt sau khi gói. Bộ tiêu chí nay là **10/10**.
+  C10 khoá **văn bản literal** chứ không khoá giá trị đã phân giải: Desktop viết
+  số nguyên có hậu tố `L` và boolean thì không, mà một boolean viết thành `1L`
+  vẫn được định dạng tệp chấp nhận rồi đọc lại như chưa đặt gì — cùng lớp bẫy
+  kiểu với cảnh báo `is_asean = 1L` ở mục 6b.
 - [ ] **13. Ma trận tương tác trang 3.** Slicer `Country` **lọc** V10, V11,
   V13_GROWTH, V14 và bảng V12; nhưng bốn thẻ tập trung (Top-1, Top-3, HHI, Gini)
   phải đặt **Không tương tác** — mẫu số của chúng là `ASEAN_SUM_10` cố định, và
@@ -292,6 +355,30 @@ lường trước việc này.
   bảng V12** (mặc định lấy nguyên tên phép đo tiếng Anh). Không đưa vào TMDL,
   xem §"Quy tắc mã hoá TMDL" của `powerbi/README.md`.
 
+### Ranh giới catalogue ↔ Desktop — chốt ngày 2026-09-10
+
+Sau khi làm 14 mục còn lại của §2b, PBIP trên đĩa sẽ lại lệch khỏi catalogue. Lần
+này **có chủ ý**, và đó là khác biệt phải ghi ra để lần sau không ai đọc nhầm nó
+thành sự cố kiểu 2026-09-10.
+
+| Lớp | Ai sở hữu | Gồm những gì | Dựng lại PBIP thì sao |
+|---|---|---|---|
+| Cấu trúc | **Catalogue** (`05_visuals.py`, `05_measures.py`) | ô, trường, bộ lọc ô, bố cục hộp, tiêu đề gốc, khối `objects` đã lấy mẫu | tái lập nguyên vẹn |
+| Trang trí | **Desktop** | chủ đề, nhãn tiếng Việt, dấu trang, thanh điều hướng, đồng bộ slicer, khoá chọn đơn, ma trận tương tác, bề rộng cột, tô màu điều kiện | **mất sạch** |
+
+Hai hệ quả phải nhớ:
+
+1. **`.pbix` là sản phẩm bàn giao, không phải PBIP.** PBIP là đầu vào dựng. Sau
+   khi lớp trang trí đã đặt, chạy `05_build_pbip.py` là hành động phá hoại.
+2. **Cách duy nhất để một mục rời khỏi lớp Desktop là lấy mẫu.** Mục 6a, 6b, 7,
+   12a, 12b, 12c đã đi đúng đường đó: đặt tay → Desktop ghi JSON → trích khối →
+   đưa vào catalogue → thêm tiêu chí chống hồi quy (C6, C7, C10). Mục nào chưa có
+   mẫu thì vẫn là việc tay, và đoán hình dạng vẫn là điều cấm.
+
+C5 cố ý **chỉ** so lớp cấu trúc. Nếu sau này C5 báo lệch, phải phân loại ngay:
+lệch ở trường thuộc lớp cấu trúc là **sự cố**; lệch ở lớp trang trí thì C5 không
+nhìn tới, nên nếu nó vẫn báo thì chính C5 sai phạm vi.
+
 ## 2c. Tiêu chí D1–D5 — chỉ đo được khi báo cáo đã render
 
 `05_test_artifacts.py` chứng minh **tệp** đúng; nó không chứng minh gì về thứ hiện
@@ -307,7 +394,32 @@ model 71 phép đo cũ.
 | D4 | V10 hiện **đủ 10 panel cùng lúc**, không thanh cuộn; PDF trang 3 in đủ 10 panel | nhìn ô, rồi *Export to PDF* | B9, B10 |
 | D5 | 67/67 mã `P5_B9_*` vẫn `PASS` trên model vừa lưu | chạy khối B9 của `05_acceptance.dax` qua MCP | B9 |
 
-- [ ] D1 · [ ] D2 · [ ] D3 · [ ] D4 · [ ] D5
+- [x] D1 · [ ] D2 · [~] D3 · [ ] D4 · [ ] D5
+
+### Kết quả đo ngày 2026-09-10 (MCP, model đang mở trong Desktop)
+
+Model Desktop đang nạp đúng bản dựng lại: **73 phép đo**, có cả `Entry Metric Count`
+và `ASEAN Completeness Label`.
+
+**D1 — ĐẠT.** Tái lập ngữ nghĩa bảng V12 bằng `SUMMARIZECOLUMNS` trên hai cột chiều
+cộng năm phép đo (bỏ dòng toàn trống, đúng cách ô bảng làm):
+
+- 40 dòng khóa · 80 giá trị trạng thái · 10 nước · 4 công nghệ;
+- nhãn công nghệ đúng `Hydro | Other renewables | Solar | Wind` — không còn
+  `Renewables total`, `Biofuel`, `Geothermal`;
+- bốn ca chuẩn §5.5 khớp từng chữ: Brunei–mặt trời giữ `NOT_OBSERVED_BY_2021` +
+  `NOT_MATERIAL_BY_2021`; Campuchia–nguồn khác `2006`, độ trễ `6`; Việt Nam–thủy
+  điện `ACTIVE_AT_WINDOW_START` với `Entry Lag` **để trống** thay vì 0; Việt
+  Nam–mặt trời dương `2010` (độ trễ 10) và vật chất `2018`.
+
+**D3 — nửa mô hình ĐẠT, nửa hiển thị CHỜ.** `is_asean = 1` trả đúng 10 thực thể
+(Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines, Singapore, Thái
+Lan, Việt Nam). Cột không lọc trả **256**, và `is_aggregate = 0` trả **216** — đo
+được đúng cái bẫy §2.2, xác nhận việc chọn `is_asean` thay vì cột kia là đúng.
+
+Nửa còn lại — Desktop có chấp nhận literal `1L` trong `report.json` hay không —
+**nằm ở lớp báo cáo, MCP không có tool nào chạm tới**. Phải mở slicer `Country`
+trên trang 3 và đếm: 10 mục là đạt, 256 mục nghĩa là literal sai kiểu.
 
 ## 3. Ca bắt buộc người nghiệm thu phải tự thử
 
@@ -405,24 +517,95 @@ Kiểm định số nói các phép đo trả đúng; mấy ô dưới đây nó
 
 | Hạng mục | Giá trị | Ghi lúc |
 |---|---|---|
-| SHA-256 `ASEAN_Renewables.pbix` | | B10 |
-| Số mã kiểm thử đạt / tổng | | B10 |
-| Số dòng chặn khác `PASS` | | B10 |
+| SHA-256 `ASEAN_Renewables.pbix` | ⚠️ `597b0a6183d85e8974c24b177d95ed63f5b2382f4b972b9d289451d78f1a0334` — **bản cũ 71 phép đo, chưa hợp lệ để phát hành** | chờ lưu đè |
+| Số mã kiểm thử đạt / tổng | **175 / 175** | 2026-09-10 |
+| Số dòng chặn khác `PASS` | **0** | 2026-09-10 |
 | Phiên bản Power BI Desktop | `2.157.1354.0` | B1 |
 | Dấu vân tay đầu vào Phase 2 | `64e1cc7d7bcbbde9f2378eaa81e5a42f4a1322d356a5a0b73f4cd944b95a8b10` | B1 |
-| 17 CSV nguồn và đầu ra Phase 1–4 không đổi | | B10 |
+| 17 CSV nguồn không đổi | 17 tệp, băm gộp `3092712a0f05fb09ee7e47463da69daf1aeba74c0da3f65c7eb35fb9dc602df9` | 2026-09-10 |
+| Tiêu chí hiện vật C1–C10 | **10 / 10 PASS**, dựng hai lần cho `report.json` `8a4aa4a2…` và `DAX_Measures.md` `ccf4c71f…` giống hệt | 2026-09-10 |
+| PDF ba trang | chưa xuất | chờ B10 |
+
+> ⚠️ Ô SHA-256 ở trên **chưa phải bằng chứng phát hành**. Nó ghi lại đúng vấn đề:
+> `.pbix` vẫn đi sau catalogue. Ô này chỉ hợp lệ khi mang một mã băm **khác**
+> `597b0a61…`, đo sau khi mở `.pbip` trong Desktop, làm xong §2b và lưu đè.
 
 ## 5. Ký nhận tổng thể
 
-Chỉ điền khi B0–B10 đều `ĐẠT`, mọi ô mục 3 đã được kiểm và không còn ghi chú phải sửa.
+Điều kiện gốc của mục này là “B0–B10 đều `ĐẠT`, mọi ô mục 3 đã được kiểm”. Điều
+kiện đó **không** được thoả. Chủ đồ án quyết định ký đóng với **phạm vi thu hẹp**
+để mở Phase 6, và mục này ghi lại đúng ranh giới đó thay vì đánh dấu những ô chưa
+ai kiểm.
 
 | Trường | Nội dung |
 |---|---|
-| Kết quả tổng thể | CHỜ NGHIỆM THU |
-| Người nghiệm thu | |
-| Ngày nghiệm thu | |
+| Kết quả tổng thể | **ĐẠT — lớp định lượng** (không phải `ĐẠT` toàn phần) |
+| Người nghiệm thu | Nguyễn Hồng Minh |
+| Ngày nghiệm thu | 2026-09-10 |
 | Phiên bản phương pháp | `phase5_v1` |
-| Ghi chú cuối | |
+| Ghi chú cuối | Ký theo quyết định thu hẹp phạm vi; lớp tương tác và trình bày chưa nghiệm thu — xem hai bảng dưới |
 
-Sau khi ký mới được cập nhật Phase 5 trong `PLAN.md` thành “ĐÃ HOÀN THÀNH” và mở
-Phase 6 — không phải trước đó.
+### 5.1. Đã chứng minh bằng đo đạc
+
+| Hạng mục | Bằng chứng |
+|---|---|
+| Toàn bộ mã nghiệm thu DAX | **175/175 `PASS`**, 0 dòng `BLOCKING` khác `PASS` — phủ B2 (14), B7 (54), B8 (34), B9 (67) và 6 mã khoá B10 |
+| Hiện vật trên đĩa | **C1–C10 `PASS`**; dựng hai lần cho `report.json` `8a4aa4a2…` và `DAX_Measures.md` `ccf4c71f…` giống hệt |
+| Mô hình | 73 phép đo, 8 bảng, 3 quan hệ; catalogue khớp TMDL khớp model sống |
+| D1 | bảng V12 đúng 40 dòng khoá / 80 giá trị trạng thái, không còn nhãn `Renewables total`/`Biofuel`/`Geothermal` |
+| D5 (một phần) | các mốc B9 tái lập đúng trên một **phiên Desktop thứ hai**, độc lập với phiên đã đo lần đầu |
+| Đầu vào | 17 CSV nguồn giữ băm gộp `3092712a…`; dấu vân tay Phase 2 `64e1cc7d…` |
+
+### 5.2. Chấp nhận không đo — quyết định ngày 2026-09-10
+
+| Hạng mục | Hệ quả đã biết |
+|---|---|
+| 14 mục việc tay §2b | slicer không đồng bộ giữa ba trang · không có dấu trang `Reset` và thanh điều hướng · chưa áp `ASEAN_Renewables_theme.json` · ma trận tương tác để mặc định · giao diện còn tiếng Anh · bề rộng cột V09/V12 chưa chỉnh |
+| 32 ca §3 | lớp tương tác, bố cục và khả năng đọc **chưa ai kiểm bằng mắt** |
+| D2, D4, nửa hiển thị của D3 | chưa biết thẻ “có/cần” đọc đúng không · chưa biết V10 hiện đủ 10 panel không · chưa biết slicer `Country` liệt kê 10 hay 256 mục |
+| PDF ba trang · hiệu năng | chưa xuất, chưa đo |
+
+> Các ô `[ ]` trong §2b và §3 **cố ý để trống**. Chúng phản ánh đúng sự thật là chưa
+> ai bấm. Ai tiếp tục Phase 5 về sau thì đây chính là danh sách việc, không cần
+> dựng lại từ đầu.
+
+### 5.3. Khuyết điểm đã biết của tệp bàn giao
+
+`ASEAN_Renewables.pbix` tại thời điểm ký vẫn là bản `597b0a61…` mang **71 phép đo**.
+Đây là khuyết điểm **nội dung**, không phải thủ tục: mở tệp đó ra thì bảng V12 hiện
+**70 dòng thay vì 40**, và `Rank Status` trả chuỗi có dấu cách sai ở cả trang 2 qua
+`VN Rank Label`.
+
+PBIP trên đĩa thì **đúng** — 73 phép đo, C1–C10 đủ. Cách sửa là một thao tác: đóng
+Desktop **không lưu**, mở `ASEAN_Renewables.pbip`, Save. Sau đó điền mã băm mới vào
+§4 và vào bảng dưới đây.
+
+| Trường | Nội dung |
+|---|---|
+| SHA-256 `.pbix` sau khi tái sinh | *(chưa điền)* |
+| Ngày tái sinh | *(chưa điền)* |
+
+**Cập nhật 2026-09-10 lúc 15:52 — lần lệch thứ ba, đã được chính sách §2b dự đoán.**
+Desktop lưu đè PBIP. Đo được ngay sau đó:
+
+| Hạng mục | Trạng thái |
+|---|---|
+| Model (73 phép đo, chốt gia nhập, chuỗi trạng thái) | **giữ nguyên đúng** — C1, C2, C3 đạt |
+| Lưới small multiples 5×2 của V10 | **sống sót** — C10 đạt, đúng mục đích của mục 12c |
+| Bố cục `report.json` | quay về bản Desktop kéo tay — **C5 và C8 trượt** |
+| `.pbix` | **vẫn là `597b0a61…`, giờ lưu 01:02** — Desktop đã lưu PBIP chứ không lưu `.pbix` |
+
+Đây là lệch thuộc **lớp bố cục**, mà theo bảng ranh giới ở §2b thì catalogue sở hữu —
+nên C5/C8 trượt là tín hiệu đúng chứ không phải hỏng bộ kiểm định. Điều đáng ghi hơn
+là mục 12c đã chứng minh giá trị của nó ngay trong lần thử đầu tiên: khối `objects`
+nằm trong catalogue nên sống sót qua một lượt Desktop ghi đè, trong khi bố cục hộp —
+thứ chưa được bảo vệ bằng cách nào tương đương — thì không.
+
+Muốn khôi phục bố cục catalogue: đóng Desktop **không lưu**, chạy
+`python python\05_build_pbip.py`, rồi mở lại `.pbip` và **Save As `.pbix`**.
+
+Chừng nào ô trên còn trống, **sản phẩm 1.5c hợp lệ là PBIP + `DAX_Measures.md`**,
+không phải `.pbix`.
+
+Phase 5 khép lại ở đây với phạm vi trên. `PLAN.md` được cập nhật kèm đúng phạm vi
+này, và Phase 6 mở tiếp.

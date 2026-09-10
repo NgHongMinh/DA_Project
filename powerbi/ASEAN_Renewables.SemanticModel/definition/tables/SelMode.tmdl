@@ -23,12 +23,13 @@ table SelMode
 	partition SelMode = calculated
 		mode: import
 		source =
-			DATATABLE(
-			    "mode_key", STRING,
-			    "mode_label", STRING,
-			    "sort_order", INTEGER,
-			    {
-			        { "RENEWABLE_TOTAL", "Renewable total (hydro + wind + solar + other)", 1 },
-			        { "MODERN_WIND_SOLAR", "Modern only (wind + solar)", 2 }
-			    }
-			)
+				DATATABLE(
+				    "mode_key", STRING,
+				    "mode_label", STRING,
+				    "sort_order", INTEGER,
+				    {
+				        { "RENEWABLE_TOTAL", "Renewable total (hydro + wind + solar + other)", 1 },
+				        { "MODERN_WIND_SOLAR", "Modern only (wind + solar)", 2 }
+				    }
+				)
+

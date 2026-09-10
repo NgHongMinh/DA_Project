@@ -42,16 +42,17 @@ table FactEnergy
 	partition FactEnergy = m
 		mode: import
 		source =
-			let
-			    Source = Csv.Document(
-			        File.Contents( pCleanFolder & "\fact_energy.csv" ),
-			        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
-			    ),
-			    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
-			    Typed = Table.TransformColumnTypes(
-			        Promoted,
-			        {{"entity", type text}, {"year", Int64.Type}, {"metric_key", type text}, {"value", type number}, {"value_class", type text}, {"source_file", type text}},
-			        "en-US"
-			    )
-			in
-			    Typed
+				let
+				    Source = Csv.Document(
+				        File.Contents( pCleanFolder & "\fact_energy.csv" ),
+				        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {{"entity", type text}, {"year", Int64.Type}, {"metric_key", type text}, {"value", type number}, {"value_class", type text}, {"source_file", type text}},
+				        "en-US"
+				    )
+				in
+				    Typed
+
