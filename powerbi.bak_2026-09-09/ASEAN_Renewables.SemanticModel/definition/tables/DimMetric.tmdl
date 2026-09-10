@@ -1,0 +1,138 @@
+table DimMetric
+	lineageTag: 1b74be7d-1fab-541f-9a11-ae3753a3ac90
+
+	column metric_key
+		dataType: string
+		lineageTag: 198cae4a-0f4a-512f-9395-8bbb66bcb4f9
+		summarizeBy: none
+		sourceColumn: metric_key
+
+	column technology
+		dataType: string
+		lineageTag: ac2b3b2b-8a60-526f-841b-ab6fcc85f9b5
+		summarizeBy: none
+		sourceColumn: technology
+
+	column metric
+		dataType: string
+		lineageTag: b876a21e-ab5a-5aab-9107-deed5752e92d
+		summarizeBy: none
+		sourceColumn: metric
+
+	column canonical_unit
+		dataType: string
+		lineageTag: 566972cf-3e90-56a2-ba78-a6e6908b6113
+		summarizeBy: none
+		sourceColumn: canonical_unit
+
+	column source_unit
+		dataType: string
+		isHidden
+		lineageTag: 8e247e1b-acc1-5f39-81d4-9a1f8fe9a319
+		summarizeBy: none
+		sourceColumn: source_unit
+
+	column conversion_factor
+		dataType: double
+		isHidden
+		lineageTag: 09b7ec89-99a2-553f-ba74-d849f4589a10
+		summarizeBy: none
+		sourceColumn: conversion_factor
+
+	column source_file
+		dataType: string
+		isHidden
+		lineageTag: e929276f-9667-525a-b80c-b441623d1837
+		summarizeBy: none
+		sourceColumn: source_file
+
+	column source_column
+		dataType: string
+		isHidden
+		lineageTag: f4543baa-24e3-543a-8391-9f936a8a0103
+		summarizeBy: none
+		sourceColumn: source_column
+
+	column scope
+		dataType: string
+		lineageTag: c77cb840-5ca6-5d36-8910-030970190a7f
+		summarizeBy: none
+		sourceColumn: scope
+
+	column trace_threshold
+		dataType: double
+		lineageTag: 1df5617e-2435-54e4-bc35-2b7eb827ea36
+		summarizeBy: none
+		sourceColumn: trace_threshold
+
+	column analysis_start_year
+		dataType: int64
+		formatString: 0
+		lineageTag: a46310a7-769d-5b91-b97c-99532db89ccb
+		summarizeBy: none
+		sourceColumn: analysis_start_year
+
+	column analysis_end_year
+		dataType: int64
+		formatString: 0
+		lineageTag: cf1b94b6-fd15-53b7-8e04-07b5a6da7efc
+		summarizeBy: none
+		sourceColumn: analysis_end_year
+
+	/// Display label for the technology, cased for legends. Sorted by
+	/// technology_sort so legends and slicers follow the Phase 4 stack
+	/// order instead of the alphabet, which would open with Biofuel and
+	/// Geothermal -- two technologies this dashboard never charts.
+	column technology_label =
+			SWITCH(
+			            DimMetric[technology],
+			            "hydro", "Hydro",
+			            "other_renewables", "Other renewables",
+			            "wind", "Wind",
+			            "solar", "Solar",
+			            "renewables", "Renewables total",
+			            "biofuel", "Biofuel",
+			            "geothermal", "Geothermal",
+			            DimMetric[technology]
+			        )
+		dataType: string
+		lineageTag: 79e9d657-4d04-5a9c-8929-df0c6b9b7913
+		summarizeBy: none
+		sortByColumn: technology_sort
+
+	/// Technology display order, matching the Phase 4 chart stack order.
+	column technology_sort =
+			SWITCH(
+			            DimMetric[technology],
+			            "hydro", 1,
+			            "other_renewables", 2,
+			            "wind", 3,
+			            "solar", 4,
+			            "renewables", 5,
+			            "biofuel", 6,
+			            "geothermal", 7,
+			            0
+			        )
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 94c783d7-70ca-5f15-bb85-91444bbf9485
+		summarizeBy: none
+
+	partition DimMetric = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				        File.Contents( pCleanFolder & "\dim_metric.csv" ),
+				        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {{"metric_key", type text}, {"technology", type text}, {"metric", type text}, {"canonical_unit", type text}, {"source_unit", type text}, {"conversion_factor", type number}, {"source_file", type text}, {"source_column", type text}, {"scope", type text}, {"trace_threshold", type number}, {"analysis_start_year", Int64.Type}, {"analysis_end_year", Int64.Type}},
+				        "en-US"
+				    )
+				in
+				    Typed
+

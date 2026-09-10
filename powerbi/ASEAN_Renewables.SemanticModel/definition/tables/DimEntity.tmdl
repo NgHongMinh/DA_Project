@@ -1,0 +1,102 @@
+table DimEntity
+	lineageTag: 5f0af423-ceef-5ce0-96c0-3e50b3805ecd
+
+	column entity
+		dataType: string
+		lineageTag: f3fbf62a-54a3-532a-aebd-ed0d4caed045
+		summarizeBy: none
+		sourceColumn: entity
+
+	column iso_code
+		dataType: string
+		isHidden
+		lineageTag: 8bd7defa-cdb5-571c-91ba-89c6722e51ee
+		summarizeBy: none
+		sourceColumn: iso_code
+
+	column entity_type
+		dataType: string
+		lineageTag: ab66867c-5c87-57d3-a3f3-40b25035e56b
+		summarizeBy: none
+		sourceColumn: entity_type
+
+	column is_aggregate
+		dataType: int64
+		formatString: 0
+		lineageTag: 2451b6e0-7cae-519e-9f68-91679137038c
+		summarizeBy: none
+		sourceColumn: is_aggregate
+
+	column is_current_country_or_territory
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cf5cc23-36f5-5b1d-9ec2-4c00faf6a803
+		summarizeBy: none
+		sourceColumn: is_current_country_or_territory
+
+	column is_asean
+		dataType: int64
+		formatString: 0
+		lineageTag: 109d054e-9ba1-5f7c-bb64-cc9c4695afe4
+		summarizeBy: none
+		sourceColumn: is_asean
+
+	column is_source_variant
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: ffb49264-edff-56c9-bf04-f0a5eb53606c
+		summarizeBy: none
+		sourceColumn: is_source_variant
+
+	column canonical_entity
+		dataType: string
+		isHidden
+		lineageTag: 1247d456-b25f-5e0b-8ba4-abd9da1c123d
+		summarizeBy: none
+		sourceColumn: canonical_entity
+
+	column continent
+		dataType: string
+		lineageTag: 4332c78e-49d3-51f5-96aa-dee904aa54de
+		summarizeBy: none
+		sourceColumn: continent
+
+	column income_group
+		dataType: string
+		lineageTag: 7cdffe50-d808-5912-a166-9921db2f1911
+		summarizeBy: none
+		sourceColumn: income_group
+
+	/// Display label for the entity. Vietnamese wording belongs on the
+	/// report surface, not here: TMDL must stay ASCII.
+	column entity_label =
+			SWITCH(
+			            DimEntity[entity],
+			            "Cambodia", "Cambodia",
+			            "Laos", "Laos",
+			            "Thailand", "Thailand",
+			            "Vietnam", "Vietnam",
+			            "World", "World",
+			            DimEntity[entity]
+			        )
+		dataType: string
+		lineageTag: 2640f498-eb3c-5e5c-9cd1-3971a59b4b8d
+		summarizeBy: none
+
+	partition DimEntity = m
+		mode: import
+		source =
+			let
+			    Source = Csv.Document(
+			        File.Contents( pCleanFolder & "\dim_entity.csv" ),
+			        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+			    ),
+			    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
+			    Typed = Table.TransformColumnTypes(
+			        Promoted,
+			        {{"entity", type text}, {"iso_code", type text}, {"entity_type", type text}, {"is_aggregate", Int64.Type}, {"is_current_country_or_territory", Int64.Type}, {"is_asean", Int64.Type}, {"is_source_variant", Int64.Type}, {"canonical_entity", type text}, {"continent", type text}, {"income_group", type text}},
+			        "en-US"
+			    )
+			in
+			    Typed

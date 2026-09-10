@@ -284,8 +284,10 @@ là một nước có vị trí tốt hơn theo gió + mặt trời; xếp hạn
 dùng nước có đầu kỳ ít nhất 0,05 TWh, còn 0,1 và 1 TWh là kiểm tra độ nhạy.
 Năm 2021, Việt Nam đứng hạng 1 theo cả hai cách đo; Singapore cải thiện 4 bậc
 khi chuyển sang gió + mặt trời, trong khi Indonesia giảm 4 bậc và Lào giảm
-5 bậc. Thái Lan và Philippines đồng hạng 3 theo gió + mặt trời, đúng quy tắc
-không phá hòa bằng tên quốc gia.
+5 bậc. Thái Lan lên hạng 2 và Philippines lên hạng 3 theo gió + mặt trời,
+mỗi nước tăng 3 bậc (Thái Lan 5 → 2, Philippines 6 → 3). Quy tắc giữ đồng
+hạng vẫn được áp dụng cho toàn bộ cửa sổ, nhưng năm 2021 không có trường hợp
+đồng hạng nào ở cả hai cách đo.
 
 ## Q4 — Việt Nam và ASEAN-9
 
@@ -354,7 +356,132 @@ quốc gia điển hình trong các lát cắt này.
 
 # 1.4. Trực quan hoá dữ liệu
 
-*(Phase 4 — chưa thực hiện)*
+Bộ 13 biểu đồ dưới đây dùng cùng dấu vân tay dữ liệu
+`64e1cc7d7bcb…`. Dữ liệu điểm vẽ và khóa truy vết nằm trong
+`output/stats/04_chart_data.xlsx`; 38/38 kiểm định tự động nằm trong
+`output/stats/04_validation_results.csv` và đều đạt.
+
+## Nhóm 1 — Bối cảnh khu vực
+
+![C01 — Điện tái tạo ASEAN trong bối cảnh thế giới](../output/charts/04_01_global_asean_context.png)
+
+**C01 — Thông điệp:** ASEAN tăng gần bốn lần, từ 72,800904 lên
+289,655745 TWh, nhưng năm 2021 vẫn chỉ bằng 3,6735% mức thế giới được báo
+cáo. **Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_global_context.xlsx:annual_context`; ASEAN-10 và thế giới, 2000–2021.
+**Giới hạn:** tổng thế giới là số do nguồn công bố; panel logarit chỉ chứa
+giá trị dương và xu hướng không chứng minh nguyên nhân.
+
+![C02 — Cơ cấu sản lượng điện tái tạo ASEAN theo công nghệ](../output/charts/04_02_asean_technology_trend.png)
+
+**C02 — Thông điệp:** thủy điện vẫn là thành phần lớn nhất; gió và mặt trời
+tăng rõ ở cuối kỳ. **Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_asean_cross_section.xlsx:asean_annual`; ASEAN-10, 2000–2021.
+**Giới hạn:** đây là sản lượng điện, không phải công suất; tổng từng năm chỉ
+được vẽ sau khi bốn thành phần khớp tổng NLTT.
+
+## Nhóm 2 — So sánh trong ASEAN
+
+![C03 — Quy mô và cơ cấu điện tái tạo theo nước ASEAN năm 2021](../output/charts/04_03_asean_country_mix_2021.png)
+
+**C03 — Thông điệp:** quy mô và cơ cấu năm 2021 khác nhau rõ giữa các nước.
+**Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_asean_cross_section.xlsx:country_year_values`; ASEAN-10, năm 2021.
+**Giới hạn:** lát cắt một năm không cho biết nguyên nhân; tỷ trọng của Brunei
+để không xác định vì tổng bằng 0, không bị thay bằng bốn giá trị 0 giả. Nhãn
+tỷ trọng dùng một chữ số thập phân và không làm tròn giá trị dương thành 0%.
+
+![C04 — Thay đổi thứ hạng ASEAN khi đổi cách đo](../output/charts/04_04_asean_rank_shift_2021.png)
+
+**C04 — Thông điệp:** khi chuyển từ tổng NLTT sang gió + mặt trời,
+Singapore tăng 4 bậc, Indonesia giảm 4 bậc và Lào giảm 5 bậc.
+**Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_ranking_comparison.xlsx:annual_ranks`; ASEAN-10, năm 2021.
+**Giới hạn:** hạng 1 ở phía trên, đồng hạng được giữ nguyên và màu biểu thị
+quốc gia chứ không biểu thị thứ hạng.
+
+![C05 — Chuỗi quốc gia dùng chung thang đo](../output/charts/04_05_asean_small_multiples_shared.png)
+
+**C05 — Thông điệp:** thang đo chung làm rõ chênh lệch quy mô tuyệt đối giữa
+10 nước. **Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_asean_cross_section.xlsx:country_year_values`; ASEAN-10, 2000–2021.
+**Giới hạn:** biến động của nước có quy mô nhỏ có thể khó quan sát trên trục
+chung.
+
+![C06 — Chuỗi quốc gia dùng thang đo riêng](../output/charts/04_06_asean_small_multiples_free.png)
+
+**C06 — Thông điệp:** thang đo riêng cho thấy quỹ đạo nội tại của các nước
+quy mô nhỏ. **Nguồn/phạm vi:** cùng đúng 220 quan sát và cùng thứ tự với C05.
+**Giới hạn:** không so sánh chiều cao giữa các panel vì mỗi trục tung có giới
+hạn khác nhau.
+
+## Nhóm 3 — Việt Nam
+
+![C07 — Sản lượng điện tái tạo Việt Nam theo công nghệ](../output/charts/04_07_vietnam_technology_trend.png)
+
+**C07 — Thông điệp:** gió và mặt trời tăng mạnh cuối cửa sổ, nhưng thủy điện
+vẫn quan trọng. **Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_vietnam_time_series.xlsx:annual`; Việt Nam, 2000–2021.
+**Giới hạn:** biểu đồ mô tả xu hướng, không xác lập nguyên nhân hay tác động
+chính sách.
+
+![C08 — Sản lượng và tỷ trọng điện của Việt Nam](../output/charts/04_08_vietnam_twh_vs_share.png)
+
+**C08 — Thông điệp:** TWh và tỷ trọng trong tổng điện không luôn cùng hướng;
+các năm ngược hướng là 2003, 2014 đối với tổng NLTT và 2016 đối với gió +
+mặt trời. **Nguồn/phạm vi:** `03_fact_metrics.csv`, các sheet `twh_vs_pct` và
+`annual_changes`; Việt Nam, 2000–2021. **Giới hạn:** hai đơn vị nằm ở panel
+riêng, không dùng trục kép và không suy diễn nguyên nhân.
+
+![C09 — Vị thế điện tái tạo của Việt Nam](../output/charts/04_09_vietnam_regional_global_position.png)
+
+**C09 — Thông điệp:** Việt Nam nổi bật hơn ở gió + mặt trời so với tổng
+NLTT. Năm 2021, cặp Việt Nam/tổng ASEAN-9 lần lượt là
+104,218036/185,437709 TWh và 28,16/14,57 TWh. **Nguồn/phạm vi:**
+`03_fact_metrics.csv`, `03_vietnam_time_series.xlsx:annual,asean9_benchmark`;
+Việt Nam và tổng chín nước ASEAN còn lại, 2000–2021. **Giới hạn:** ASEAN-9
+là tổng, không phải trung bình; hạng 16/205 và 17/209 chỉ được chú thích tại
+năm 2021.
+
+## Nhóm 4 — Phân phối và chẩn đoán
+
+![C10 — Phân phối sản lượng điện tái tạo toàn cầu năm 2021](../output/charts/04_10_global_distribution_2021.png)
+
+**C10 — Thông điệp:** phân phối toàn cầu có nhiều giá trị 0 và lệch phải
+mạnh. **Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_global_cross_section.xlsx:country_values,generation_stats`; mẫu cố định
+215 quốc gia/vùng lãnh thổ, năm 2021. **Giới hạn:** 0 được đếm riêng; chỉ giá
+trị dương đi vào panel logarit, không cộng số giả.
+
+![C11 — Độ trễ đạt ngưỡng 0,05 TWh tại ASEAN](../output/charts/04_11_asean_entry_lag.png)
+
+**C11 — Thông điệp:** thời điểm đạt ngưỡng của từng công nghệ rất không đồng
+đều. **Nguồn/phạm vi:** `03_fact_metrics.csv`,
+`03_entry_lag.xlsx:entry_status`; ASEAN-10, cửa sổ 2000–2021.
+**Giới hạn:** ký hiệu tam giác là trạng thái kiểm duyệt trái/phải, không phải
+năm 2000 hoặc 2021 được gán thay.
+
+![C12 — Mức tập trung và đóng góp tăng trưởng](../output/charts/04_12_asean_concentration_growth.png)
+
+**C12 — Thông điệp:** năm 2021, ba nước dẫn đầu nắm 92,2537% gió + mặt trời
+so với 67,1023% tổng NLTT; Việt Nam đóng góp 65,9859% tổng phần tăng dương
+gió + mặt trời giai đoạn 2010–2021. **Nguồn/phạm vi:**
+`03_fact_metrics.csv`, các sheet `annual_concentration` và
+`growth_contribution`; ASEAN-10. **Giới hạn:** tỷ trọng đóng góp dùng tổng
+phần tăng dương, không phải thay đổi ròng, HHI hay Gini của mức sản lượng.
+
+## Nhóm 5 — Chỉ số phụ có độ phủ hạn chế
+
+![C13 — Hệ số sử dụng công suất xấp xỉ](../output/charts/04_13_capacity_factor_proxy.png)
+
+**C13 — Thông điệp:** chỉ có 33 quan sát gió của Philippines và Thái Lan,
+cùng 71 quan sát mặt trời của Malaysia, Philippines, Thái Lan và Việt Nam.
+**Nguồn/phạm vi:** `output/clean/fact_energy.csv` được khóa bằng 89.075 dòng,
+mã SHA-256 và dấu vân tay Phase 2 tính lại từ SQLite; ASEAN-10, 2000–2021 theo
+cặp năm–nước khả dụng. **Giới hạn:** chỉ số được tính bằng
+`TWh / (GW × 8,76)` với công suất cuối năm, nên chỉ là chỉ báo xấp xỉ và
+không phải thước đo hiệu quả kỹ thuật; danh sách nước thiếu được ghi trực
+tiếp trên hình.
 
 # 1.5. Diễn giải và trình bày kết quả
 

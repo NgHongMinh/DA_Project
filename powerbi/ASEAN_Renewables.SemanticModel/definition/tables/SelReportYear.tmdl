@@ -1,0 +1,17 @@
+table SelReportYear
+	lineageTag: e70e7373-11c4-5725-b9ee-3cee0f4a7ec2
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: e0d44628-6f49-5f26-81e3-3b7e60222d5e
+		summarizeBy: none
+		sourceColumn: [year]
+
+	partition SelReportYear = calculated
+		mode: import
+		source =
+			SELECTCOLUMNS(
+			    GENERATESERIES( 2000, 2021, 1 ),
+			    "year", [Value]
+			)

@@ -277,7 +277,7 @@ Chạy: `python python\02_clean_build.py` và
 ## P3-06 — Hai cách đo làm thay đổi đáng kể vị trí của một số nước
 
 - **finding_id:** P3-06; **question_id:** Q3; **scope:** ASEAN-10; **period:** 2021; **metric_name:** `asean_rank/modern_rank_gain`.
-- **Bằng chứng số:** Việt Nam đứng hạng 1 theo cả tổng tái tạo và gió + mặt trời. Singapore tăng 4 bậc khi đổi cách đo; Indonesia giảm 4 bậc và Lào giảm 5 bậc. Thái Lan và Philippines đồng hạng 3 theo gió + mặt trời.
+- **Bằng chứng số:** Việt Nam đứng hạng 1 theo cả tổng tái tạo và gió + mặt trời. Singapore tăng 4 bậc khi đổi cách đo; Indonesia giảm 4 bậc và Lào giảm 5 bậc. Thái Lan lên hạng 2 và Philippines lên hạng 3 theo gió + mặt trời, mỗi nước tăng 3 bậc so với xếp hạng tổng tái tạo (Thái Lan 5 → 2, Philippines 6 → 3).
 - **Truy vết:** `output/stats/03_ranking_comparison.xlsx`, sheet `annual_ranks`, khóa `entity|Y2021`; `method_version=phase3_v1`.
 - **Diễn giải:** xếp hạng tổng tái tạo có thể phản ánh lợi thế thủy điện lịch sử, nên công tắc gió + mặt trời ở các phase sau có ý nghĩa phân tích thực.
 - **Giới hạn:** đây là xếp hạng sản lượng tuyệt đối, chưa điều chỉnh theo dân số, GDP hoặc nhu cầu điện. **Tin cậy:** Cao.
@@ -316,4 +316,112 @@ Chạy: `python python\02_clean_build.py` và
 
 # Phase 4 — Trực quan hoá
 
-*(chưa thực hiện)*
+## Trạng thái bản phát hành kỹ thuật
+
+- Đã tạo đúng 13 PNG kích thước 2.400 × 1.350 điểm ảnh, 16 sheet trong
+  `output/stats/04_chart_data.xlsx` và 38/38 kiểm định `BLOCKING` đều
+  `PASS`. Toàn bộ sản phẩm mang `method_version=phase4_v1` và dấu vân tay
+  `64e1cc7d7bcbbde9f2378eaa81e5a42f4a1322d356a5a0b73f4cd944b95a8b10`.
+- `python/04_test_contract.py` đã xác nhận `fact_energy.csv` đúng 89.075 dòng,
+  đúng SHA-256 và bị chặn khi một giá trị C13 bị sửa mà khóa/số dòng không đổi.
+  `python/04_test_publish.py` đã xác nhận hoàn tác đủ bản cũ khi có thể và giữ
+  bản sao kèm đường dẫn khi phục hồi không đầy đủ. `python/04_verify_release.py`
+  đã tự chạy 3/3 tiền điều kiện B1, dựng Phase 4 hai lần và xác nhận cùng nội
+  dung workbook/CSV, cùng mã băm mảng điểm ảnh đã giải mã; 17 CSV nguồn,
+  `fact_energy.csv` và 16 đầu ra được bảo vệ của Phase 3 không đổi trong hai
+  lần dựng Phase 4.
+- Rà trực quan ở kích thước 100% đã phát hiện và sửa ba lỗi trình bày cuối:
+  dấu thập phân kiểu Anh ở C01/C05/C06/C12, chồng chữ ở C09 và thang màu C03
+  dùng tỷ lệ kiểu Anh thay vì phần trăm kiểu Việt. Phiếu
+  `docs/Phase4_Review.md` có 13/13 biểu đồ `ĐẠT` và được Nguyễn Hồng Minh ký
+  ngày 2026-09-08; Phase 4 đã được đánh dấu hoàn tất trong `PLAN.md`.
+
+## Ánh xạ phát hiện Phase 3 sang biểu đồ
+
+Các hình C01–C12 không tạo phiên bản phát hiện mới mà trực quan hóa lại bằng
+chứng đã kiểm chứng: C01 dẫn `P3-01`; C02 dẫn `P3-02`/`P3-03`; C04 dẫn
+`P3-06`; C07/C09 dẫn `P3-07`; C08 dẫn `P3-08`; C10 dẫn `P3-05`; C12 dẫn
+`P3-04`/`P3-09`. C03, C05, C06 và C11 là các lát cắt trình bày từ cùng
+`fact_key` (khóa truy vết sự kiện) Phase 3, không thêm giải thích nguyên nhân.
+
+## P4-01 — Chỉ số công suất xấp xỉ bị giới hạn mạnh bởi độ phủ
+
+- **finding_id:** P4-01; **question_id:** Q4; **scope:** ASEAN-10;
+  **period:** 2000–2021 theo quan sát khả dụng; **metric_name:**
+  `capacity_factor_ratio`.
+- **Bằng chứng số:** chỉ có **104** cặp sản lượng–công suất đủ điều kiện.
+  Gió có **33** quan sát, gồm Philippines 17 năm (2005–2021) và Thái Lan 16
+  năm (2006–2021); giá trị nằm trong **0–32,5764%**. Mặt trời có **71** quan
+  sát, gồm Malaysia 15, Philippines 18, Thái Lan 16 và Việt Nam 22; giá trị
+  nằm trong **0–25,2668%**. Tám nước thiếu công suất gió và sáu nước thiếu
+  công suất mặt trời được liệt kê trực tiếp trên C13.
+- **Truy vết:** `output/stats/04_chart_data.xlsx`, sheet `capacity_factor`,
+  khóa `entity + year + technology`; mỗi dòng giữ
+  `generation_source_key` và `capacity_source_key`. Công thức được tính lại
+  độc lập trong `P4_C13_CONTRACT` và khớp trong dung sai `1e-9`.
+- **Diễn giải:** độ phủ chỉ đủ để minh họa một chỉ số phụ, không đủ để xếp
+  hạng đại diện cho ASEAN-10.
+- **Giới hạn:** `capacity_gw` là công suất cuối năm; tỷ số
+  `generation_twh / (capacity_gw × 8,76)` là chỉ báo xấp xỉ, không phải hiệu
+  quả kỹ thuật và không hỗ trợ kết luận nước nào “tốt hơn”. **Tin cậy:** Cao
+  cho phép tính trên 104 cặp đã quan sát; Thấp cho suy rộng ra toàn khu vực.
+
+# Phase 5 — Dashboard Power BI
+
+## P5-01 — Phép đo với tới ngoài cửa sổ tạo ra một năm ngược hướng không tồn tại
+
+- **finding_id:** P5-01; **question_id:** Q5; **scope:** Vietnam;
+  **period:** 2000–2021; **metric_name:** `direction_relation`, `yoy`.
+- **Bằng chứng số:** hai phép đo DAX `Direction Relation` và `YoY` tra năm
+  trước bằng `CALCULATE( …, ALL( DimYear ), DimYear[year] = _Year - 1 )`.
+  `ALL( DimYear )` xoá **mọi** bộ lọc năm, kể cả cờ cửa sổ, nên năm 2000 với
+  tới được năm 1999 — vốn nằm ngoài cửa sổ phân tích. Việt Nam có dữ liệu từ
+  1965, và đoạn 1999 → 2000 đúng là một cặp ngược hướng: sản lượng
+  **13,774 → 14,550 TWh** (+0,776) trong khi tỷ trọng điện
+  **58,46598 → 54,781628%** (−3,684). Hệ quả: `direction_relation` trả
+  **2000, 2003, 2014** thay vì **2003, 2014**, và `yoy` năm 2000 trả
+  **+5,63%** thay vì để trống.
+- **Truy vết:** đích khoá `P5_B8_VN_OPPOSITE_RENEWABLE_TOTAL` =
+  `2003,2014` trong `output/stats/05_expected_values.csv`; phía tham chiếu
+  `opposite_direction_years()` trong `python/05_expected.py` duyệt
+  `K.YEARS[1:]` nên không bao giờ hỏi về năm 2000. `03_fact_metrics.csv` ghi
+  `yoy · Y2000 · Vietnam` = `NOT_DEFINED`, và [[P3-08]] ghi period
+  **2001–2021** với đúng **2** năm ngược hướng.
+- **Diễn giải:** đây là phát hiện về **phương pháp**, không phải về năng
+  lượng. Một cửa sổ phân tích chỉ có hiệu lực khi mọi phép tính tham chiếu
+  chéo thời gian cũng tôn trọng nó; một lệnh `ALL()` đặt để bỏ bộ lọc năm
+  cũng bỏ luôn cờ cửa sổ, và dữ liệu ngoài cửa sổ lặng lẽ chảy vào kết quả.
+  Lỗi này không tạo ra `NaN`, không tạo ra số âm, không làm ô nào trắng —
+  nó tạo ra **một con số trông hoàn toàn hợp lý**, nên chỉ đối chiếu với
+  phía tham chiếu độc lập mới bắt được.
+- **Cách chặn:** thêm `DimYear[is_main_asean_window] = 1` vào chính lệnh tra
+  năm trước, để năm 2000 trả `BLANK` thay vì với ra ngoài cửa sổ. Đã sửa
+  ngày 2026-09-09 trong `python/05_measures.py` (M036, M050); mô phỏng lại
+  ngữ nghĩa đã sửa trên `output/clean/` cho đúng `2003,2014` và `2016`.
+- **Giới hạn:** phát hiện này không đổi bất kỳ con số nào của Phase 1–4;
+  `05_expected_values.csv` giữ nguyên 169 đích. **Tin cậy:** Cao — kiểm
+  chứng được bằng số mà không cần mở Power BI.
+
+## P5-02 — Phép đo ghim năm không thể đặt lên trục thời gian
+
+- **finding_id:** P5-02; **question_id:** Q2, Q4; **scope:** Vietnam;
+  **period:** 2000–2021; **metric_name:** `country_share_asean`,
+  `global_rank`, `ranked_n`.
+- **Bằng chứng số:** `Gen TWh @Year` mở đầu bằng `ALL( DimYear )` rồi đặt
+  lại năm theo slicer. Mọi phép đo dựng trên nó — `Country Share ASEAN`,
+  `Global Rank`, `Global Ranked N` — vì thế trả **cùng một giá trị cho mọi
+  điểm** trên một trục năm: biểu đồ V08 ra đường phẳng tuyệt đối, và cột
+  hạng trong bảng V09 in `16` cùng `205` trên cả 22 dòng. Vì các phép đo này
+  không bao giờ trả trống, biểu đồ và bảng còn kéo theo cả **57** dòng
+  `DimYear` (1965–2021) chứ không phải 22 dòng trong cửa sổ.
+- **Truy vết:** `powerbi/DAX_Measures.md`, các phép đo M014, M031, M041,
+  M042; catalogue ô trực quan `python/05_visuals.py`, nhóm V08 và V09.
+- **Diễn giải:** một phép đo KPI cho **một năm** và một phép đo cho **một
+  chuỗi** là hai vật khác nhau, dù cùng định nghĩa nghiệp vụ. Mô hình đã có
+  sẵn quy ước `@Year` / `ToDate` cho cặp này ở nhóm sản lượng nhưng chưa
+  trải hết sang nhóm tỷ trọng và nhóm hạng.
+- **Cách chặn:** thêm bản `ToDate` cho đúng những phép đo được vẽ theo thời
+  gian (M037, M045, M046, M047 và ba bản khoá Việt Nam M098–M100), và gắn
+  lại V08/V09 vào bản `ToDate`. Hệ quả phụ: mọi phép đo trên trang 2 giờ đều
+  mang cờ cửa sổ, nên các năm trước 2000 tự rụng khỏi trang mà không cần bộ
+  lọc mức trang. **Tin cậy:** Cao.

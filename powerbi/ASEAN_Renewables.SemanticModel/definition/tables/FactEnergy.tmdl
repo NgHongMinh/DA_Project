@@ -1,0 +1,57 @@
+table FactEnergy
+	lineageTag: 8f58722c-eb2c-53c8-b678-d3aa24710294
+
+	column entity
+		dataType: string
+		lineageTag: ebd575b9-98ed-5cec-b2a8-9c62333190bc
+		summarizeBy: none
+		sourceColumn: entity
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a32278d-e7f2-5541-a3a2-7e793c71b8e6
+		summarizeBy: none
+		sourceColumn: year
+
+	column metric_key
+		dataType: string
+		lineageTag: 18bc091c-f21f-5785-be1d-d6782c9eac71
+		summarizeBy: none
+		sourceColumn: metric_key
+
+	column value
+		dataType: double
+		lineageTag: 6a5bed5d-9796-544a-8122-540ff6878874
+		summarizeBy: none
+		sourceColumn: value
+
+	column value_class
+		dataType: string
+		lineageTag: d9ed4101-b3a3-5589-9d7a-0d23e9c8ca9f
+		summarizeBy: none
+		sourceColumn: value_class
+
+	column source_file
+		dataType: string
+		isHidden
+		lineageTag: 2fb80f5e-c131-5781-a4e1-d4ecec83a115
+		summarizeBy: none
+		sourceColumn: source_file
+
+	partition FactEnergy = m
+		mode: import
+		source =
+			let
+			    Source = Csv.Document(
+			        File.Contents( pCleanFolder & "\fact_energy.csv" ),
+			        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+			    ),
+			    Promoted = Table.PromoteHeaders( Source, [PromoteAllScalars = true] ),
+			    Typed = Table.TransformColumnTypes(
+			        Promoted,
+			        {{"entity", type text}, {"year", Int64.Type}, {"metric_key", type text}, {"value", type number}, {"value_class", type text}, {"source_file", type text}},
+			        "en-US"
+			    )
+			in
+			    Typed

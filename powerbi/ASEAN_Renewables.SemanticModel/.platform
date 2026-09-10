@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "ASEAN_Renewables"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "75c628f8-92c0-51f2-9331-e2c129fa1bf3"
+  }
+}

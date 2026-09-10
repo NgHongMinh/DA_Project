@@ -1,0 +1,34 @@
+table SelMode
+	lineageTag: bbfa3301-5855-59c0-a0e2-5321058a2b6b
+
+	column mode_key
+		dataType: string
+		lineageTag: bfca883e-8cbc-523e-bdca-3db931d6a198
+		summarizeBy: none
+		sourceColumn: [mode_key]
+
+	column mode_label
+		dataType: string
+		lineageTag: 16d7ca00-23d0-5da9-bcda-04f473e9a8b3
+		summarizeBy: none
+		sourceColumn: [mode_label]
+
+	column sort_order
+		dataType: int64
+		formatString: 0
+		lineageTag: b60b5b8a-ec57-5072-a77f-49dbe21eeca9
+		summarizeBy: none
+		sourceColumn: [sort_order]
+
+	partition SelMode = calculated
+		mode: import
+		source =
+			DATATABLE(
+			    "mode_key", STRING,
+			    "mode_label", STRING,
+			    "sort_order", INTEGER,
+			    {
+			        { "RENEWABLE_TOTAL", "Renewable total (hydro + wind + solar + other)", 1 },
+			        { "MODERN_WIND_SOLAR", "Modern only (wind + solar)", 2 }
+			    }
+			)

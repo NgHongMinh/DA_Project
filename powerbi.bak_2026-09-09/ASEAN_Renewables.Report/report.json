@@ -1,0 +1,301 @@
+{
+  "config": "{\"version\":\"5.68\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":{\"visual\":\"2.12.0\",\"report\":\"3.4.0\",\"page\":\"2.3.1\"}}},\"activeSectionIndex\":1,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useStylableVisualContainerHeader\":true,\"defaultFilterActionIsDataFilter\":true,\"useEnhancedTooltips\":false},\"objects\":{\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "sections": [
+    {
+      "config": "{\"relationships\":[{\"source\":\"70a7a426662fd58879a9\",\"target\":\"524b5dcf824f0e273ff9\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"b21f71aaa10c995a56fa\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"85ce4defa5136452f642\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"2f8136903da0cc2927f2\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"491c8eff10ce8481499c\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"38d809938203ed71a5ea\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"313333e46f5d162aa49d\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"6001ae8a3cb89d2c66a2\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"6c79bc9f50c5c03b64fa\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"2959cba85e45d9f50521\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"faaf42ceb42cfd38f4de\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"41ebfa79f5bdad9de706\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"71c35c07eab39192c4ae\",\"type\":3},{\"source\":\"70a7a426662fd58879a9\",\"target\":\"7a7042c849481e891ce4\",\"type\":3}],\"visibility\":0}",
+      "displayName": "02 Vietnam deep dive",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 1000.00,
+      "name": "0ca45bb6f0500a443a51",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"2959cba85e45d9f50521\",\"layouts\":[{\"id\":0,\"position\":{\"x\":15,\"y\":711.25,\"z\":11000,\"width\":628,\"height\":121.25}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.VN Country Share ASEAN ToDate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Country Share ASEAN ToDate\"},\"Name\":\"KPI_Measures.VN Country Share ASEAN ToDate\",\"NativeReferenceName\":\"VN Country Share ASEAN ToDate\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Panel 1 of 2 - Vietnam share of the ASEAN-10 total'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 121.25,
+          "width": 628.00,
+          "x": 15.00,
+          "y": 711.25,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"2f8136903da0cc2927f2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":2.5,\"y\":220,\"z\":4000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.VN Gen TWh @Year\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Gen TWh @Year\"},\"Name\":\"KPI_Measures.VN Gen TWh @Year\",\"NativeReferenceName\":\"VN Gen TWh @Year\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Vietnam total (TWh) - selected year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 2.50,
+          "y": 220.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"313333e46f5d162aa49d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":966.25,\"y\":220,\"z\":7000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.VN Rank Label\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Rank Label\"},\"Name\":\"KPI_Measures.VN Rank Label\",\"NativeReferenceName\":\"VN Rank Label\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Vietnam rank - ASEAN and world, selected year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 966.25,
+          "y": 220.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"38d809938203ed71a5ea\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651.25,\"y\":220,\"z\":6000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.VN Country Share ASEAN\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Country Share ASEAN\"},\"Name\":\"KPI_Measures.VN Country Share ASEAN\",\"NativeReferenceName\":\"VN Country Share ASEAN\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Vietnam share of the ASEAN-10 total'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 651.25,
+          "y": 220.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"41ebfa79f5bdad9de706\",\"layouts\":[{\"id\":0,\"position\":{\"x\":652.5,\"y\":711.25,\"z\":13000,\"width\":627.5,\"height\":265}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"DimYear.year\"},{\"queryRef\":\"KPI_Measures.VN Gen TWh ToDate\"},{\"queryRef\":\"KPI_Measures.VN Share Electricity Pct ToDate\"},{\"queryRef\":\"KPI_Measures.VN YoY\"},{\"queryRef\":\"KPI_Measures.VN ASEAN Rank ToDate\"},{\"queryRef\":\"KPI_Measures.VN Global Rank ToDate\"},{\"queryRef\":\"KPI_Measures.Global Ranked N ToDate\"},{\"queryRef\":\"KPI_Measures.VN Direction Relation\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Gen TWh ToDate\"},\"Name\":\"KPI_Measures.VN Gen TWh ToDate\",\"NativeReferenceName\":\"VN Gen TWh ToDate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Share Electricity Pct ToDate\"},\"Name\":\"KPI_Measures.VN Share Electricity Pct ToDate\",\"NativeReferenceName\":\"VN Share Electricity Pct ToDate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN YoY\"},\"Name\":\"KPI_Measures.VN YoY\",\"NativeReferenceName\":\"VN YoY\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN ASEAN Rank ToDate\"},\"Name\":\"KPI_Measures.VN ASEAN Rank ToDate\",\"NativeReferenceName\":\"VN ASEAN Rank ToDate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Global Rank ToDate\"},\"Name\":\"KPI_Measures.VN Global Rank ToDate\",\"NativeReferenceName\":\"VN Global Rank ToDate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"Global Ranked N ToDate\"},\"Name\":\"KPI_Measures.Global Ranked N ToDate\",\"NativeReferenceName\":\"Global Ranked N ToDate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Direction Relation\"},\"Name\":\"KPI_Measures.VN Direction Relation\",\"NativeReferenceName\":\"VN Direction Relation\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN YoY\"}}}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Vietnam year detail - output, share, growth, rank and direction'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 265.00,
+          "width": 627.50,
+          "x": 652.50,
+          "y": 711.25,
+          "z": 13000.00
+        },
+        {
+          "config": "{\"name\":\"491c8eff10ce8481499c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":325,\"y\":220,\"z\":5000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.VN Share Electricity Pct @Year\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Share Electricity Pct @Year\"},\"Name\":\"KPI_Measures.VN Share Electricity Pct @Year\",\"NativeReferenceName\":\"VN Share Electricity Pct @Year\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Vietnam share of its own electricity (%)'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 325.00,
+          "y": 220.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"524b5dcf824f0e273ff9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651,\"y\":0,\"z\":2000,\"width\":300,\"height\":212}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DimEntity.entity_label\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimEntity\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"entity_label\"},\"Name\":\"DimEntity.entity_label\",\"NativeReferenceName\":\"entity_label\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Country'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 212.00,
+          "width": 300.00,
+          "x": 651.00,
+          "y": 0.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"6001ae8a3cb89d2c66a2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651.25,\"y\":413.75,\"z\":9000,\"width\":628,\"height\":130}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.VN Gen TWh ToDate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Gen TWh ToDate\"},\"Name\":\"KPI_Measures.VN Gen TWh ToDate\",\"NativeReferenceName\":\"VN Gen TWh ToDate\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Panel 1 of 2 - Vietnam output (TWh)'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 130.00,
+          "width": 628.00,
+          "x": 651.25,
+          "y": 413.75,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"6c79bc9f50c5c03b64fa\",\"layouts\":[{\"id\":0,\"position\":{\"x\":15,\"y\":413.75,\"z\":8000,\"width\":628,\"height\":268}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.VN Gen TWh ToDate\"}],\"Series\":[{\"queryRef\":\"DimMetric.technology_label\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"DimMetric\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Gen TWh ToDate\"},\"Name\":\"KPI_Measures.VN Gen TWh ToDate\",\"NativeReferenceName\":\"VN Gen TWh ToDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"technology_label\"},\"Name\":\"DimMetric.technology_label\",\"NativeReferenceName\":\"technology_label\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Vietnam generation by technology, 2000 to selected year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 268.00,
+          "width": 628.00,
+          "x": 15.00,
+          "y": 413.75,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"70a7a426662fd58879a9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":961,\"y\":0,\"z\":3000,\"width\":300,\"height\":212}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DimMetric.technology_label\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimMetric\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"technology_label\"},\"Name\":\"DimMetric.technology_label\",\"NativeReferenceName\":\"technology_label\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Technology'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"67b3119adbb734590e25\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"DimMetric\"}},\"Property\":\"metric\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimMetric\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"metric\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'generation'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}}]",
+          "height": 212.00,
+          "width": 300.00,
+          "x": 961.00,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"71c35c07eab39192c4ae\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651.25,\"y\":551.25,\"z\":10000,\"width\":628,\"height\":130}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.VN Share Electricity Pct ToDate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Share Electricity Pct ToDate\"},\"Name\":\"KPI_Measures.VN Share Electricity Pct ToDate\",\"NativeReferenceName\":\"VN Share Electricity Pct ToDate\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Panel 2 of 2 - Vietnam share of electricity (%)'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 130.00,
+          "width": 628.00,
+          "x": 651.25,
+          "y": 551.25,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"7a7042c849481e891ce4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":2.5,\"y\":976.25,\"z\":14000,\"width\":1264,\"height\":23.75}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.Footer Note\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"Footer Note\"},\"Name\":\"KPI_Measures.Footer Note\",\"NativeReferenceName\":\"Footer Note\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 23.75,
+          "width": 1264.00,
+          "x": 2.50,
+          "y": 976.25,
+          "z": 14000.00
+        },
+        {
+          "config": "{\"name\":\"85ce4defa5136452f642\",\"layouts\":[{\"id\":0,\"position\":{\"x\":2.5,\"y\":7.5,\"z\":0,\"width\":310,\"height\":203.75}}],\"singleVisual\":{\"visualType\":\"advancedSlicerVisual\",\"projections\":{\"Values\":[{\"queryRef\":\"SelReportYear.year\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"SelReportYear\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"year\"},\"Name\":\"SelReportYear.year\",\"NativeReferenceName\":\"year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Report year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 203.75,
+          "width": 310.00,
+          "x": 2.50,
+          "y": 7.50,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"b21f71aaa10c995a56fa\",\"layouts\":[{\"id\":0,\"position\":{\"x\":330,\"y\":8,\"z\":1000,\"width\":300,\"height\":204}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"SelMode.mode_key\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"SelMode\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"mode_key\"},\"Name\":\"SelMode.mode_key\",\"NativeReferenceName\":\"mode_key\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Measure mode'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 204.00,
+          "width": 300.00,
+          "x": 330.00,
+          "y": 8.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"faaf42ceb42cfd38f4de\",\"layouts\":[{\"id\":0,\"position\":{\"x\":15,\"y\":840,\"z\":12000,\"width\":628,\"height\":121.25}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.VN Global Rank ToDate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"VN Global Rank ToDate\"},\"Name\":\"KPI_Measures.VN Global Rank ToDate\",\"NativeReferenceName\":\"VN Global Rank ToDate\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Panel 2 of 2 - Vietnam global rank (lower is better)'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 121.25,
+          "width": 628.00,
+          "x": 15.00,
+          "y": 840.00,
+          "z": 12000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"visibility\":0}",
+      "displayName": "03 Comparison and diagnostics",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 1000.00,
+      "name": "30882304f37e38afe943",
+      "ordinal": 2,
+      "visualContainers": [],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"visibility\":0}",
+      "displayName": "01 ASEAN overview",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 1000.00,
+      "name": "99dd583f15c50c464d51",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"01507228dc180c511701\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651,\"y\":0,\"z\":2000,\"width\":300,\"height\":205}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DimEntity.entity_label\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimEntity\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"entity_label\"},\"Name\":\"DimEntity.entity_label\",\"NativeReferenceName\":\"entity_label\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Country'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 205.00,
+          "width": 300.00,
+          "x": 651.00,
+          "y": 0.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"0f54c56b8bbd0f83d356\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651.25,\"y\":413.75,\"z\":9000,\"width\":628,\"height\":130}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.ASEAN Gen TWh ToDate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"ASEAN Gen TWh ToDate\"},\"Name\":\"KPI_Measures.ASEAN Gen TWh ToDate\",\"NativeReferenceName\":\"ASEAN Gen TWh ToDate\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Panel 1 of 2 - ASEAN-10 total (TWh)'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 130.00,
+          "width": 628.00,
+          "x": 651.25,
+          "y": 413.75,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"6ed9809465017658969b\",\"layouts\":[{\"id\":0,\"position\":{\"x\":2.5,\"y\":220,\"z\":4000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.ASEAN Gen TWh\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"ASEAN Gen TWh\"},\"Name\":\"KPI_Measures.ASEAN Gen TWh\",\"NativeReferenceName\":\"ASEAN Gen TWh\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'ASEAN-10 total (TWh) - selected year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 2.50,
+          "y": 220.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"7422ffbfb7ab892f8739\",\"layouts\":[{\"id\":0,\"position\":{\"x\":961,\"y\":0,\"z\":3000,\"width\":300,\"height\":205}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DimMetric.technology_label\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimMetric\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"technology_label\"},\"Name\":\"DimMetric.technology_label\",\"NativeReferenceName\":\"technology_label\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Technology'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"b3cb5b034304baadca94\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"DimMetric\"}},\"Property\":\"metric\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimMetric\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"metric\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'generation'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{}}]",
+          "height": 205.00,
+          "width": 300.00,
+          "x": 961.00,
+          "y": 0.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"8927a592214fa5ae3c3d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651.25,\"y\":551.25,\"z\":10000,\"width\":628,\"height\":130}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.World Gen TWh ToDate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"World Gen TWh ToDate\"},\"Name\":\"KPI_Measures.World Gen TWh ToDate\",\"NativeReferenceName\":\"World Gen TWh ToDate\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Panel 2 of 2 - World total (TWh), source-published row'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 130.00,
+          "width": 628.00,
+          "x": 651.25,
+          "y": 551.25,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"8d426e11ac4597b0e4a7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":2.5,\"y\":976.25,\"z\":13000,\"width\":1264,\"height\":23.75}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.Footer Note\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"Footer Note\"},\"Name\":\"KPI_Measures.Footer Note\",\"NativeReferenceName\":\"Footer Note\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 23.75,
+          "width": 1264.00,
+          "x": 2.50,
+          "y": 976.25,
+          "z": 13000.00
+        },
+        {
+          "config": "{\"name\":\"c7946d24b00da73c1238\",\"layouts\":[{\"id\":0,\"position\":{\"x\":15,\"y\":711.25,\"z\":11000,\"width\":628,\"height\":250}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimEntity.entity_label\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.ASEAN Rank\"},{\"queryRef\":\"KPI_Measures.Modern Rank Gain\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimEntity\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"entity_label\"},\"Name\":\"DimEntity.entity_label\",\"NativeReferenceName\":\"entity_label\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"ASEAN Rank\"},\"Name\":\"KPI_Measures.ASEAN Rank\",\"NativeReferenceName\":\"ASEAN Rank\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"Modern Rank Gain\"},\"Name\":\"KPI_Measures.Modern Rank Gain\",\"NativeReferenceName\":\"Modern Rank Gain\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'ASEAN rank and the gain from switching to wind + solar'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 250.00,
+          "width": 628.00,
+          "x": 15.00,
+          "y": 711.25,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"ceaa67931bae17086f38\",\"layouts\":[{\"id\":0,\"position\":{\"x\":652.5,\"y\":711.25,\"z\":12000,\"width\":627.5,\"height\":265}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"DimEntity.entity_label\"},{\"queryRef\":\"KPI_Measures.ASEAN Rank\"},{\"queryRef\":\"KPI_Measures.Modern Rank Gain\"},{\"queryRef\":\"KPI_Measures.Country Share ASEAN\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimEntity\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"entity_label\"},\"Name\":\"DimEntity.entity_label\",\"NativeReferenceName\":\"entity_label\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"ASEAN Rank\"},\"Name\":\"KPI_Measures.ASEAN Rank\",\"NativeReferenceName\":\"ASEAN Rank\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"Modern Rank Gain\"},\"Name\":\"KPI_Measures.Modern Rank Gain\",\"NativeReferenceName\":\"Modern Rank Gain\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"Country Share ASEAN\"},\"Name\":\"KPI_Measures.Country Share ASEAN\",\"NativeReferenceName\":\"Country Share ASEAN\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Rank detail - ASEAN-10, selected year and mode'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 265.00,
+          "width": 627.50,
+          "x": 652.50,
+          "y": 711.25,
+          "z": 12000.00
+        },
+        {
+          "config": "{\"name\":\"e359a121e5e1f1fc7467\",\"layouts\":[{\"id\":0,\"position\":{\"x\":330,\"y\":8,\"z\":1000,\"width\":300,\"height\":204}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"SelMode.mode_key\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"SelMode\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"mode_key\"},\"Name\":\"SelMode.mode_key\",\"NativeReferenceName\":\"mode_key\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Measure mode'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 204.00,
+          "width": 300.00,
+          "x": 330.00,
+          "y": 8.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"e3ee2de7c78a4f0fac73\",\"layouts\":[{\"id\":0,\"position\":{\"x\":966.25,\"y\":220,\"z\":7000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.Above 0.05 TWh N\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"Above 0.05 TWh N\"},\"Name\":\"KPI_Measures.Above 0.05 TWh N\",\"NativeReferenceName\":\"Above 0.05 TWh N\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'ASEAN-10 countries at or above 0.05 TWh'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 966.25,
+          "y": 220.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"f160a9c4de400ba295b3\",\"layouts\":[{\"id\":0,\"position\":{\"x\":651.25,\"y\":220,\"z\":6000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.ASEAN Share World\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"ASEAN Share World\"},\"Name\":\"KPI_Measures.ASEAN Share World\",\"NativeReferenceName\":\"ASEAN Share World\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'ASEAN-10 share of World - selected year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 651.25,
+          "y": 220.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"f57ce269524de0e4a960\",\"layouts\":[{\"id\":0,\"position\":{\"x\":15,\"y\":413.75,\"z\":8000,\"width\":628,\"height\":268}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimYear.year\",\"active\":true}],\"Y\":[{\"queryRef\":\"KPI_Measures.ASEAN Gen TWh ToDate\"}],\"Series\":[{\"queryRef\":\"DimMetric.technology_label\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DimYear\",\"Type\":0},{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"DimMetric\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"DimYear.year\",\"NativeReferenceName\":\"year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"ASEAN Gen TWh ToDate\"},\"Name\":\"KPI_Measures.ASEAN Gen TWh ToDate\",\"NativeReferenceName\":\"ASEAN Gen TWh ToDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"technology_label\"},\"Name\":\"DimMetric.technology_label\",\"NativeReferenceName\":\"technology_label\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'ASEAN-10 renewable mix by technology, 2000 to selected year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 268.00,
+          "width": 628.00,
+          "x": 15.00,
+          "y": 413.75,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"f59f9a81798edeef41df\",\"layouts\":[{\"id\":0,\"position\":{\"x\":2.5,\"y\":7.5,\"z\":0,\"width\":310,\"height\":203.75}}],\"singleVisual\":{\"visualType\":\"advancedSlicerVisual\",\"projections\":{\"Values\":[{\"queryRef\":\"SelReportYear.year\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"SelReportYear\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"year\"},\"Name\":\"SelReportYear.year\",\"NativeReferenceName\":\"year\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Report year'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 203.75,
+          "width": 310.00,
+          "x": 2.50,
+          "y": 7.50,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"fdacaf08bfee10235bd0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":325,\"y\":220,\"z\":5000,\"width\":310,\"height\":161.25}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"KPI_Measures.World Gen TWh\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"k\",\"Entity\":\"KPI_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"k\"}},\"Property\":\"World Gen TWh\"},\"Name\":\"KPI_Measures.World Gen TWh\",\"NativeReferenceName\":\"World Gen TWh\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'World total (TWh) - source-published World row'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 161.25,
+          "width": 310.00,
+          "x": 325.00,
+          "y": 220.00,
+          "z": 5000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

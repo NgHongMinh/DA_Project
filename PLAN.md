@@ -70,7 +70,18 @@ d:\DA\Final_Project\
 │   ├── 03_descriptive.py       ✅ Phase 3 Q1–Q6 + đối chiếu + công bố
 │   ├── 03_test_publish.py      ✅ kiểm thử hoàn tác tệp thường + SQLite fallback Phase 3
 │   ├── 03_verify_release.py    ✅ kiểm thử tái lập hai lần Phase 3
-│   └── 04_charts.py
+│   ├── 04_charts.py            ✅ Phase 4 — 13 PNG + workbook + 38 kiểm định
+│   ├── 04_test_contract.py     ✅ kiểm thử hợp đồng Phase 4
+│   ├── 04_test_publish.py      ✅ kiểm thử hoàn tác phát hành Phase 4
+│   ├── 04_verify_release.py    ✅ kiểm thử tái lập hai lần Phase 4
+│   ├── phase4_contract.py      ✅ hằng số khóa Phase 4
+│   ├── phase5_contract.py      ✅ hằng số khóa Phase 5 (bộ số §5 của PHASE5.md)
+│   ├── 05_measures.py          ✅ nguồn DUY NHẤT của 73 phép đo DAX
+│   ├── 05_expected.py          ✅ tính lại 169 đích nghiệm thu, đối chiếu ba chiều
+│   ├── 05_build_pbip.py        ✅ sinh PBIP dạng TMDL + DAX_Measures.md
+│   ├── 05_acceptance.py        ✅ sinh 05_acceptance.dax từ bộ đích
+│   ├── 05_validate.py          ✅ đối chiếu kết quả Power BI → 05_validation_results.csv
+│   └── 05_test_artifacts.py    ✅ C1–C9: chặn PBIP đi sau catalogue, không cần Power BI
 ├── sql\
 │   ├── renewables.db           ✅ 89.075 fact rows + validation results
 │   ├── 01_schema.sql           ✅ schema STRICT + `vw_wide`
@@ -78,12 +89,21 @@ d:\DA\Final_Project\
 │   └── 03_analysis.sql         ✅ nhánh tính SQL độc lập Q1–Q6
 ├── output\
 │   ├── clean\                  ✅ 7 CSV sạch (nguồn cho Power BI)
-│   ├── stats\                  ✅ đầu ra Phase 1–3, gồm 6 workbook + 4 CSV `03_*`
-│   └── charts\                 PNG
-├── powerbi\                    ASEAN_Renewables.pbix
+│   ├── stats\                  ✅ đầu ra Phase 1–5, gồm 6 workbook + `03_*` + `04_*` + `05_*`
+│   └── charts\                 ✅ 13 PNG
+├── powerbi\
+│   ├── ASEAN_Renewables.pbip           ✅ dự án dạng văn bản — nguồn để dựng .pbix
+│   ├── ASEAN_Renewables.SemanticModel\ ✅ TMDL: 8 bảng, 3 quan hệ, 61 phép đo
+│   ├── ASEAN_Renewables.Report\        khung ba trang (chặng 2 dựng đủ V01–V14)
+│   ├── ASEAN_Renewables.pbix           ⬅ Desktop sinh ra — SẢN PHẨM NỘP
+│   ├── README.md                       ✅ cách dựng, mô hình, quy ước, đường dự phòng
+│   ├── DAX_Measures.md                 ✅ danh mục phép đo (sinh tự động)
+│   ├── ASEAN_Renewables_theme.json     ✅ bảng màu Phase 4 — áp tay một lần trong Desktop
+│   └── 05_acceptance.dax               ✅ 169 truy vấn nghiệm thu (sinh tự động)
 └── docs\                       Phase1_KhaoSatDuLieu.md · NhatKyPhanTich.md · BaoCao.md
+                                Phase4_Review.md · Phase5_Review.md
 ```
-*(✅ = đã tạo và kiểm chứng xong ở Phase 0–3)*
+*(✅ = đã tạo và kiểm chứng xong · ⬅ = cần một thao tác tay trong Power BI Desktop)*
 
 ---
 
@@ -256,7 +276,7 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 ---
 
-# PHASE 4 — Trực quan hoá *(yêu cầu 1.4)*
+# ✅ PHASE 4 — Trực quan hoá *(yêu cầu 1.4 — ĐÃ HOÀN THÀNH)*
 
 **Mục tiêu:** biến các phát hiện của Phase 3 thành hình ảnh, và phát hiện thêm mẫu/xu hướng mà bảng số không cho thấy.
 
@@ -281,7 +301,9 @@ Phase 1 không tạo workbook Excel. `00_data_profile.xlsx` và các script Step
 
 **Đầu ra:** `python/04_charts.py`, ~12–13 PNG trong `output/charts/`
 
-**Tiêu chí hoàn thành:** mỗi biểu đồ nói được **một** thông điệp; không biểu đồ nào lẫn thực thể tổng hợp vào danh sách quốc gia; không đường nào lao xuống ở năm bị cắt cụt; không dùng biểu đồ tròn cho số lượng nước lớn.
+**Tiêu chí hoàn thành — đã đạt ngày 2026-09-08:** 13/13 biểu đồ nói đúng một thông điệp, không lẫn thực thể tổng hợp vào biểu đồ quốc gia, không có năm 2022, trục kép, biểu đồ tròn hoặc giá trị 0 trên trục logarit. Bản phát hành có 16 sheet trong `04_chart_data.xlsx`, đúng 38/38 kiểm định `PASS`, `method_version=phase4_v1` và dấu vân tay `64e1cc7d7bcbbde9f2378eaa81e5a42f4a1322d356a5a0b73f4cd944b95a8b10`. Ba lệnh kiểm thử cuối trả mã thoát 0; hai lần dựng cho cùng nội dung workbook/CSV và cùng mã băm điểm ảnh. Nguyễn Hồng Minh đã ký nghiệm thu trực quan ngày 2026-09-08.
+
+**13 PNG đã nghiệm thu:** `04_01_global_asean_context.png`, `04_02_asean_technology_trend.png`, `04_03_asean_country_mix_2021.png`, `04_04_asean_rank_shift_2021.png`, `04_05_asean_small_multiples_shared.png`, `04_06_asean_small_multiples_free.png`, `04_07_vietnam_technology_trend.png`, `04_08_vietnam_twh_vs_share.png`, `04_09_vietnam_regional_global_position.png`, `04_10_global_distribution_2021.png`, `04_11_asean_entry_lag.png`, `04_12_asean_concentration_growth.png`, `04_13_capacity_factor_proxy.png`.
 
 ---
 

@@ -1,0 +1,20 @@
+model Model
+	culture: vi-VN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+
+	annotation PBI_QueryOrder = ["pCleanFolder", "FactEnergy", "DimEntity", "DimMetric", "DimYear"]
+
+	annotation PBI_ProTooling = ["DevMode"]
+
+ref table FactEnergy
+ref table DimEntity
+ref table DimMetric
+ref table DimYear
+ref table SelReportYear
+ref table SelMode
+ref table SelBaseYear
+ref table KPI_Measures
+
+ref cultureInfo vi-VN

@@ -1,0 +1,11 @@
+relationship 7f285aea-8477-5014-be7f-b68a11d50a31
+	fromColumn: FactEnergy.entity
+	toColumn: DimEntity.entity
+
+relationship a5302d7a-2446-5a9c-a7c2-8202742761fe
+	fromColumn: FactEnergy.year
+	toColumn: DimYear.year
+
+relationship 65e0ef5a-ed17-5a35-8076-615e0c0ad233
+	fromColumn: FactEnergy.metric_key
+	toColumn: DimMetric.metric_key
