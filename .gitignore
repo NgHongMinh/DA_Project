@@ -27,3 +27,11 @@ powerbi/**/diagramLayout.json
 # noi dung da nam san trong ASEAN_Renewables.pptx.
 output/slides/assets/
 output/slides/previews/
+
+# Tai lieu quy trinh noi bo — giu tren may, khong dua len repo.
+/AGENTS.md
+/PLAN.md
+/PHASE*.md
+/note.txt
+docs/Phase*.md
+docs/NhatKyPhanTich.md

@@ -40,11 +40,11 @@ Báo cáo đầy đủ: [`docs/BaoCao.md`](docs/BaoCao.md).
 
 ## Đối chiếu yêu cầu đề bài
 
-Đề bài gốc: [`note.txt`](note.txt).
+Đề bài yêu cầu sáu nội dung (1.1–1.6) và dùng ít nhất 2 trong 3 công cụ SQL, Power BI, Python. Dự án dùng cả 3.
 
 | Yêu cầu | Sản phẩm |
 |---|---|
-| 1.1 Xác định vấn đề, mục tiêu | [`docs/BaoCao.md`](docs/BaoCao.md) §1.1 · khảo sát dữ liệu [`docs/Phase1_KhaoSatDuLieu.md`](docs/Phase1_KhaoSatDuLieu.md) |
+| 1.1 Xác định vấn đề, mục tiêu | [`docs/BaoCao.md`](docs/BaoCao.md) §1.1 · kết quả khảo sát dữ liệu [`output/stats/00_phase1_summary.txt`](output/stats/00_phase1_summary.txt) |
 | 1.2 Tiền xử lý dữ liệu | Notebook [`output/notebook/ASEAN_Renewables_DataProcessing.ipynb`](output/notebook/ASEAN_Renewables_DataProcessing.ipynb) · bảng sạch [`output/clean/`](output/clean/) · CSDL [`sql/renewables.db`](sql/) |
 | 1.3 Phân tích mô tả | [`output/stats/`](output/stats/) · truy vấn SQL [`sql/03_analysis.sql`](sql/03_analysis.sql) |
 | 1.4 Trực quan hoá | 13 biểu đồ trong [`output/charts/`](output/charts/) |
@@ -74,8 +74,7 @@ output/
   notebook/         Notebook tiền xử lý (đã chạy sẵn, kèm kết quả)
   slides/           Bản trình chiếu .pptx
 powerbi/            Dashboard .pbix + dự án PBIP (TMDL) + README riêng
-docs/               Báo cáo chính, nhật ký phân tích, review từng phase
-PLAN.md, PHASE*.md  Kế hoạch tổng và tiêu chí nghiệm thu của từng phase
+docs/               Báo cáo phân tích đầy đủ (BaoCao.md)
 ```
 
 ## Chạy lại dự án
