@@ -33,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from config import BASE, OUTPUT  # noqa: E402
+from publication_checks import assert_notebook_clean  # noqa: E402
 
 PYTHON_DIR = Path(__file__).resolve().parent
 CELLS_PATH = PYTHON_DIR / "07_notebook_cells.py"
@@ -62,6 +63,9 @@ def read_cells() -> list[tuple[int, str, str, str]]:
         kind = parts[index + 1]
         title = parts[index + 2].strip()
         body = parts[index + 3]
+        if number == 2 and kind == "code":
+            presentation = (PYTHON_DIR / "notebook_presentation.txt").read_text(encoding=ENCODING)
+            body = body.replace("library_versions =", presentation + "\n\nlibrary_versions =", 1)
         cells.append((number, kind, title, body))
 
     numbers = [c[0] for c in cells]
@@ -177,6 +181,13 @@ def main() -> int:
     )
     print(f"dang chay {code_count} o ma ...")
     client.execute()
+
+    # Thay mô tả đối tượng hình tự sinh bằng chú thích có nghĩa với người đọc.
+    for cell in notebook.cells:
+        for result in cell.get("outputs", []):
+            if "image/png" in result.get("data", {}):
+                result["data"]["text/plain"] = "Biểu đồ minh họa kết quả phân tích trong ô này."
+    assert_notebook_clean(notebook)
 
     NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
     with NOTEBOOK_PATH.open("w", encoding=ENCODING) as handle:

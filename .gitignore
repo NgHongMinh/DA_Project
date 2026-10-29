@@ -16,3 +16,14 @@ powerbi/**/diagramLayout.json
 # chung la san pham nop bai, khong phai file rac.
 
 
+
+# File rac / ban sao luu / cau hinh cong cu cuc bo — khong phai san pham nop bai.
+/127
+/archive.zip
+/powerbi.bak_*/
+/.mcp.json
+
+# Anh trung gian do 06_build_slides.py va verify_deliverables.py sinh lai;
+# noi dung da nam san trong ASEAN_Renewables.pptx.
+output/slides/assets/
+output/slides/previews/

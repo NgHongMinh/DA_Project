@@ -1,0 +1,160 @@
+# Tên cột và giá trị được diễn giải trên bản sao dùng để trình bày.
+# Bảng tính toán giữ nguyên khóa và kiểu dữ liệu để các phép đối chiếu không đổi.
+COLUMN_LABELS = {
+    "version": "Phiên bản", "file_name": "Tệp nguồn", "rows": "Số dòng",
+    "row_count": "Số dòng", "entity_count": "Số thực thể",
+    "year_min": "Năm đầu", "year_max": "Năm cuối",
+    "metric_column": "Cột trong nguồn", "missing_count": "Số giá trị thiếu",
+    "zero_count": "Số giá trị bằng 0", "min_value": "Nhỏ nhất", "max_value": "Lớn nhất",
+    "file_count": "Số tệp", "file_codes": "Các tệp nguồn",
+    "key_count_min": "Số khóa ít nhất", "key_count_max": "Số khóa nhiều nhất",
+    "country": "Quốc gia", "metric_group": "Đại lượng so sánh",
+    "left_file": "Nguồn thứ nhất", "right_file": "Nguồn thứ hai",
+    "comparable_count": "Số quan sát đối chiếu", "exact_or_close_count": "Khớp trong dung sai",
+    "immaterial_diff_count": "Chênh lệch dưới ngưỡng", "material_diff_count": "Chênh lệch vượt ngưỡng",
+    "max_abs_diff": "Chênh lệch tuyệt đối lớn nhất", "classification": "Kết quả phân loại",
+    "last_year": "Năm cuối", "asean_entity_count": "Số nước ASEAN",
+    "entity_coverage_pct": "Độ phủ thực thể (%)", "asean_coverage_pct": "Độ phủ ASEAN (%)",
+    "last_year_status": "Tình trạng năm cuối", "recommended_end_year": "Năm cuối đề nghị",
+    "entity_series": "Số chuỗi thực thể", "series_with_internal_gaps": "Chuỗi thiếu năm ở giữa",
+    "internal_gap_years": "Tổng năm thiếu ở giữa", "sampling_grid_series": "Chuỗi lấy mẫu định kỳ",
+    "asean_series_with_gaps": "Chuỗi ASEAN có năm thiếu",
+    "metric_key": "Chỉ số", "technology": "Công nghệ", "metric": "Loại đại lượng",
+    "unit": "Đơn vị", "source_file": "Tệp nguồn", "source_column": "Cột nguồn",
+    "conversion_factor": "Hệ số đổi đơn vị", "trace_threshold": "Ngưỡng phân loại",
+    "analysis_start_year": "Năm đầu phân tích", "analysis_end_year": "Năm cuối phân tích",
+    "entity_type": "Loại thực thể", "size": "Số bản ghi", "entity": "Thực thể",
+    "iso_code": "Mã thực thể của nguồn", "is_aggregate": "Là tổng hợp",
+    "is_current_country_or_territory": "Quốc gia hoặc vùng lãnh thổ hiện hành",
+    "is_asean": "Thuộc ASEAN", "is_source_variant": "Biến thể tên nguồn",
+    "canonical_entity": "Tên thực thể thống nhất", "continent": "Châu lục",
+    "income_group": "Nhóm thu nhập", "value_class": "Nhóm giá trị", "year": "Năm",
+    "value": "Giá trị", "is_main_asean_window": "Trong giai đoạn phân tích ASEAN",
+    "check": "Nội dung kiểm tra", "status": "Kết quả", "table_name": "Bảng dữ liệu",
+    "check_id": "Nội dung kiểm tra", "compared_rows": "Số bản ghi kiểm tra",
+    "exception_rows": "Số bản ghi vi phạm", "note": "Giải thích",
+    "max_abs_diff_twh": "Chênh lệch lớn nhất (TWh)", "observed": "Tổng quốc gia",
+    "expected": "Tổng thế giới do nguồn công bố", "abs_diff": "Chênh lệch tuyệt đối",
+    "rel_diff_pct": "Chênh lệch tương đối (%)", "abs_tol": "Dung sai tuyệt đối",
+    "component_count": "Số thành phần", "series": "Chuỗi sản lượng",
+    "n": "Số quan sát", "sum": "Tổng", "mean": "Trung bình", "median": "Trung vị",
+    "sd": "Độ lệch chuẩn", "cv": "Hệ số biến thiên", "min": "Nhỏ nhất", "max": "Lớn nhất",
+    "iqr": "Khoảng tứ phân vị", "skewness": "Độ lệch phân phối", "kurtosis": "Độ nhọn vượt chuẩn",
+    "filter_variant": "Tập quan sát", "mean/median": "Trung bình chia trung vị",
+    "scope": "Phạm vi", "start_year": "Năm đầu", "end_year": "Năm cuối",
+    "cagr_pct": "Tăng trưởng kép (%/năm)", "denominator_reason": "Giải thích mẫu số",
+    "rank": "Hạng", "asean_total": "Tổng sản lượng ASEAN (TWh)",
+    "top1_share": "Tỷ trọng nước dẫn đầu", "top3_share": "Tỷ trọng ba nước dẫn đầu",
+    "hhi": "Chỉ số Herfindahl–Hirschman", "gini": "Hệ số Gini",
+    "previous_value": "Giá trị năm trước", "yoy": "Tăng trưởng so với năm trước",
+    "scope_total": "Tổng trong phạm vi", "difference_label": "Mức chênh lệch",
+}
+COLUMN_LABELS.update({f"p{p}": f"Phân vị {p}%" for p in [10, 25, 50, 75, 90, 95, 99]})
+VALUE_LABELS = {
+    "HYDRO": "Thủy điện", "OTHER_RENEWABLES": "Điện tái tạo khác",
+    "WIND": "Gió", "SOLAR": "Mặt trời", "RENEWABLE_TOTAL": "Tổng điện tái tạo",
+    "MODERN_WIND_SOLAR": "Gió và mặt trời", "ASEAN_10": "Mười nước ASEAN",
+    "ASEAN_9": "Chín nước ASEAN ngoài Việt Nam", "WORLD_REPORTED": "Thế giới do nguồn công bố",
+    "ALL_OBSERVED": "Toàn bộ quan sát", "POSITIVE": "Sản lượng dương",
+    "MATERIAL": "Đạt ngưỡng phân loại", "IMMATERIAL": "Dưới ngưỡng phân loại",
+    "Zero": "Bằng 0", "Trace": "Dương dưới ngưỡng", "Material": "Đạt ngưỡng phân loại",
+    "NONE": "Mẫu số hợp lệ", "BASE_NOT_POSITIVE": "Giá trị gốc không dương",
+    "MEDIAN_NOT_POSITIVE": "Trung vị không dương", "ZERO_DENOMINATOR": "Mẫu số bằng 0",
+    "MISSING": "Thiếu dữ liệu", "MISSING_VALUE": "Thiếu giá trị",
+    "MISSING_BASE": "Thiếu giá trị gốc", "MISSING_CURRENT": "Thiếu giá trị hiện tại",
+    "NO_BASE_YEAR": "Không có năm gốc", "FIRST_YEAR": "Năm đầu chuỗi",
+    "INVALID_PERIOD": "Khoảng thời gian không hợp lệ", "INSUFFICIENT_DATA": "Chưa đủ dữ liệu",
+    "country_or_territory": "Quốc gia hoặc vùng lãnh thổ", "continent": "Châu lục",
+    "historical": "Thực thể lịch sử", "income_group": "Nhóm thu nhập",
+    "political_bloc": "Khối chính trị", "region": "Khu vực", "world": "Thế giới",
+    "World": "Thế giới", "Vietnam": "Việt Nam", "Thailand": "Thái Lan",
+    "Laos": "Lào", "Cambodia": "Campuchia", "USSR": "Liên Xô",
+    "hydro": "Thủy điện", "wind": "Gió", "solar": "Mặt trời",
+    "other_renewables": "Điện tái tạo khác", "renewables": "Tái tạo",
+    "biofuel": "Nhiên liệu sinh học", "geothermal": "Địa nhiệt",
+    "generation": "Sản lượng điện", "production": "Sản lượng",
+    "installed_capacity": "Công suất lắp đặt", "share_electricity": "Tỷ trọng điện",
+    "share_primary_energy": "Tỷ trọng năng lượng sơ cấp", "pct": "%",
+    "dim_entity": "Danh mục thực thể", "dim_metric": "Danh mục chỉ số",
+    "dim_year": "Danh mục năm", "fact_energy": "Số liệu năng lượng",
+    "conflicting_overlap": "Có chênh lệch vượt ngưỡng", "redundant_subset": "Tập con trùng",
+    "consistent_overlap": "Dữ liệu chồng lặp nhất quán", "duplicate": "Dữ liệu trùng",
+    "severe_truncation": "Thiếu nghiêm trọng ở năm cuối", "partial_truncation": "Thiếu một phần ở năm cuối",
+    "complete": "Đầy đủ", "natural_end": "Kết thúc chuỗi theo nguồn",
+    "exact_duplicate": "Trùng khớp trên các quan sát chung",
+    "TRUNCATED_SEVERE": "Thiếu nghiêm trọng ở năm cuối",
+    "PARTIAL_REVIEW": "Thiếu một phần, cần xem xét", "FULL": "Đủ độ phủ theo ngưỡng",
+    "INSUFFICIENT_BASELINE": "Chưa đủ dữ liệu so sánh",
+    "NON_POSITIVE_DENOMINATOR": "Giá trị gốc không dương",
+    "NEGATIVE_CURRENT": "Giá trị hiện tại âm",
+    "MISSING_NUMERATOR": "Thiếu tử số", "MISSING_ASEAN_TOTAL": "Thiếu tổng ASEAN",
+    "NON_POSITIVE_ASEAN_TOTAL": "Tổng ASEAN không dương",
+    "MISSING_SCOPE_TOTAL": "Thiếu tổng trong phạm vi", "ZERO_SCOPE_TOTAL": "Tổng trong phạm vi bằng 0",
+    "INCOMPLETE_SCOPE": "Phạm vi có quan sát thiếu",
+}
+for technology, label in [("hydro", "Thủy điện"), ("wind", "Gió"), ("solar", "Mặt trời"), ("other_renewables", "Điện tái tạo khác")]:
+    VALUE_LABELS[f"{technology}_generation_twh"] = f"Sản lượng {label.lower()} (TWh)"
+    VALUE_LABELS[f"{technology}_twh"] = f"Sản lượng {label.lower()} (TWh)"
+for technology, label in [("hydro", "thủy điện"), ("wind", "gió"), ("solar", "mặt trời"), ("renewables", "tái tạo")]:
+    VALUE_LABELS[f"{technology}_share_electricity_pct"] = f"Tỷ trọng {label} trong điện năng (%)"
+    VALUE_LABELS[f"{technology}_share_primary_energy_pct"] = f"Tỷ trọng {label} trong năng lượng sơ cấp (%)"
+for technology, label in [("wind", "gió"), ("solar", "mặt trời"), ("geothermal", "địa nhiệt")]:
+    VALUE_LABELS[f"{technology}_capacity_gw"] = f"Công suất {label} (GW)"
+VALUE_LABELS["biofuel_production_twh"] = "Sản lượng nhiên liệu sinh học (TWh)"
+
+
+def format_number_vi(value):
+    if pd.isna(value):
+        return "Không có giá trị"
+    if isinstance(value, (bool, np.bool_)):
+        return "Có" if value else "Không"
+    if isinstance(value, (int, np.integer)):
+        return f"{value:,}".replace(",", ".")
+    if isinstance(value, (float, np.floating)):
+        if value != 0 and abs(value) < 0.000001:
+            return f"{value:.3e}".replace(".", ",")
+        result = f"{value:,.6f}".rstrip("0").rstrip(".")
+        return result.replace(",", " ").replace(".", ",").replace(" ", ".")
+    return str(value)
+
+
+def show_table(frame):
+    # Chỉ diễn giải bản sao hiển thị; không thay đổi giá trị dùng trong phép tính.
+    view = frame.copy()
+    file_names = {name[:2]: name for name in globals().get("sources", {})}
+
+    def label(value):
+        if isinstance(value, str):
+            if value.isascii() and "_" in value and value not in COLUMN_LABELS and value not in VALUE_LABELS:
+                raise ValueError(f"Chưa có nhãn diễn giải: {value}")
+            return COLUMN_LABELS.get(value, VALUE_LABELS.get(value, value.replace("_", " ")))
+        return value
+
+    for column in view.columns:
+        def cell(value):
+            if isinstance(column, str) and "year" in column and pd.notna(value) and isinstance(value, (int, float, np.number)):
+                return str(int(value))
+            if isinstance(column, str) and column.startswith("is_") and pd.notna(value):
+                return "Có" if value else "Không"
+            if isinstance(value, str):
+                if column in {"left_file", "right_file", "file_codes"}:
+                    return "; ".join(file_names.get(code.strip(), code.strip()) for code in value.split(","))
+                if column in {"file_name", "source_file", "source_column", "metric_column", "iso_code"}:
+                    return value
+                return label(value)
+            return format_number_vi(value)
+        view[column] = view[column].astype(object).map(cell)
+    if isinstance(view.columns, pd.MultiIndex):
+        view.columns = pd.MultiIndex.from_tuples([tuple(label(x) for x in col) for col in view.columns],
+                                                names=[label(x) for x in view.columns.names])
+    else:
+        view.columns = view.columns.map(label)
+        view.columns.name = label(view.columns.name)
+    if isinstance(view.index, pd.MultiIndex):
+        view.index = pd.MultiIndex.from_tuples([tuple(label(x) for x in idx) for idx in view.index],
+                                              names=[label(x) for x in view.index.names])
+    else:
+        view.index = view.index.map(label)
+        view.index.name = label(view.index.name)
+    with pd.option_context("display.max_columns", None, "display.max_rows", 60, "display.max_colwidth", 110):
+        display(view)

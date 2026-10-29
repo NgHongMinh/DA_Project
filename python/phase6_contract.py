@@ -466,25 +466,16 @@ CLAIMS: Final[tuple[Claim, ...]] = F1 + F2 + F3 + F4 + F5 + F6 + F7
 # exactly one of these; a slide needing two sentences is a slide carrying two
 # messages, and it gets split rather than reworded.
 FINDING_MESSAGES: Final[dict[str, str]] = {
-    "P3-01": "ASEAN tăng gần bốn lần về quy mô năng lượng tái tạo, nhưng chỗ đứng "
-             "của khu vực trên bản đồ thế giới gần như không đổi.",
-    "P3-02": "Gió và mặt trời của ASEAN đi lên từ mức đúng bằng không, nên tốc độ "
-             "tăng ấn tượng đang nói về một nền xuất phát rất thấp.",
-    "P3-03": "Dù gió và mặt trời tăng nhanh, thuỷ điện vẫn là nguồn lớn nhất của "
-             "ASEAN năm 2021.",
-    "P3-06": "Đổi định nghĩa 'năng lượng tái tạo' là đổi luôn thứ hạng khu vực, "
-             "nên mọi bảng xếp hạng phải nói rõ nó đang đo cái gì.",
-    "P3-07": "Việt Nam nắm khoảng hai phần ba lượng gió và mặt trời của cả ASEAN.",
-    "P3-09": "Gần như toàn bộ mức tăng gió và mặt trời của ASEAN giai đoạn "
-             "2010–2021 đến từ một nước duy nhất.",
-    "P3-04": "Đà tăng của khu vực tập trung vào rất ít nước, nên một con số trung "
-             "bình cho ASEAN sẽ che mất bức tranh thật.",
-    "P7-01": "Sản lượng tái tạo của Việt Nam tăng hơn bảy lần nhưng tỷ trọng của nó "
-             "trong tổng điện năng lại giảm, vì tổng cầu điện tăng còn nhanh hơn.",
-    "P7-02": "Sáu trong mười nước ASEAN không sản xuất một kWh điện gió nào trong "
-             "năm 2021.",
-    "P7-03": "Phân phối sản lượng giữa các nước lệch mạnh đến mức trung bình gấp "
-             "hơn sáu lần trung vị, nên phân vị mới là thống kê đọc được.",
+    "P3-01": "Thế giới cũng tăng sản lượng; cần xem cả quy mô tuyệt đối và tỷ trọng khi đánh giá ASEAN.",
+    "P3-02": "Dữ liệu ghi nhận sản lượng gió và mặt trời ASEAN bằng 0 năm 2000; tỷ lệ tăng trưởng từ mốc này không xác định.",
+    "P3-03": "Thủy điện là nguồn lớn nhất trong tổng sản lượng điện tái tạo ASEAN năm 2021.",
+    "P3-06": "Mỗi bảng xếp hạng cần ghi rõ chỉ tiêu, năm và tập quốc gia được so sánh.",
+    "P3-07": "Việt Nam chiếm khoảng hai phần ba sản lượng điện gió và mặt trời ASEAN năm 2021.",
+    "P3-09": "Việt Nam đóng góp khoảng hai phần ba tổng mức tăng dương điện gió và mặt trời ASEAN giai đoạn 2010–2021.",
+    "P3-04": "Sản lượng gió và mặt trời tập trung hơn tổng điện tái tạo tại mười nước ASEAN năm 2021.",
+    "P7-01": "Sản lượng điện tái tạo Việt Nam tăng, trong khi tỷ trọng trong tổng điện năng giảm; cần đọc đồng thời hai chỉ tiêu.",
+    "P7-02": "Dữ liệu ghi nhận sáu trong mười nước ASEAN có sản lượng điện gió bằng 0 năm 2021.",
+    "P7-03": "Trung vị và phân vị bổ sung thông tin về phân phối sản lượng giữa các nước khi trung bình cao hơn mức của phần lớn quan sát."
 }
 
 

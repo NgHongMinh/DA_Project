@@ -15,11 +15,15 @@ co loi nao bao ra, chi doc bang mat moi thay.
 
 # === CELL 1 | markdown | Giới thiệu đồ án ===
 MD = """
-# Năng lượng tái tạo tại ASEAN-10, 2000–2021
+# Điện tái tạo tại mười nước ASEAN, 2000–2021
 
-Notebook tự chứa này khảo sát và làm sạch 17 tệp CSV gốc trong `archive/` để xây dựng một mô hình dữ liệu phục vụ phân tích năng lượng tái tạo. Dữ liệu do **Our World in Data** tổng hợp từ **Ember** và **BP**; đối tượng chính là 10 quốc gia ASEAN: Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines, Singapore, Thái Lan và Việt Nam.
+Sổ tay này đọc 17 tệp CSV (dữ liệu bảng phân tách bằng dấu phẩy) trong thư mục `archive/`, khảo sát chất lượng, làm sạch và phân tích dữ liệu. Dữ liệu do **Our World in Data** tổng hợp từ **Ember** và **BP** (công ty năng lượng trước đây mang tên British Petroleum). ASEAN là Hiệp hội các quốc gia Đông Nam Á; phạm vi nghiên cứu gồm Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines, Singapore, Thái Lan và Việt Nam.
 
-Cửa sổ phân tích chính là **2000–2021**. Năm 2022 vẫn được quan sát ở tầng dữ liệu gốc để chứng minh hiện tượng cắt cụt, nhưng không đi vào dữ liệu phân tích sạch. Notebook chỉ đọc các CSV gốc, xử lý trong bộ nhớ và không ghi tệp đầu ra.
+Phân tích chính dùng giai đoạn **2000–2021**. Năm 2022 chỉ được khảo sát ở nguồn để đánh giá tình trạng thiếu dữ liệu cuối kỳ. Mọi bước xử lý thực hiện trong bộ nhớ; sổ tay chỉ đọc dữ liệu gốc và không ghi tệp dữ liệu.
+
+**Công cụ và đơn vị.** Python là ngôn ngữ lập trình; pandas xử lý bảng dữ liệu, NumPy tính toán mảng số, SciPy cung cấp hàm thống kê, Matplotlib vẽ biểu đồ. SQL là ngôn ngữ truy vấn cơ sở dữ liệu; SQLite là hệ quản trị dùng để đối chiếu độc lập các phép tính. TWh (terawatt giờ) tương đương một tỷ kilôoát giờ; MW (megawatt) và GW (gigawatt) là đơn vị công suất, một GW bằng một nghìn MW. Tỷ trọng được ghi rõ là phần trăm hoặc tỷ lệ trên thang từ 0 đến 1.
+
+**Cách đọc mã và kết quả.** Tên cột gốc `Entity`, `Code`, `Year` lần lượt chỉ thực thể, mã thực thể và năm. Các tên tệp và tên trường trong mã được giữ để đối chiếu nguồn; bảng kết quả dùng nhãn tiếng Việt. Một thực thể có thể là quốc gia, vùng lãnh thổ hoặc một nhóm tổng hợp, nên tổng khu vực chỉ cộng đúng các nước thuộc phạm vi đã chọn.
 """
 
 # === CELL 2 | code | Import và phiên bản thư viện ===
@@ -50,7 +54,7 @@ library_versions = pd.Series(
     },
     name="version",
 ).to_frame()
-display(library_versions)
+show_table(library_versions)
 
 # === CELL 3 | code | Dò thư mục gốc và phạm vi ===
 # Bước 0.2 — Đi ngược từ thư mục làm việc để tìm đúng thư mục chứa archive.
@@ -80,19 +84,18 @@ EXPECTED_CSV_COUNT = 17
 KEY_COLUMNS = ["Entity", "Code", "Year"]
 JOIN_COLUMNS = ["Entity", "Year"]
 
-print(f"ROOT: {ROOT}")
 print(f"Phạm vi: {len(ASEAN_COUNTRIES)} nước × {len(ANALYSIS_YEARS)} năm")
 
 # === CELL 4 | markdown | Mục 1.1 và sáu câu hỏi ===
 MD = """
-## 1.1. Câu hỏi phân tích
+## 1. Câu hỏi phân tích
 
-1. **Q1 — Quy mô và tốc độ:** Năng lượng tái tạo của ASEAN thay đổi thế nào trong tương quan với thế giới?
-2. **Q2 — Cơ cấu:** Sự tăng trưởng đến từ công nghệ nào, và cơ cấu giữa thủy điện, gió, mặt trời, năng lượng tái tạo khác dịch chuyển ra sao?
-3. **Q3 — Xếp hạng:** Thứ tự các nước ASEAN thay đổi thế nào khi đổi từ tổng năng lượng tái tạo sang gió + mặt trời?
-4. **Q4 — Việt Nam:** Việt Nam đứng ở đâu trong khu vực và trên thế giới, và quỹ đạo riêng khác ASEAN-9 như thế nào?
-5. **Q5 — Sản lượng hay tỷ trọng:** Sản lượng TWh và tỷ trọng trong điện năng có luôn kể cùng một câu chuyện không?
-6. **Q6 — Mức tập trung:** Tăng trưởng của khu vực tập trung vào một vài nước hay đến từ số đông?
+1. **Quy mô và tốc độ:** Sản lượng điện tái tạo ASEAN thay đổi thế nào trong tương quan với thế giới?
+2. **Cơ cấu:** Mức tăng đến từ thủy điện, gió, mặt trời và các nguồn tái tạo khác như thế nào?
+3. **Xếp hạng:** Thứ hạng các nước thay đổi ra sao khi chuyển từ tổng điện tái tạo sang gió và mặt trời?
+4. **Việt Nam:** Vị trí của Việt Nam trong khu vực và thế giới thay đổi thế nào; xu hướng khác tổng chín nước ASEAN còn lại ra sao?
+5. **Sản lượng và tỷ trọng:** Hai chỉ tiêu này có cùng chiều qua thời gian không?
+6. **Mức tập trung:** Sản lượng và phần tăng của khu vực tập trung ở những nước nào?
 """
 
 # === CELL 5 | code | Đọc 17 CSV gốc ===
@@ -139,8 +142,8 @@ for csv_path in csv_paths:
         frame[column] = numeric.astype("float64")
     sources[csv_path.name] = frame
 
-print(f"Đã đọc {len(sources)} CSV; tổng số dòng: {sum(map(len, sources.values())):,}")
-display(pd.DataFrame({"file_name": list(sources), "rows": [len(x) for x in sources.values()]}).head())
+print(f"Đã đọc {len(sources)} CSV; tổng số dòng: {format_number_vi(sum(map(len, sources.values())))}")
+show_table(pd.DataFrame({"file_name": list(sources), "rows": [len(x) for x in sources.values()]}).head())
 
 # === CELL 6 | code | Hồ sơ dữ liệu ===
 # Bước 1.2 — Lập hồ sơ từng cột chỉ số để tách giá trị 0 hợp lệ khỏi ô rỗng.
@@ -167,7 +170,7 @@ for file_name, frame in sources.items():
 
 data_profile = pd.DataFrame(profile_records)
 print(f"Hồ sơ: {data_profile.shape[0]} cột chỉ số thuộc {data_profile['file_name'].nunique()} tệp")
-display(data_profile.head(10))
+show_table(data_profile.head(10))
 
 # === CELL 7 | code | Tầng độ phủ ===
 # Bước 1.3 — Nhóm tệp theo số thực thể và biên năm để nhận diện các tầng độ phủ.
@@ -195,21 +198,20 @@ coverage_tiers = (
     .sort_values(["entity_count", "year_min", "year_max"], ascending=[False, True, False])
     .reset_index(drop=True)
 )
-coverage_tiers.insert(0, "tier_id", [f"T{i}" for i in range(1, len(coverage_tiers) + 1)])
-display(coverage_tiers)
+show_table(coverage_tiers)
 
 # === CELL 8 | code | Ma trận độ phủ ASEAN ===
-# Bước 1.4 — Tạo ma trận ASEAN-10 × 17 tệp; Y nghĩa là có ít nhất một khóa Entity-Year.
+# Bước 1.4 — Tạo ma trận ASEAN-10 × 17 tệp; ghi rõ có hay không có quan sát trong từng nguồn.
 asean_coverage_matrix = pd.DataFrame(index=ASEAN_COUNTRIES)
 for file_name, frame in sources.items():
     present = set(frame["Entity"].dropna())
     asean_coverage_matrix[file_name[:2]] = [
-        "Y" if country in present else "–" for country in ASEAN_COUNTRIES
+        "Có" if country in present else "Không có" for country in ASEAN_COUNTRIES
     ]
 asean_coverage_matrix.index.name = "country"
 
 print(f"Kích thước ma trận: {asean_coverage_matrix.shape}")
-display(asean_coverage_matrix)
+show_table(asean_coverage_matrix.rename(columns={name[:2]: name for name in sources}).T.rename_axis("file_name"))
 
 # === CELL 9 | code | So sánh cột TWh trùng nhau ===
 # Bước 1.5 — So sánh các nguồn TWh cùng đại lượng bằng đồng thời ngưỡng tuyệt đối và tương đối.
@@ -305,8 +307,8 @@ for metric_group, metric_sources in METRIC_GROUPS.items():
 overlap_summary = pd.DataFrame(overlap_summaries)
 overlap_detail = pd.concat(overlap_details, ignore_index=True)
 assert set(overlap_detail["difference_label"].unique()) <= {"MATERIAL", "IMMATERIAL"}
-print(f"Đã so sánh {len(overlap_summary)} cặp; chi tiết chỉ giữ {len(overlap_detail):,} dòng có sai khác.")
-display(overlap_summary)
+print(f"Đã so sánh {len(overlap_summary)} cặp; chi tiết chỉ giữ {format_number_vi(len(overlap_detail))} dòng có sai khác.")
+show_table(overlap_summary)
 
 # === CELL 10 | code | Liên tục năm và năm cuối ===
 # Bước 1.6 — Kiểm tra lỗ hổng nội chuỗi, lịch lấy mẫu và mức cắt cụt của năm cuối.
@@ -456,37 +458,31 @@ assert last_year_check.loc[
     last_year_check["file_name"].eq(PRIMARY_SOURCE_FILE), "last_year"
 ].iat[0] == 2022
 
-display(last_year_check)
-display(continuity_summary)
+show_table(last_year_check)
+show_table(continuity_summary)
 print(f"Cửa sổ ASEAN chính được chốt từ dữ liệu: {analysis_start}–{analysis_end}; không nội suy.")
 
 # === CELL 11 | markdown | Kết luận Phần 1 ===
 MD = """
-### Kết luận Phần 1
+### Kết quả khảo sát nguồn
 
-- Chọn tệp **03** làm nguồn chuẩn cho bốn chuỗi sản lượng điện theo công nghệ vì có độ phủ rộng và cùng chứa gió, thủy điện, mặt trời, năng lượng tái tạo khác. Các tệp **05, 08, 12** chỉ là tập con dư thừa của các cột tương ứng trong tệp 03 nên không được nạp lại vào bảng sự kiện.
-- Tệp **02** được giữ để kiểm toán nguồn, không trộn vào nguồn chuẩn: sai khác với tệp 03 có các dòng `MATERIAL` (sai khác có ý nghĩa theo ngưỡng), chủ yếu liên quan thực thể tổng hợp. Các tệp còn lại cung cấp chỉ số độc lập về tỷ trọng, công suất hoặc nhiên liệu sinh học; phạm vi hạn chế của chúng phải được công bố khi phân tích.
-- Năm **2022** bị cắt cụt nghiêm trọng ở các nguồn Ember có năm này, vì vậy dữ liệu sạch kết thúc ở **2021**. Tệp 01, 06 và geothermal kết thúc tự nhiên ở 2020 theo hợp đồng chỉ số riêng.
-- Không nội suy tự động, không điền trước năm đầu hoặc sau năm cuối. Giá trị thiếu được giữ là thiếu; riêng các khoảng đều trong dữ liệu geothermal được hiểu là lịch lấy mẫu, không phải các năm có thể bịa bằng nội suy.
+- Chọn `03 modern-renewable-prod.csv` làm nguồn sản lượng theo công nghệ vì có độ phủ rộng và chứa cùng lúc thủy điện, gió, mặt trời và điện tái tạo khác. Các tệp `05 hydropower-consumption.csv`, `08 wind-generation.csv`, `12 solar-energy-consumption.csv` trùng một phần dữ liệu tương ứng nên không nạp lại, tránh đếm hai lần.
+- Giữ `02 modern-renewable-energy-consumption.csv` để đối chiếu nguồn. Chênh lệch được phân loại theo cả ngưỡng tuyệt đối trên 0,05 TWh và ngưỡng tương đối trên 1%; không trộn hai nguồn để ép chúng bằng nhau. Ngưỡng so sánh nguồn này khác ngưỡng phân loại từng giá trị sản lượng.
+- Các nguồn có năm 2022 thiếu nghiêm trọng dữ liệu cuối kỳ và không có quan sát ASEAN trong năm đó, nên phân tích sạch dừng trước năm 2022. Một số chỉ số tỷ trọng năng lượng sơ cấp và công suất địa nhiệt có năm cuối riêng là 2020.
+- Không tự nội suy hoặc bổ sung các năm ngoài phạm vi quan sát. Các khoảng đều trong chuỗi công suất địa nhiệt được nhận diện là lịch lấy mẫu; dữ liệu thiếu được giữ nguyên để tránh tạo sản lượng không có trong nguồn.
 """
 
 # === CELL 12 | markdown | Nguyên tắc làm sạch và mô hình sao ===
 MD = """
-## 1.2. Tiền xử lý và mô hình dữ liệu
+## 2. Tiền xử lý và mô hình dữ liệu
 
-Nguyên tắc làm sạch là **bảo toàn nguồn gốc**, **không nội suy**, chỉ chọn một nguồn chuẩn cho mỗi chỉ số, đổi đơn vị bằng hệ số minh bạch và chỉ ghim các tỷ lệ sai số rất nhỏ về miền [0, 100]. Giá trị 0 là quan sát hợp lệ, khác với ô rỗng.
+Mỗi chỉ số chọn một nguồn chính, đổi đơn vị bằng hệ số công khai và không tự nội suy. Tỷ lệ chỉ được đưa về biên 0 hoặc 100 khi sai số không vượt ngưỡng rất nhỏ đã xác định. Giá trị 0 là quan sát được nguồn ghi nhận, khác với dữ liệu thiếu.
 
-Mô hình sao gồm `fact_energy` ở trung tâm và ba bảng chiều: `dim_entity`, `dim_year`, `dim_metric`. Khóa của bảng sự kiện là `(entity, year, metric_key)`; thiết kế dạng dài tránh ghép trong 17 tệp có độ phủ khác nhau và giữ được `source_file` để truy vết.
-
-```text
-dim_entity ─┐
-dim_year ───┼── fact_energy
-dim_metric ─┘
-```
+Bảng `fact_energy` (bảng số liệu năng lượng) liên kết với `dim_entity` (danh mục thực thể), `dim_year` (danh mục năm) và `dim_metric` (danh mục chỉ số). Mỗi bản ghi có khóa gồm `entity` (thực thể), `year` (năm), `metric_key` (chỉ số); `value` là giá trị, `value_class` là nhóm giá trị và `source_file` là tệp nguồn. Dạng dữ liệu này giữ từng quan sát cùng nguồn gốc, tránh mất dữ liệu do chỉ giữ phần chung của các tệp có độ phủ khác nhau.
 """
 
 # === CELL 13 | code | Khai báo 16 metric chuẩn ===
-# Bước 2.1 — Khóa danh mục 16 metric chuẩn đúng nguồn, đơn vị, ngưỡng và cửa sổ riêng.
+# Bước 2.1 — Khóa danh mục 16 chỉ số chuẩn đúng nguồn, đơn vị, ngưỡng và cửa sổ riêng.
 def make_metric_spec(
     metric_key,
     technology,
@@ -535,10 +531,10 @@ METRIC_SPECS = [
 
 assert len(METRIC_SPECS) == 16
 assert len({spec["metric_key"] for spec in METRIC_SPECS}) == 16
-print("Đã khóa 16 metric chuẩn; geothermal dùng hệ số 0.001 để đổi MW sang GW.")
+print("Danh mục có 16 chỉ số; công suất địa nhiệt đổi từ MW sang GW với hệ số 0,001.")
 
 # === CELL 14 | code | Dựng dim_metric ===
-# Bước 2.2 — Dựng chiều metric làm từ điển nguồn và quy tắc biến đổi duy nhất.
+# Bước 2.2 — Dựng chiều chỉ số làm từ điển nguồn và quy tắc biến đổi duy nhất.
 DIM_METRIC_COLUMNS = [
     "metric_key",
     "technology",
@@ -559,8 +555,8 @@ dim_metric = (
 if dim_metric["metric_key"].duplicated().any():
     raise ValueError("dim_metric có metric_key trùng.")
 
-print(f"dim_metric.shape = {dim_metric.shape}")
-display(dim_metric.head(16))
+print(f"Danh mục chỉ số: {len(dim_metric)} bản ghi.")
+show_table(dim_metric.head(16))
 
 # === CELL 15 | code | Dựng dim_entity ===
 # Bước 2.3 — Hợp nhất mã thực thể và phân loại bằng ngoại lệ rõ ràng cho các mã giả OWID_*.
@@ -676,11 +672,11 @@ assert dim_entity.set_index("entity").loc["Kosovo", "entity_type"] == "country_o
 assert dim_entity.set_index("entity").loc["USSR", "entity_type"] == "historical"
 assert dim_entity.set_index("entity").loc["World", "entity_type"] == "world"
 
-display(dim_entity.groupby("entity_type", as_index=False).size())
-display(dim_entity.loc[dim_entity["iso_code"].astype("string").str.startswith("OWID_", na=False)].head(10))
+show_table(dim_entity.groupby("entity_type", as_index=False).size())
+show_table(dim_entity.loc[dim_entity["iso_code"].astype("string").str.startswith("OWID_", na=False)].head(10))
 
 # === CELL 16 | code | Dựng fact_energy ===
-# Bước 2.4 — Chuẩn hóa dạng dài, đổi đơn vị, ghim tỷ lệ và phân lớp giá trị theo từng metric.
+# Bước 2.4 — Chuẩn hóa dạng dài, đổi đơn vị, ghim tỷ lệ và phân lớp giá trị theo từng chỉ số.
 PERCENT_EPSILON = 0.0001
 FACT_COLUMNS = ["entity", "year", "metric_key", "value", "value_class", "source_file"]
 fact_parts = []
@@ -745,9 +741,9 @@ if fact_energy.duplicated(["entity", "year", "metric_key"]).any():
 if not np.isfinite(fact_energy["value"].to_numpy()).all():
     raise ValueError("fact_energy có NaN hoặc vô cực.")
 
-print(f"fact_energy.shape = {fact_energy.shape}; số tỷ lệ được ghim biên = {len(percent_snap_audit)}")
-display(fact_energy.groupby("value_class", as_index=False).size())
-display(fact_energy.head())
+print(f"Bảng số liệu: {format_number_vi(len(fact_energy))} bản ghi; số tỷ lệ điều chỉnh về biên: {len(percent_snap_audit)}.")
+show_table(fact_energy.groupby("value_class", as_index=False).size())
+show_table(fact_energy.head())
 
 # === CELL 17 | code | Dựng dim_year ===
 # Bước 2.5 — Tạo chiều năm liên tục và gắn cờ cửa sổ ASEAN chính 2000–2021.
@@ -763,11 +759,11 @@ dim_year = pd.DataFrame(
     }
 )
 
-print(f"dim_year.shape = {dim_year.shape}")
-display(pd.concat([dim_year.head(3), dim_year.tail(3)]))
+print(f"Danh mục năm: {len(dim_year)} bản ghi.")
+show_table(pd.concat([dim_year.head(3), dim_year.tail(3)]))
 
 # === CELL 18 | code | Kiểm tra panel ASEAN chính ===
-# Bước 2.6 — Khóa tính đầy đủ 10 nước × 22 năm × 8 metric và các bất biến dữ liệu sạch.
+# Bước 2.6 — Khóa tính đầy đủ 10 nước × 22 năm × 8 chỉ số và các bất biến dữ liệu sạch.
 MAIN_METRIC_KEYS = {
     "wind_generation_twh",
     "hydro_generation_twh",
@@ -799,37 +795,39 @@ panel_checks = pd.DataFrame(
         ("Không có năm 2022", not fact_energy["year"].eq(2022).any()),
         ("Không có giá trị âm", not fact_energy["value"].lt(0).any()),
         ("Không trùng khóa", not fact_energy.duplicated(["entity", "year", "metric_key"]).any()),
-        ("value_class hợp lệ", set(fact_energy["value_class"]) <= {"Zero", "Trace", "Material"}),
+        ("Phân loại giá trị hợp lệ", set(fact_energy["value_class"]) <= {"Zero", "Trace", "Material"}),
     ],
     columns=["check", "passed"],
 )
-panel_checks["status"] = np.where(panel_checks["passed"], "PASS", "FAIL")
+panel_checks["status"] = np.where(panel_checks["passed"], "Đạt", "Không đạt")
 if not panel_checks["passed"].all():
     raise AssertionError(panel_checks.loc[~panel_checks["passed"]].to_dict("records"))
 
-print(f"Panel ASEAN chính: {panel.shape[0]:,} ô")
-display(panel_checks[["check", "status"]])
+print(f"Bảng quan sát ASEAN chính: {format_number_vi(panel.shape[0])} ô.")
+show_table(panel_checks[["check", "status"]])
 
 # === CELL 19 | markdown | Kết quả làm sạch ===
 MD = """
 ### Kết quả làm sạch
 
-Dữ liệu sạch có 16 chỉ số chuẩn và một khóa ngữ nghĩa duy nhất `(entity, year, metric_key)`. Mỗi quan sát giữ tên tệp nguồn; geothermal đã đổi từ MW sang GW; tỷ lệ chỉ được ghim biên khi sai số không quá 0,0001 điểm phần trăm. Phân lớp `Zero` / `Trace` / `Material` dùng ngưỡng riêng trong `dim_metric` — 0,05 cho các đại lượng TWh và 0,01 cho tỷ lệ/công suất — để không đánh đồng số 0 thật với giá trị rất nhỏ.
+Bảng số liệu gồm **89.075 bản ghi**, bao phủ 16 chỉ số. Mỗi bản ghi gắn một thực thể, một năm và một chỉ số, đồng thời lưu tên nguồn. Công suất địa nhiệt được đổi từ MW sang GW. Tỷ lệ chỉ được điều chỉnh về biên khi sai số không quá 0,0001 điểm phần trăm.
 
-Panel chính đủ **1.760 ô** cho 10 nước, 22 năm và 8 chỉ số có độ phủ ASEAN đầy đủ. Không có năm 2022, giá trị âm hoặc khóa trùng trong bảng sự kiện. Những chỉ số phạm vi hẹp vẫn được giữ để nghiên cứu trường hợp, nhưng không được giả định là panel đầy đủ.
+Phân loại giữ riêng **bằng 0**, **dương dưới ngưỡng** và **từ ngưỡng trở lên**. Ngưỡng sản lượng là 0,05 TWh; giá trị đúng 0,05 TWh thuộc nhóm đạt ngưỡng. Với tỷ trọng và công suất, ngưỡng là 0,01 theo đơn vị tương ứng. Số 0 mô tả số liệu ghi nhận, không tự xác nhận sản lượng thực tế tuyệt đối bằng 0.
+
+Bảng quan sát chính có đủ **1.760 ô** cho mười nước, 22 năm và tám chỉ số có độ phủ đầy đủ. Không có năm 2022, giá trị âm hoặc khóa trùng. Các chỉ số có phạm vi hẹp vẫn được giữ, nhưng không được coi là có đủ quan sát cho toàn bộ khu vực.
 """
 
 # === CELL 20 | markdown | Vai trò của SQL ===
 MD = """
-## 1.2b. Kiểm định bằng SQL
+## 3. Đối chiếu dữ liệu bằng SQL
 
-SQL được dùng như một lớp kiểm chứng độc lập với phép biến đổi pandas. Mục tiêu là phát hiện lỗi cấu trúc khó nhìn bằng thống kê mô tả: V6 kiểm tra khóa trùng, V7 chặn giá trị âm, V8 chặn tỷ lệ ngoài [0, 100]. V1 đối chiếu tổng các quốc gia/ vùng lãnh thổ hiện hành với dòng `World` do nguồn công bố cho bốn chỉ số TWh cộng được.
+Ba phép kiểm tra bắt buộc xét khóa trùng, giá trị âm và tỷ lệ ngoài khoảng từ 0 đến 100. Nếu có vi phạm, quá trình dừng để tránh đưa dữ liệu không hợp lệ vào phân tích.
 
-V6–V8 là kiểm định chặn: bất kỳ `FAIL` nào cũng làm dữ liệu không đủ điều kiện phân tích. V1 không chặn vì chênh lệch có thể phản ánh làm tròn, độ phủ hoặc định nghĩa tổng hợp; kết quả ngoài dung sai được gắn `WARN` để điều tra, không tự động sửa dữ liệu.
+Phép đối chiếu tổng cộng so sánh tổng các quốc gia, vùng lãnh thổ hiện hành với dòng `World` (thế giới do nguồn công bố), cho bốn chỉ số sản lượng điện có thể cộng. Chênh lệch ngoài dung sai được ghi là **Cần đối chiếu**, vì có thể liên quan đến độ phủ, cách tổng hợp hoặc làm tròn; dữ liệu không tự bị sửa cho khớp.
 """
 
 # === CELL 21 | code | SQLite in-memory và DDL ===
-# Bước 3.1 — Tạo SQLite trong bộ nhớ, chạy DDL không dùng STRICT và nạp bốn DataFrame.
+# Bước 3.1 — Tạo SQLite trong bộ nhớ, tạo cấu trúc bảng và nạp bốn bảng dữ liệu để đối chiếu.
 DDL_SQL = """
 PRAGMA foreign_keys = ON;
 
@@ -913,9 +911,9 @@ sqlite_counts = pd.read_sql_query(
     """,
     conn,
 )
-display(sqlite_counts)
+show_table(sqlite_counts)
 
-# === CELL 22 | code | SQL V6 V7 V8 ===
+# === CELL 22 | code | Kiểm tra khóa và miền giá trị ===
 # Bước 3.2 — Chạy ba kiểm định chặn cho khóa trùng, số âm và tỷ lệ ngoài miền.
 V6_V8_SQL = """
 WITH duplicate_groups AS (
@@ -929,8 +927,8 @@ duplicate_summary AS (
     FROM duplicate_groups
 )
 SELECT
-    'V6' AS check_id,
-    CASE WHEN exception_rows = 0 THEN 'PASS' ELSE 'FAIL' END AS status,
+    'Khóa không trùng' AS check_id,
+    CASE WHEN exception_rows = 0 THEN 'Đạt' ELSE 'Không đạt' END AS status,
     (SELECT COUNT(*) FROM fact_energy) AS compared_rows,
     exception_rows,
     'Khóa chuẩn (entity, year, metric_key) phải duy nhất.' AS note
@@ -939,9 +937,9 @@ FROM duplicate_summary
 UNION ALL
 
 SELECT
-    'V7',
+    'Giá trị không âm',
     CASE WHEN COALESCE(SUM(CASE WHEN value < 0 THEN 1 ELSE 0 END), 0) = 0
-         THEN 'PASS' ELSE 'FAIL' END,
+         THEN 'Đạt' ELSE 'Không đạt' END,
     COUNT(*),
     COALESCE(SUM(CASE WHEN value < 0 THEN 1 ELSE 0 END), 0),
     'Mọi giá trị chuẩn phải không âm.'
@@ -950,22 +948,22 @@ FROM fact_energy
 UNION ALL
 
 SELECT
-    'V8',
+    'Tỷ lệ trong biên',
     CASE WHEN COALESCE(SUM(CASE WHEN value < 0 OR value > 100 THEN 1 ELSE 0 END), 0) = 0
-         THEN 'PASS' ELSE 'FAIL' END,
+         THEN 'Đạt' ELSE 'Không đạt' END,
     COUNT(*),
     COALESCE(SUM(CASE WHEN value < 0 OR value > 100 THEN 1 ELSE 0 END), 0),
-    'Metric phần trăm phải thuộc đoạn đóng [0, 100].'
+    'Chỉ số phần trăm phải thuộc đoạn đóng [0, 100].'
 FROM fact_energy
 WHERE metric_key LIKE '%_pct';
 """
 
 validation_v6_v8 = pd.read_sql_query(V6_V8_SQL, conn)
-if not validation_v6_v8["status"].eq("PASS").all():
-    raise AssertionError(validation_v6_v8.loc[validation_v6_v8["status"].ne("PASS")])
-display(validation_v6_v8)
+if not validation_v6_v8["status"].eq("Đạt").all():
+    raise AssertionError(validation_v6_v8.loc[validation_v6_v8["status"].ne("Đạt")])
+show_table(validation_v6_v8)
 
-# === CELL 23 | code | SQL V1 đối chiếu World ===
+# === CELL 23 | code | Đối chiếu tổng thế giới ===
 # Bước 3.3 — Đối chiếu tổng 215 quốc gia/vùng lãnh thổ hiện hành với dòng World theo năm.
 V1_SQL = """
 WITH generation_metrics(metric_key) AS (
@@ -1028,13 +1026,13 @@ comparisons AS (
 )
 
 SELECT
-    'V1' AS check_id,
+    'Tổng quốc gia và thế giới' AS check_id,
     metric_key,
     year,
     CASE
-        WHEN observed IS NULL OR expected IS NULL THEN 'SKIP'
-        WHEN abs_diff <= abs_tol THEN 'PASS'
-        ELSE 'WARN'
+        WHEN observed IS NULL OR expected IS NULL THEN 'Chưa đủ dữ liệu'
+        WHEN abs_diff <= abs_tol THEN 'Đạt'
+        ELSE 'Cần đối chiếu'
     END AS status,
     observed,
     expected,
@@ -1052,27 +1050,31 @@ v1_summary = (
     .join(validation_v1.groupby("metric_key")["abs_diff"].max().rename("max_abs_diff_twh"))
     .reset_index()
 )
-display(v1_summary)
-display(validation_v1.sort_values("abs_diff", ascending=False).head(8))
+show_table(v1_summary)
+show_table(validation_v1.sort_values("abs_diff", ascending=False).head(8))
 
 # === CELL 24 | markdown | Kết quả kiểm định ===
 MD = """
-### Kết quả kiểm định
+### Kết quả đối chiếu
 
-Các kiểm định chặn V6, V7 và V8 phải đồng thời trả về `PASS`: bảng sự kiện không có khóa trùng, không có giá trị âm và mọi tỷ lệ đều thuộc [0, 100]. Nếu một kiểm định trả `FAIL`, notebook dừng bằng ngoại lệ để ngăn sử dụng dữ liệu lỗi.
+Các phép kiểm tra khóa trùng, giá trị âm và tỷ lệ ngoài biên phải đồng thời có kết quả **Đạt**. Nếu có kết quả **Không đạt**, sổ tay dừng bằng thông báo lỗi.
 
-V1 trả chi tiết theo bốn metric × 22 năm. `PASS` nghĩa là tổng các quốc gia/vùng lãnh thổ hiện hành nằm trong dung sai `max(0,05 TWh; 0,01% × |World|)`; `WARN` ghi nhận chênh lệch đối chiếu nhưng không sửa dòng `World` hay tổng quốc gia. Cách xử lý này giữ nguyên bằng chứng nguồn và tránh coi một dòng tổng hợp là đẳng thức kế toán khi phạm vi hoặc quy tắc làm tròn có thể khác nhau.
+Đối chiếu tổng quốc gia với tổng thế giới thực hiện theo bốn chỉ số và 22 năm. Dung sai tuyệt đối là giá trị lớn hơn giữa 0,05 TWh và 0,01% trị tuyệt đối tổng thế giới. **Đạt** nghĩa là chênh lệch nằm trong dung sai; **Cần đối chiếu** nghĩa là vượt dung sai và cần xem xét nguồn. Vì vậy, không có lỗi bắt buộc xử lý không đồng nghĩa với mọi phép đối chiếu đều bằng nhau.
 
-Toàn bộ cơ sở SQLite tồn tại trong bộ nhớ; notebook không tạo hoặc cập nhật bất kỳ tệp dữ liệu nào.
+Cơ sở dữ liệu SQLite nằm trong bộ nhớ, không tạo hoặc cập nhật tệp dữ liệu.
 """
 
 # === CELL 25 | markdown | Mục 1.3 — Thống kê mô tả ===
 MD = """
-## 1.3. Thống kê mô tả
+## 4. Thống kê mô tả và so sánh
 
-Phần này mô tả phân phối sản lượng của ASEAN-10 tại ba mốc 2000, 2010 và 2021. `n` là số quan sát được đưa vào phép tính; `sum`, `mean`, `median`, `min`, `max` lần lượt là tổng, trung bình, trung vị, nhỏ nhất và lớn nhất. `sd` là độ lệch chuẩn tổng thể (`ddof=0`); `cv = sd / mean` là hệ số biến thiên, chỉ xác định khi có ít nhất hai quan sát và trung bình dương. `iqr = p75 - p25` đo độ rộng của 50% quan sát ở giữa; `skewness` đo độ lệch và `kurtosis` là độ nhọn vượt chuẩn Fisher.
+Phân phối sản lượng của mười nước ASEAN được mô tả tại các năm 2000, 2010 và 2021. Ngoài tổng, trung bình và trung vị, bảng có độ lệch chuẩn của toàn bộ tập quan sát, hệ số biến thiên, các phân vị, khoảng tứ phân vị, độ lệch phân phối và độ nhọn vượt chuẩn Fisher (độ nhọn sau khi trừ mức chuẩn của phân phối chuẩn).
 
-Các phân vị p10, p25, p50, p75, p90, p95 và p99 cần thiết vì dữ liệu năng lượng thường lệch phải: một vài nước có sản lượng rất lớn có thể kéo trung bình lên cao trong khi trung vị vẫn thấp. Vì vậy, chỉ nhìn `mean` dễ tạo ấn tượng sai về một nước ASEAN “điển hình”. Ba biến thể lọc được giữ song song: `ALL_OBSERVED` (mọi quan sát, kể cả 0), `POSITIVE` (chỉ giá trị dương) và `MATERIAL` (chỉ giá trị đạt ngưỡng có ý nghĩa của dữ liệu sạch).
+Hệ số biến thiên bằng độ lệch chuẩn chia trung bình, chỉ xác định khi có ít nhất hai quan sát và trung bình dương. Khoảng tứ phân vị là phân vị 75% trừ phân vị 25%, mô tả độ rộng của một nửa số quan sát ở giữa. Độ lệch và độ nhọn dùng hiệu chỉnh chệch; tham số `ddof=0` trong mã chỉ cách tính độ lệch chuẩn tổng thể.
+
+Ba tập quan sát được đọc song song: **toàn bộ quan sát kể cả 0**, **chỉ sản lượng dương** và **sản lượng từ 0,05 TWh trở lên**. Trung bình phản ánh tổng trên mỗi quan sát; trung vị và phân vị bổ sung thông tin về các nước khi một số nước có sản lượng lớn.
+
+Tăng trưởng so với năm trước và tăng trưởng kép bình quân năm chỉ tính khi giá trị gốc dương và đủ dữ liệu. Trong bảng kết quả, giá trị không xác định có lý do đi kèm. Chỉ số Herfindahl–Hirschman là tổng bình phương tỷ trọng các nước; hệ số Gini mô tả mức chênh lệch phân bố sản lượng. Các tỷ trọng và chỉ số tập trung dùng thang từ 0 đến 1 khi không ghi dấu phần trăm.
 """
 
 # === CELL 26 | code | Dựng panel ASEAN dạng rộng ===
@@ -1148,9 +1150,9 @@ panel_completeness = pd.DataFrame(
         "số_dòng_thiếu": [int(incomplete_four.sum()), int(incomplete_two.sum())],
     }
 )
-print(f"Panel ASEAN dạng rộng: {asean_panel.shape[0]:,} dòng × {asean_panel.shape[1]} cột")
-display(panel_completeness)
-display(asean_panel.head())
+print(f"Bảng quan sát ASEAN: {format_number_vi(asean_panel.shape[0])} dòng và {asean_panel.shape[1]} cột.")
+show_table(panel_completeness)
+show_table(asean_panel.head())
 
 # === CELL 27 | code | Bộ thống kê đầy đủ tại ba mốc ===
 # Bước 4.2 — Tính độc lập ba biến thể lọc bằng đúng quy ước numpy và scipy.
@@ -1238,7 +1240,7 @@ solar_2021_stats = distribution_stats.loc[
     distribution_stats["year"].eq(2021) & distribution_stats["series"].eq("SOLAR")
 ]
 print("Ví dụ phân phối lệch — điện mặt trời ASEAN-10 năm 2021 (TWh):")
-display(solar_2021_stats.set_index("filter_variant")[STATISTIC_COLUMNS].round(4))
+show_table(solar_2021_stats.set_index("filter_variant")[STATISTIC_COLUMNS].round(4))
 
 # === CELL 28 | code | Diễn giải phân phối điện mặt trời ===
 # Bước 4.3 — Đặt trung bình cạnh trung vị, độ lệch và hệ số biến thiên để tránh kết luận từ một số duy nhất.
@@ -1256,7 +1258,7 @@ for row in solar_2021_stats.itertuples(index=False):
     )
 
 distribution_interpretation = pd.DataFrame(interpretation_rows)
-print(distribution_interpretation.round(4).to_string(index=False))
+show_table(distribution_interpretation.round(4))
 all_observed_solar = solar_2021_stats.loc[
     solar_2021_stats["filter_variant"].eq("ALL_OBSERVED")
 ].iloc[0]
@@ -1277,7 +1279,7 @@ else:
 print(distribution_conclusion)
 
 # === CELL 29 | code | Tỷ trọng ASEAN và tỷ trọng quốc gia ===
-# Bước 4.4 — Dùng đúng mẫu số dương đã công bố; mẫu số không hợp lệ luôn cho NaN.
+# Bước 4.4 — Dùng đúng mẫu số dương đã công bố; mẫu số không hợp lệ luôn cho giá trị thiếu.
 asean_totals = (
     asean_panel.groupby("year", sort=True)[ANALYSIS_SERIES]
     .sum(min_count=len(ASEAN_COUNTRIES))
@@ -1325,10 +1327,10 @@ country_share_asean["denominator_reason"] = np.select(
 assert not np.isinf(asean_share_world.to_numpy(dtype=float)).any()
 assert not np.isinf(country_share_asean["country_share_asean"].to_numpy()).any()
 
-print("Tỷ trọng ASEAN trong dòng World do nguồn công bố (%):")
-display((asean_share_world.loc[MILESTONE_YEARS] * 100).round(2))
+print("Tỷ trọng ASEAN trong tổng thế giới do nguồn công bố (%):")
+show_table((asean_share_world.loc[MILESTONE_YEARS] * 100).round(2))
 print("Tỷ trọng từng nước trong ASEAN năm 2021 (%):")
-display(
+show_table(
     (
         country_share_asean.loc[country_share_asean["year"].eq(2021)]
         .pivot(index="entity", columns="series", values="country_share_asean")
@@ -1400,8 +1402,8 @@ for (scope, series), group in regional_levels.groupby(["scope", "series"], sort=
 growth_cagr = pd.DataFrame(cagr_records)
 assert not np.isinf(growth_yoy["yoy"].to_numpy()).any()
 assert not np.isinf(growth_cagr["cagr"].to_numpy()).any()
-print("CAGR (%/năm); NaN luôn đi kèm lý do ở cột cuối:")
-display(
+print("Tăng trưởng kép bình quân năm (%/năm); giá trị không xác định có lý do ở cột cuối:")
+show_table(
     growth_cagr.assign(cagr_pct=growth_cagr["cagr"] * 100)[
         ["scope", "series", "start_year", "end_year", "cagr_pct", "denominator_reason"]
     ].round(3)
@@ -1438,7 +1440,7 @@ asean_rankings = pd.DataFrame(ranking_records)
 zero_scope_rows = asean_rankings["rank_reason"].eq("ZERO_SCOPE_TOTAL")
 assert asean_rankings.loc[zero_scope_rows, "rank"].isna().all()
 print("Xếp hạng ASEAN-10 năm 2021 (1 = cao nhất):")
-display(
+show_table(
     asean_rankings.loc[asean_rankings["year"].eq(2021)]
     .pivot(index="entity", columns="series", values=["value", "rank"])
     .reindex(ASEAN_COUNTRIES).round(3)
@@ -1492,11 +1494,11 @@ asean_concentration = pd.DataFrame(concentration_records)
 assert not np.isinf(
     asean_concentration[["top1_share", "top3_share", "hhi", "gini"]].to_numpy()
 ).any()
-print("Mức tập trung năm 2021 (các cột share, HHI và Gini nằm trên thang 0–1):")
-display(asean_concentration.loc[asean_concentration["year"].eq(2021)].round(4))
+print("Mức tập trung năm 2021; tỷ trọng và chỉ số tập trung dùng thang từ 0 đến 1:")
+show_table(asean_concentration.loc[asean_concentration["year"].eq(2021)].round(4))
 
 # === CELL 33 | code | Đối chiếu pandas với SQL ===
-# Bước 4.8 — Tính lại YoY và hạng bằng cửa sổ SQL, rồi so từng giá trị với dung sai 1e-9.
+# Bước 4.8 — Tính lại tăng trưởng so với năm trước và hạng bằng cửa sổ SQL, rồi so từng giá trị với dung sai 1e-9.
 SQL_YOY = """
 WITH base AS (
     SELECT
@@ -1629,7 +1631,7 @@ def compare_numeric_frames(label, pandas_frame, sql_frame, keys, numeric_columns
     key_match = merged["_merge"].eq("both")
     rows.append(
         {
-            "đối_chiếu": label, "cột": "KEY_COVERAGE", "số_dòng": len(merged),
+            "đối_chiếu": label, "cột": "Tập khóa quan sát", "số_dòng": len(merged),
             "số_khớp": int(key_match.sum()), "số_lệch": int((~key_match).sum()),
             "sai_lệch_tối_đa": np.nan,
             "trạng_thái": "KHỚP" if key_match.all() else "LỆCH",
@@ -1669,37 +1671,37 @@ pandas_rank_check = asean_rankings[
 sql_crosscheck = pd.concat(
     [
         compare_numeric_frames(
-            "LAG_YOY", pandas_yoy_check, sql_yoy,
+            "Tăng trưởng qua năm", pandas_yoy_check, sql_yoy,
             ["scope", "year", "series"], ["value", "previous_value", "yoy"],
         ),
         compare_numeric_frames(
-            "RANK_ASEAN", pandas_rank_check, sql_rank,
+            "Thứ hạng ASEAN", pandas_rank_check, sql_rank,
             ["entity", "year", "series"], ["value", "scope_total", "rank"],
         ),
     ],
     ignore_index=True,
 )
-display(sql_crosscheck)
+show_table(sql_crosscheck)
 if not sql_crosscheck["trạng_thái"].eq("KHỚP").all():
     raise AssertionError("Đối chiếu pandas–SQL có sai lệch vượt dung sai 1e-9.")
 print("Đối chiếu pandas–SQL: mọi khóa và giá trị đều khớp trong dung sai tuyệt đối 1e-9.")
 
 # === CELL 34 | markdown | Kết luận Phần 4 ===
 MD = """
-### Kết luận Phần 4
+### Kết quả thống kê và kiểm tra phép tính
 
-Panel ASEAN-10 bảo toàn tính đầy đủ của phép cộng: tổng tái tạo chỉ xuất hiện khi đủ bốn công nghệ, còn gió + mặt trời chỉ xuất hiện khi đủ hai thành phần. Ba biến thể lọc cho thấy số 0 là một phần của phân phối chứ không phải dữ liệu thiếu; các phân vị, độ lệch và hệ số biến thiên vì thế bổ sung thông tin mà trung bình đơn lẻ không thể hiện.
+Tổng điện tái tạo chỉ được tính khi đủ bốn công nghệ; tổng gió và mặt trời chỉ được tính khi đủ hai thành phần. Cách này tránh coi tổng thiếu thành phần là tổng đầy đủ. Ba tập quan sát cho thấy số 0 thuộc phân phối số liệu, khác với dữ liệu thiếu.
 
-Mọi tỷ trọng, tốc độ tăng và chỉ số tập trung đều kiểm tra mẫu số trước khi chia. YoY và CAGR không biến mốc gốc bằng 0 thành vô cực; xếp hạng không gán hạng 1 khi tổng toàn ASEAN bằng 0. Hai phép tính độc lập bằng pandas và SQL phải khớp trong dung sai tuyệt đối 1e-9 trước khi chuyển sang trực quan hóa.
+Mọi tỷ trọng, tốc độ tăng và chỉ số tập trung đều kiểm tra mẫu số trước khi chia. Giá trị gốc bằng 0 không tạo ra tỷ lệ tăng trưởng vô cực; khi tổng ASEAN bằng 0, thứ hạng không xác định. Các phép tính bằng pandas và SQL phải khớp từng khóa và giá trị trong dung sai tuyệt đối một phần tỷ trước khi chuyển sang biểu đồ.
 """
 
 # === CELL 35 | markdown | Mục 1.4 — Quy ước trực quan hóa ===
 MD = """
-## 1.4. Trực quan hóa
+## 5. Trực quan hóa
 
-Các biểu đồ chỉ dùng quốc gia ASEAN-10 và dòng `World` do nguồn công bố khi cần bối cảnh; các thực thể tổng hợp khác bị loại để tránh đếm trùng. Không dùng trục kép: khi hai đại lượng khác thang đo cần xuất hiện cùng hình, chúng được tách thành hai khung chung trục năm. Màu công nghệ và màu quốc gia được cố định giữa các hình; Việt Nam luôn dùng màu nhấn cam đỏ để có thể nhận ra ngay mà không làm mất ngữ cảnh khu vực.
+Biểu đồ dùng mười nước ASEAN và tổng thế giới do nguồn công bố khi cần bối cảnh. Những nhóm tổng hợp khác không được cộng thêm, nhằm tránh đếm trùng. Hai đại lượng khác thang đo được đặt ở hai khung chung trục thời gian để người đọc phân biệt sản lượng với tỷ trọng.
 
-Giá trị 0 được giữ nguyên về mặt thống kê. Với biểu đồ dùng thang logarit, số 0 được đếm trong một khung riêng và không bị thay bằng một số dương giả tạo.
+Màu công nghệ và quốc gia nhất quán giữa các hình; Việt Nam dùng màu cam đỏ. Số 0 được giữ trong thống kê; khi dùng thang logarit, số 0 được đếm riêng và chỉ giá trị dương được đưa lên trục. Các hình mô tả sản lượng, chưa đủ để kết luận nguyên nhân thay đổi.
 """
 
 # === CELL 36 | code | Bảng màu và định dạng số Việt ===
@@ -1726,11 +1728,11 @@ COUNTRY_COLORS = {
 }
 SERIES_LABELS_VI = {
     "HYDRO": "Thủy điện",
-    "OTHER_RENEWABLES": "NLTT khác",
+    "OTHER_RENEWABLES": "Điện tái tạo khác",
     "WIND": "Gió",
     "SOLAR": "Mặt trời",
-    "RENEWABLE_TOTAL": "Tổng NLTT",
-    "MODERN_WIND_SOLAR": "Gió + mặt trời",
+    "RENEWABLE_TOTAL": "Tổng điện tái tạo",
+    "MODERN_WIND_SOLAR": "Gió và mặt trời",
 }
 ENTITY_LABELS_VI = {
     "Brunei": "Brunei",
@@ -1773,21 +1775,6 @@ matplotlib.rcParams.update(
         "text.color": NEUTRAL_GRAY,
     }
 )
-palette_table = pd.DataFrame(
-    [
-        {"đối_tượng": SERIES_LABELS_VI[key], "mã_màu": value}
-        for key, value in TECHNOLOGY_COLORS.items()
-    ]
-    + [
-        {"đối_tượng": "Việt Nam", "mã_màu": VIETNAM_HIGHLIGHT},
-        {"đối_tượng": "Xám trung tính", "mã_màu": NEUTRAL_GRAY},
-    ]
-)
-display(palette_table)
-print(
-    f"Ví dụ định dạng: 1000 -> {format_vi_number(1000, 0)}; "
-    f"1000.5 -> {format_vi_number(1000.5, 1)}"
-)
 
 # === CELL 37 | code | Biểu đồ 1 — ASEAN và thế giới ===
 # Bước 5.2 — Tách sản lượng và tỷ trọng thành hai khung chung trục x để không cần trục kép.
@@ -1820,7 +1807,7 @@ axes[1].plot(years_plot, share_plot, color=VIETNAM_HIGHLIGHT, linewidth=2.8)
 axes[1].fill_between(years_plot, share_plot, color=VIETNAM_HIGHLIGHT, alpha=0.12)
 axes[1].set_ylabel("ASEAN / thế giới")
 axes[1].set_xlabel("Năm")
-axes[1].set_title("Tỷ trọng ASEAN-10 trong dòng World do nguồn công bố")
+axes[1].set_title("Tỷ trọng ASEAN-10 trong tổng thế giới do nguồn công bố")
 axes[1].yaxis.set_major_formatter(
     matplotlib.ticker.FuncFormatter(lambda value, _: f"{format_vi_number(value, 1)}%")
 )
@@ -1848,7 +1835,7 @@ axis.stackplot(
 )
 axis.plot(
     years_plot, asean_total_plot, color=NEUTRAL_GRAY,
-    linewidth=1.8, label="Tổng NLTT",
+    linewidth=1.8, label="Tổng điện tái tạo",
 )
 axis.set_title("Cơ cấu sản lượng năng lượng tái tạo ASEAN-10, 2000–2021")
 axis.set_xlabel("Năm")
@@ -1906,14 +1893,14 @@ axis.invert_yaxis()
 axis.set_xlim(0.5, 10.5)
 axis.set_xticks(range(1, 11))
 axis.set_xlabel("Hạng trong ASEAN-10 (1 = cao nhất)")
-axis.set_title("Xếp hạng ASEAN-10 năm 2021: tổng NLTT so với gió + mặt trời")
+axis.set_title("Xếp hạng ASEAN-10 năm 2021: tổng điện tái tạo so với gió và mặt trời")
 axis.legend(
     handles=[
         matplotlib.lines.Line2D(
-            [], [], marker="o", linestyle="", color=NEUTRAL_GRAY, label="Tổng NLTT"
+            [], [], marker="o", linestyle="", color=NEUTRAL_GRAY, label="Tổng điện tái tạo"
         ),
         matplotlib.lines.Line2D(
-            [], [], marker="D", linestyle="", color=NEUTRAL_GRAY, label="Gió + mặt trời"
+            [], [], marker="D", linestyle="", color=NEUTRAL_GRAY, label="Gió và mặt trời"
         ),
     ],
     frameon=False,
@@ -1997,7 +1984,7 @@ for position, count in enumerate(zero_counts):
 axes[0].set_xlim(0, 10.8)
 axes[0].set_xticks(range(0, 11, 2))
 axes[0].set_xlabel("Số nước có giá trị 0")
-axes[0].set_title("Khối lượng tại 0")
+axes[0].set_title("Số nước có sản lượng bằng 0")
 axes[0].set_yticks(y_base, [SERIES_LABELS_VI[key] for key in distribution_order])
 axes[0].invert_yaxis()
 style_axis(axes[0], y_grid=False)
@@ -2030,7 +2017,7 @@ for series in distribution_order:
 
 axes[1].set_xscale("log")
 axes[1].set_xlabel("Sản lượng dương (TWh, thang logarit)")
-axes[1].set_title("Phân phối dương và khoảng p10–p90")
+axes[1].set_title("Phân phối dương và khoảng phân vị 10%–90%")
 axes[1].xaxis.set_major_formatter(
     matplotlib.ticker.FuncFormatter(
         lambda value, _: format_vi_number(
@@ -2061,9 +2048,9 @@ plt.show()
 
 # === CELL 42 | markdown | Kết luận Phần 5 và tái lập ===
 MD = """
-### Kết luận Phần 5 và ghi chú tái lập
+### Kết quả trực quan hóa và cách chạy lại
 
 Hai khung của biểu đồ ASEAN–thế giới tách quy mô khỏi tỷ trọng nên không cần trục kép. Biểu đồ cơ cấu giữ đúng phép cộng bốn công nghệ; biểu đồ xếp hạng cho thấy tác động của việc đổi thước đo; chuỗi Việt Nam giữ cùng đơn vị TWh; biểu đồ phân phối bảo toàn số 0 ở khung riêng thay vì đẩy số 0 lên trục logarit bằng một hằng số tùy ý.
 
-Để tái lập, chạy tuần tự cell 1–42 trong cùng phiên làm việc. Tất cả hình dùng `figsize` vừa phải, 100 dpi, vẽ trực tiếp bằng matplotlib và kết thúc bằng `plt.show()`. Không cell nào gọi `savefig` hoặc ghi tệp đầu ra; dữ liệu biểu đồ đều được dẫn xuất trong bộ nhớ từ `fact_energy` đã qua kiểm định.
+Để chạy lại, mở sổ tay trong thư mục dự án hoặc một thư mục con của dự án, khởi động lại môi trường Python rồi chạy các ô từ trên xuống dưới. Cần có đủ 17 tệp nguồn trong thư mục `archive/` và các thư viện đã liệt kê ở phần đầu. Kết quả được tính từ nguồn gốc trong bộ nhớ; sổ tay không ghi tệp dữ liệu. Việc chạy lại từ trạng thái mới giúp phát hiện phụ thuộc vào biến còn sót của phiên làm việc trước. Các hình giữ nguyên số 0 và phạm vi quan sát để hỗ trợ đọc đúng phân phối và xu hướng.
 """
